@@ -17,7 +17,7 @@
 
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://127.0.0.1:3306/ahometoshare?serverTimezone=UTC"
+                connectionURL="jdbc:mysql://127.0.0.1:3306/ahometosharev2?serverTimezone=UTC"
                 userId="skyman"
                 password="skyman">
         </jdbcConnection>
@@ -30,7 +30,6 @@
             <property name="enableSubPackages" value="true"/>
             <property name="constructorBased" value="true"/>
             <property name="trimStrings" value="true"/>
-            <property name="immutable" value="false"/>
         </javaModelGenerator>
         <!--Generate XML mappers-->
         <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">

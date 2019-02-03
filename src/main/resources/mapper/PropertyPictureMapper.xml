@@ -86,4 +86,174 @@
     set property_id = #{propertyId,jdbcType=INTEGER}
     where picture_id = #{pictureId,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.PropertyPicture">
+    <constructor>
+      <idArg column="picture_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="property_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="app.withyou.ahometoshare.model.PropertyPicture">
+    <constructor>
+      <idArg column="picture_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="property_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="picture" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    picture_id, property_id
+  </sql>
+  <sql id="Blob_Column_List">
+    picture
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from property_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from property_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    insert into property_picture (picture_id, property_id, picture
+      )
+    values (#{pictureId,jdbcType=INTEGER}, #{propertyId,jdbcType=INTEGER}, #{picture,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    insert into property_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        picture_id,
+      </if>
+      <if test="propertyId != null">
+        property_id,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="propertyId != null">
+        #{propertyId,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    <set>
+      <if test="propertyId != null">
+        property_id = #{propertyId,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    set property_id = #{propertyId,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=LONGVARBINARY}
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    set property_id = #{propertyId,jdbcType=INTEGER}
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.PropertyPicture">
+    <constructor>
+      <idArg column="picture_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="property_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="app.withyou.ahometoshare.model.PropertyPicture">
+    <constructor>
+      <idArg column="picture_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="property_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="picture" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    picture_id, property_id
+  </sql>
+  <sql id="Blob_Column_List">
+    picture
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from property_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from property_picture
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    insert into property_picture (picture_id, property_id, picture
+      )
+    values (#{pictureId,jdbcType=INTEGER}, #{propertyId,jdbcType=INTEGER}, #{picture,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    insert into property_picture
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        picture_id,
+      </if>
+      <if test="propertyId != null">
+        property_id,
+      </if>
+      <if test="picture != null">
+        picture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pictureId != null">
+        #{pictureId,jdbcType=INTEGER},
+      </if>
+      <if test="propertyId != null">
+        #{propertyId,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    <set>
+      <if test="propertyId != null">
+        property_id = #{propertyId,jdbcType=INTEGER},
+      </if>
+      <if test="picture != null">
+        picture = #{picture,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    set property_id = #{propertyId,jdbcType=INTEGER},
+      picture = #{picture,jdbcType=LONGVARBINARY}
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
+    update property_picture
+    set property_id = #{propertyId,jdbcType=INTEGER}
+    where picture_id = #{pictureId,jdbcType=INTEGER}
+  </update>
 </mapper>
