@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.withyou.ahometoshare.dao.RenterMapper">
+  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.Renter">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="first_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="last_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gender" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="date_of_birth" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="student" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="employed" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="smoker" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="rent_start_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="rent_end_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="availability" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="low_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="high_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="criminality_check" javaType="java.lang.Boolean" jdbcType="BIT" />
+    </constructor>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="app.withyou.ahometoshare.model.Renter">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="first_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="last_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="gender" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="date_of_birth" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="student" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="employed" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="smoker" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="rent_start_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="rent_end_date" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="availability" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="low_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="high_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
+      <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="criminality_check" javaType="java.lang.Boolean" jdbcType="BIT" />
+      <arg column="password" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, email, first_name, last_name, phone, gender, date_of_birth, student, employed, 
+    smoker, rent_start_date, rent_end_date, availability, low_price, high_price, referral_source, 
+    criminality_check
+  </sql>
+  <sql id="Blob_Column_List">
+    password
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from renter
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from renter
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.withyou.ahometoshare.model.Renter">
+    insert into renter (id, email, first_name, 
+      last_name, phone, gender, 
+      date_of_birth, student, employed, 
+      smoker, rent_start_date, rent_end_date, 
+      availability, low_price, high_price, 
+      referral_source, criminality_check, password
+      )
+    values (#{id,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, 
+      #{lastName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{dateOfBirth,jdbcType=VARCHAR}, #{student,jdbcType=BIT}, #{employed,jdbcType=BIT}, 
+      #{smoker,jdbcType=BIT}, #{rentStartDate,jdbcType=DATE}, #{rentEndDate,jdbcType=DATE}, 
+      #{availability,jdbcType=INTEGER}, #{lowPrice,jdbcType=DOUBLE}, #{highPrice,jdbcType=DOUBLE}, 
+      #{referralSource,jdbcType=VARCHAR}, #{criminalityCheck,jdbcType=BIT}, #{password,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.Renter">
+    insert into renter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="firstName != null">
+        first_name,
+      </if>
+      <if test="lastName != null">
+        last_name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="dateOfBirth != null">
+        date_of_birth,
+      </if>
+      <if test="student != null">
+        student,
+      </if>
+      <if test="employed != null">
+        employed,
+      </if>
+      <if test="smoker != null">
+        smoker,
+      </if>
+      <if test="rentStartDate != null">
+        rent_start_date,
+      </if>
+      <if test="rentEndDate != null">
+        rent_end_date,
+      </if>
+      <if test="availability != null">
+        availability,
+      </if>
+      <if test="lowPrice != null">
+        low_price,
+      </if>
+      <if test="highPrice != null">
+        high_price,
+      </if>
+      <if test="referralSource != null">
+        referral_source,
+      </if>
+      <if test="criminalityCheck != null">
+        criminality_check,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null">
+        #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null">
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="dateOfBirth != null">
+        #{dateOfBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="student != null">
+        #{student,jdbcType=BIT},
+      </if>
+      <if test="employed != null">
+        #{employed,jdbcType=BIT},
+      </if>
+      <if test="smoker != null">
+        #{smoker,jdbcType=BIT},
+      </if>
+      <if test="rentStartDate != null">
+        #{rentStartDate,jdbcType=DATE},
+      </if>
+      <if test="rentEndDate != null">
+        #{rentEndDate,jdbcType=DATE},
+      </if>
+      <if test="availability != null">
+        #{availability,jdbcType=INTEGER},
+      </if>
+      <if test="lowPrice != null">
+        #{lowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="highPrice != null">
+        #{highPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="referralSource != null">
+        #{referralSource,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalityCheck != null">
+        #{criminalityCheck,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.withyou.ahometoshare.model.Renter">
+    update renter
+    <set>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="firstName != null">
+        first_name = #{firstName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null">
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="dateOfBirth != null">
+        date_of_birth = #{dateOfBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="student != null">
+        student = #{student,jdbcType=BIT},
+      </if>
+      <if test="employed != null">
+        employed = #{employed,jdbcType=BIT},
+      </if>
+      <if test="smoker != null">
+        smoker = #{smoker,jdbcType=BIT},
+      </if>
+      <if test="rentStartDate != null">
+        rent_start_date = #{rentStartDate,jdbcType=DATE},
+      </if>
+      <if test="rentEndDate != null">
+        rent_end_date = #{rentEndDate,jdbcType=DATE},
+      </if>
+      <if test="availability != null">
+        availability = #{availability,jdbcType=INTEGER},
+      </if>
+      <if test="lowPrice != null">
+        low_price = #{lowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="highPrice != null">
+        high_price = #{highPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="referralSource != null">
+        referral_source = #{referralSource,jdbcType=VARCHAR},
+      </if>
+      <if test="criminalityCheck != null">
+        criminality_check = #{criminalityCheck,jdbcType=BIT},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="app.withyou.ahometoshare.model.Renter">
+    update renter
+    set email = #{email,jdbcType=VARCHAR},
+      first_name = #{firstName,jdbcType=VARCHAR},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      date_of_birth = #{dateOfBirth,jdbcType=VARCHAR},
+      student = #{student,jdbcType=BIT},
+      employed = #{employed,jdbcType=BIT},
+      smoker = #{smoker,jdbcType=BIT},
+      rent_start_date = #{rentStartDate,jdbcType=DATE},
+      rent_end_date = #{rentEndDate,jdbcType=DATE},
+      availability = #{availability,jdbcType=INTEGER},
+      low_price = #{lowPrice,jdbcType=DOUBLE},
+      high_price = #{highPrice,jdbcType=DOUBLE},
+      referral_source = #{referralSource,jdbcType=VARCHAR},
+      criminality_check = #{criminalityCheck,jdbcType=BIT},
+      password = #{password,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.Renter">
+    update renter
+    set email = #{email,jdbcType=VARCHAR},
+      first_name = #{firstName,jdbcType=VARCHAR},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      date_of_birth = #{dateOfBirth,jdbcType=VARCHAR},
+      student = #{student,jdbcType=BIT},
+      employed = #{employed,jdbcType=BIT},
+      smoker = #{smoker,jdbcType=BIT},
+      rent_start_date = #{rentStartDate,jdbcType=DATE},
+      rent_end_date = #{rentEndDate,jdbcType=DATE},
+      availability = #{availability,jdbcType=INTEGER},
+      low_price = #{lowPrice,jdbcType=DOUBLE},
+      high_price = #{highPrice,jdbcType=DOUBLE},
+      referral_source = #{referralSource,jdbcType=VARCHAR},
+      criminality_check = #{criminalityCheck,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
