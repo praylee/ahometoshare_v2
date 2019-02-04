@@ -22,7 +22,7 @@
                 password="skyman">
         </jdbcConnection>
 
-        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+        <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--Generate Model Classes-->

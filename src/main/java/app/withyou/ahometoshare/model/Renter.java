@@ -1,9 +1,7 @@
 package app.withyou.ahometoshare.model;
 
-import javax.persistence.Entity;
 import java.util.Date;
 
-@Entity
 public class Renter {
     private Integer id;
 

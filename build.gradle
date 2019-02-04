@@ -29,6 +29,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE'
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	implementation 'mysql:mysql-connector-java:8.0.14'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -44,11 +45,11 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "gradle.plugin.com.arenagod.gradle:mybatis-generator-plugin:1.4"
+		classpath "gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.0"
 	}
 }
 
-apply plugin: "com.arenagod.gradle.MybatisGenerator"
+apply plugin: "com.thinkimi.gradle.MybatisGenerator"
 
 configurations {
 	mybatisGenerator

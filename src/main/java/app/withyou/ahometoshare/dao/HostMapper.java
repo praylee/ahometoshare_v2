@@ -2,7 +2,12 @@ package app.withyou.ahometoshare.dao;
 
 import app.withyou.ahometoshare.model.Host;
 
+import java.util.List;
+
 public interface HostMapper {
+
+    List<Host> selectAll();
+
     int deleteByPrimaryKey(Integer hostId);
 
     int insert(Host record);
