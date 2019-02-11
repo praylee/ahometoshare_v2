@@ -1,0 +1,771 @@
+/*
+    File: aboutUs_style.css
+    Description: Cascading style sheet for "About Us" page
+    Create: Nov. 23, 2018
+    Author: Zhan Shen
+    Clients: Michelle Bilek, Farheen Khan
+    Course: Software Development Project
+    Professor: Dr. Anu Thomas
+    Project: A Home to Share
+    Copyright @ 2018
+*/
+
+/* 
+	This code will reset the default margins, padding, and border
+	settings to assist with cross browser compatibility.
+*/
+
+/* 	CSS Reset */
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	form, label,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed, 
+	figure, figcaption, footer, header, hgroup, 
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		font: inherit;
+		vertical-align: baseline;
+	}
+
+	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+
+	body {
+		line-height: 1;
+	}
+
+	ol, ul {
+		list-style: none;
+	}
+
+	blockquote, q {
+		quotes: none;
+	}
+
+	blockquote:before, blockquote:after, q:before, q:after {
+		content: '';
+		content: none;
+	}
+
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+
+	body {
+		-webkit-text-size-adjust: none;
+	}
+/* END CSS Reset */
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+/* --About Us Header--------------------------------------------------------- */
+    .subpage {
+        padding-top: 60px;
+    }
+    
+        .subpage #header {
+            background: #5385c1;
+            top: 0;
+            height: 50px;
+            line-height: 50px;
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        
+	#header {
+            color: #ffffff;
+            cursor: default;
+            height: 10em;
+            left: 8em;
+            line-height: 3.25em;
+            position: absolute;
+            text-align: right;
+            top: 2.5em;
+            width: 100%;
+            z-index: 10001;
+	}
+
+            #header .inner {
+                margin: 0 auto;
+                position: relative;
+                right: 200px;
+            }
+
+            #header .logo {
+                color: #ffffff;
+                display: inline-block;
+                font-weight: 600;
+                height: inherit;
+                left: 300px;
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+                position: absolute;
+                top: 0;
+                font-size: 1.1em;
+            }
+            
+            #header .nav {
+                margin-right: -100px;
+                padding: 0;
+                top: 0;
+            }
+
+            #header a {
+                -moz-transition: color 0.2s ease-in-out;
+                -webkit-transition: color 0.2s ease-in-out;
+                -ms-transition: color 0.2s ease-in-out;
+                transition: color 0.2s ease-in-out;
+                display: inline-block;
+                padding: 0 0.75em;
+                color: inherit;
+                text-decoration: none;
+                font-size: .8em;
+            }
+
+                #header a:hover {
+                    color: #ffcc00;
+                }
+
+                #header button:hover {
+                    color: #ffcc00;
+                }
+                
+            .unstyled-button {
+                border: none;
+                padding: 0;
+                background: none;
+                color: #ffffff;
+                margin-left: 10px;
+            }
+			
+
+/* --Body contents----------------------------------------------------------- */
+
+.main_section {
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.main_section div{
+    display: table-cell;
+    padding: 20px;
+    vertical-align: top;
+    clear: none; 
+}
+
+    .card-body1 {
+        border: 1.2px solid #efeded;
+        border-radius: 10px;
+        width: 460px;
+        height: 60px;
+        text-align: center;
+        background-color: #efeded;
+    }
+
+    .card-body2 {
+        border: 1.2px solid #efeded;
+        border-radius: 10px;
+        width: 460px;
+        height: 60px;
+        text-align: center;
+        background-color: #efeded;
+    }
+    
+    .main_section h1 {
+        font-weight: bold;
+        font-size: 2em;
+        margin-top: 80px;
+        margin-left: 50px;
+        color: #5385c1;
+    }
+    .main_section p {
+        margin-top: 20px;
+        max-width: 600px;
+        line-height: 1.6;
+        margin-left: 50px;
+        color: #555;
+    }
+    .main_section h2 {
+        color: #aaaaaa;
+        font-weight: bold;
+        font-size: 1.3em;
+        margin-top: 6px;
+    }
+    .main_section h3{
+        color: #5385c1;
+        font-weight: bold;
+        font-size: 1.1em;
+        margin-top: 12px;
+    }
+    .main_section h4{
+        margin-top: 5px;
+        color: #555;
+    }
+    
+    .main_section h5 {
+        font-weight: bold;
+        font-size: 2.3em;
+        margin-top: 60px;
+        margin-bottom: 100px;
+        margin-left: 210px;
+        color: #5385c1;
+    }
+    
+    .main_section h6 {
+        font-size: 1.3em;
+        margin-top: 20px;
+        max-width: 600px;
+        line-height: 1.5;
+        margin-left: 50px;
+        color: #555;
+    }
+    
+    .placeholder-h1 {height: 60px;}
+    .placeholder-h2 {height: 20px;}
+    .placeholder-v {width: 70px;}
+    
+    .col-1-row-1 {
+        border: 1px solid #efeded;
+        border-radius: 10px;
+        width: 460px;
+        height: 200px;
+    }
+    
+    .col-1-row-1 p{
+        margin: 0;
+        margin-top: 10px;
+        color: #555;
+    }
+    
+    .col-1-row-2 {
+        width: 460px;
+        height: 200px;
+    }
+    
+    .col-1-row-3 {
+        border: 1px solid #efeded;
+        border-radius: 10px;
+        width: 1070px;
+        height: 200px;
+        text-align: center;
+        background-color: #efeded
+    }
+    .col-1-row-3 h4{
+        margin-top: 15px;
+    }
+    .col-1-row-3 p {
+        max-width: 920px;
+        /*text-align: center;*/
+        margin-left: 60px;
+    }
+	
+	
+/* --Footer------------------------------------------------------------------ */
+
+.flex {
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    -ms-flex-pack: justify;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    -moz-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    -ms-justify-content: space-between;
+    justify-content: space-between;
+}
+
+#footer {
+        background-color: #efeded;
+        font-size: small;
+        position: relative;
+        bottom: 0;
+        width:100%;
+    }
+
+        #footer p{
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .footer_column {
+            float: left;
+            height: 130px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+        }
+        
+        #footer h6 {
+            font-size: 1em;
+            color: #555;
+            font-weight: bold;
+        }
+
+        #footer ul {
+            margin-top: 10px;
+        }
+
+        #footer li {
+            line-height: 1.7;
+            word-wrap: break-word;
+            color: #555;
+        }
+        #footer img {
+            padding-top: 8px;
+        }
+
+        #footer a {
+            text-decoration: none;
+            margin-top: 15px;
+            color: #555;
+        }
+
+        #footer u {
+            color: #5385c1;
+        }
+
+        #footer p {
+            color: #555;
+        }    
+
+    .inner1 {
+        /*background: gold;*/
+        width: 15%;
+    }
+
+    .inner2 {
+        /*background: green;*/
+        width: 14%;
+    }
+
+    .inner3 {
+        width: 16%;
+        /*background: green;*/
+    }
+
+    .inner4 {
+        width: 31%;
+        padding-right: 30px;
+        max-width: 470px;
+        /*background: #b6701e;*/
+    }
+
+    .inner5 {
+        width: 15%;
+        /*background: green;*/
+    }
+
+    .inner6 {
+        width: 9%;
+        /*background: green;*/
+    }  
+
+    .row:after {
+    content: "";
+    display: table;
+    clear: both;
+    }
+    
+    #footer * {
+        box-sizing: border-box;
+    } 
+	
+/* --Popup window: Sign Up--------------------------------------------------- */	
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Signup popup background */
+    .signupPopup {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10001; /* Sit on top */
+        padding-top: 120px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    }
+
+    /* Signup popup Content */
+    .signupPopup-content {
+            background-color: #ffffff;
+            margin: auto;
+            padding: 30px;
+            width: 35%;
+            text-align: center;
+    }
+
+        /* Signup pattern styles */
+        .signupPopup_container {
+            display: flex;
+            text-align: center;
+        }
+
+        .signupPopup-left_half {
+            flex: 1;
+            padding: 0px 50px 0px 0px;
+            color: #555;
+            font-size: 20px;
+        }
+        
+        hr {
+            margin-right: 30px;
+        }
+
+        .signupPopup-right_half {
+            flex: 1;
+            color: #555;
+        }
+    
+        /* Signup Close Button */
+        .close1 {
+                color: #aaaaaa;
+                float: right;
+                font-size: 24px;
+                font-weight: bold;
+        }
+
+        .close1:hover,
+        .close1:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+    /*Signup left side switch toggle*/    
+        .switch {
+            position: relative;
+            height: 36px;
+            width: 150px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .switch-label {
+          position: relative;
+          z-index: 2;
+          float: left;
+          width: 73px;
+          line-height:36px;
+          font-size: 17px;
+          color: rgba(255, 255, 255, 0.70);
+          text-align: center;
+          cursor: pointer;
+        }
+        
+        .switch-label:active {
+          font-weight: bold;
+        }
+
+        .switch-label-off {
+          padding-left: 2px;
+        }
+
+        .switch-label-on {
+          padding-right: 2px;
+        }
+
+        .switch-input {
+          display: none;
+        }
+
+        .switch-input:checked + .switch-label {
+          font-weight: bold;
+          color: rgba(0, 0, 0, 0.65);
+          text-shadow: 0 1px rgba(255, 255, 255, 0.25);
+          -webkit-transition: 0.15s ease-out;
+          -moz-transition: 0.15s ease-out;
+          -ms-transition: 0.15s ease-out;
+          -o-transition: 0.15s ease-out;
+          transition: 0.15s ease-out;
+          -webkit-transition-property: color, text-shadow;
+          -moz-transition-property: color, text-shadow;
+          -ms-transition-property: color, text-shadow;
+          -o-transition-property: color, text-shadow;
+          transition-property: color, text-shadow;
+        }
+            
+            .switch-input:checked + .switch-label-on ~ .switch-selection {
+                left: 82px;
+            }
+
+        .switch-selection {
+            position: absolute;
+            z-index: 1;
+            top: 2px;
+            left: 2px;
+            display: block;
+            width: 66px;
+            height: 33px;
+            border-radius: 3px;
+            /*background-color: #65bd63;*/
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #9dd993), color-stop(100%, #65bd63));
+            background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
+            background-image: -moz-linear-gradient(top, #9dd993, #65bd63);
+            background-image: -ms-linear-gradient(top, #9dd993, #65bd63);
+            background-image: -o-linear-gradient(top, #9dd993, #65bd63);
+            background-image: linear-gradient(top, #9dd993, #65bd63);
+            -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+            box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+            -webkit-transition: left 0.15s ease-out;
+            -moz-transition: left 0.15s ease-out;
+            -ms-transition: left 0.15s ease-out;
+            -o-transition: left 0.15s ease-out;
+            transition: left 0.15s ease-out;
+        }
+    
+    /*Signup right side 4 buttons*/
+        .btn-group2 {
+        margin-left: 0px;
+        margin-right: 30px;
+    }
+    
+        .btn-group2 a {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background-color: #5385c1;
+            border-radius: 0;
+            border: 0;
+            color: #ffffff !important;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            height: 3em;
+            line-height: 3em;
+            padding: 0 1.5em;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            width: 100%;
+        }
+        
+    .unstyled-button2 {
+        border: none;
+        padding: 0;
+        background: none;
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+    
+    .signupBtn:hover {
+            background-color: #3d6699;
+        }
+        
+        
+    /* --Popup window: Log in------------------------------------------------ */	
+    body {font-family: Arial, Helvetica, sans-serif;}
+
+    /* Login popup background */
+    .loginPopup {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10001; /* Sit on top */
+        padding-top: 120px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    }  
+        
+        
+    /* Login popup Content */
+
+        /* Login popup Close Button */
+        .close2 {
+            color: #aaaaaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .close2:hover,
+        .close2:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    .loginPopup-content {
+        background-color: #ffffff;
+        margin: auto;
+        padding: 30px;
+        width: 40%;
+        text-align: center;
+        margin: auto;
+    }
+
+    /* Login pattern styles */
+    .loginPopup_container {
+        display: flex;
+        text-align: center;
+    }
+
+    .loginPopup-left_half {
+        flex: 1;
+        padding: 40px 35px 10px 0px;
+        font-size: 20px;
+    }
+
+    .loginPopup-right_half {
+        flex: 1;
+        color: #555;
+    }
+    
+        .loginBtn {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background-color: #5385c1;
+            border-radius: 0;
+            border: 0;
+            color: #ffffff !important;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            height: 2.8em;
+            line-height: 3em;
+            padding: 0 1.5em;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            width: 80%;
+        }
+
+            .btn-group3 a{
+                float: left;
+                /*color: #ffcc00;*/
+                text-align: center;
+                /*width: 240px;*/
+                border: 1px solid #dbdbdb;
+                margin-left: 10px;
+                margin-bottom: 20px;
+                display: block;
+
+            }
+            
+                .loginBtn:hover {
+                    background-color: #3d6699;
+                }
+        
+        .btn-group4 {
+            margin-left: 0px;
+            margin-right: 20px;
+        }
+
+            .btn-group4 a {
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                background-color: #5385c1;
+                border-radius: 0;
+                border: 0;
+                color: #ffffff !important;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 600;
+                height: 3em;
+                line-height: 3em;
+                padding: 0 1.5em;
+                text-align: center;
+                text-decoration: none;
+                white-space: nowrap;
+                width: 90%;
+            }
+            
+            .btn-group4 button {
+                /*cursor: pointer;*/
+                -moz-appearance: none;
+                -webkit-appearance: none;
+                -ms-appearance: none;
+                appearance: none;
+                -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+                background-color: #5385c1;
+                border-radius: 0;
+                border: 0;
+                color: #ffffff !important;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 600;
+                height: 3em;
+                line-height: 3em;
+                padding: 0 1.5em;
+                text-align: center;
+                text-decoration: none;
+                white-space: nowrap;
+                width: 91%;
+                margin-right: 15px;
+            }
+            
+            
+    
+    .formRow input {
+        float: left;
+        margin-top: 0px;
+        margin-bottom: 10px;
+        height: 28px;
+    }
+    
+    .loginError {
+        font-size: 12px;
+        color: #FE2020;
+        text-align: left;
+    }
+    
+    h4 {
+        font-weight: 600;
+        font-size: 18px;
+        margin-top: 20px;
+    }
+
+    hr {
+        margin-right: 30px;
+    }

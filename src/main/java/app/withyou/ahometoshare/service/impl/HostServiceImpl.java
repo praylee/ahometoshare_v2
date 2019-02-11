@@ -18,4 +18,9 @@ public class HostServiceImpl implements HostService {
     public List<Host> getAllHosts() {
         return hostMapper.selectAll();
     }
+
+    @Override
+    public void saveHost(Host host) {
+        hostMapper.insert(host);
+    }
 }

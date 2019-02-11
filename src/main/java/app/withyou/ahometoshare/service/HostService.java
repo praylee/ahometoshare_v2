@@ -7,4 +7,7 @@ import java.util.List;
 public interface HostService {
 
     public List<Host> getAllHosts();
+
+    public void saveHost(Host host);
+
 }

@@ -1,10 +1,338 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>A Home To Share</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{css/mainpage_style.css}"/>
+    <script type="text/javascript" th:src="@{webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/homepage.js}" defer></script>
+
 </head>
+
 <body>
-$END$
+
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="homepage" class="logo">A Home To Share</a>
+        <nav id="nav">
+            <a href="homepage">Home</a>
+            <a href="howWeWork">How We Work</a>
+            <a href="faq">FAQ</a>
+            <!-- Buttons modified with java by Christopher Labelle-->
+            <button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button>
+            <button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button>
+            <a href="renterProfile" style="display: inline;">My Profile</a>
+            <button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='LogoutRedirect'">Log out</button>
+        </nav>
+    </div>
+
+
+    <!--Signup Popup Window when clicks button: Sign Up-->
+    <div id="signupPopup" class="signupPopup">
+
+        <!--Signup Popup content-->
+        <div class="signupPopup-content">
+            <span id="closeSignUpButton" class="close1">&times;</span>
+
+            <section class="signupPopup_container">
+                <div class="signupPopup-left_half">
+                    <h4>I want to sign up as a<span style="color:red; font-weight:bold">*</span></h4>
+                    <div class="switch">
+                        <input type="radio" class="switch-input" name="view" value="userHost" id="userHost" checked>
+                        <label for="userHost" class="switch-label switch-label-off">Host</label>
+                        <input type="radio" class="switch-input" name="view" value="userRenter" id="userRenter" >
+                        <label for="userRenter" class="switch-label switch-label-on">Renter</label>
+                        <span class="switch-selection"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="signupPopup-right_half">
+                    <div class="btn-group2">
+                        <a id="emailBtn" class="signupBtn" >Sign up with email</a>
+                        <a href="" class="signupBtn">Sign up with Facebook</a>
+                        <a href="" class="signupBtn">Sign up with Linkedin</a>
+                        <a href="" class="signupBtn">Sign up with Google</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+    <!--Login Popup Window when clicks button: Log in-->
+    <div id="loginPopup" class="loginPopup" >
+
+        <!--Login Popup content-->
+        <div class="loginPopup-content">
+            <span id="closeLoginButton" class="close2">&times;</span>
+
+            <section class="loginPopup_container">
+                <div class="loginPopup-left_half">
+                    <div class="btn-group3">
+                        <a href="#" class="loginBtn">Login with Facebook</a>
+                        <a href="#" class="loginBtn">Login with Linkedin</a>
+                        <a href="#" class="loginBtn">Login with Google</a>
+                        <button name="forgotPasswordBtn" id="forgotPasswordBtn" class="loginBtn">Forgot Password</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="loginPopup-right_half">
+                    <form method="post" action="LogInView" onsubmit="" >
+                        <div class="formRow">
+                            <h4 align="left">Login with email</h4>
+                            <!-- Modified by Chris -->
+                            <input type="email" name="loginEmail" id="loginEmail" value="" size="30" placeholder="Email Address" maxlength="42" required />
+                        </div>
+
+                        <div class="formRow">
+                            <h4 align="left">Password</h4>
+                            <input type="password" name="loginPassword" size="30" required>
+                        </div>
+                        <br>
+                        <div class="loginError">
+                            <!--<%-->
+                            <!--// added by Christopher Labelle-->
+                            <!--if(request.getAttribute("info") != null) {-->
+                            <!--out.print(request.getAttribute("info"));-->
+                            <!--}-->
+                            <!--%>-->
+                        </div>
+
+                        <h5 align="left"><input type="checkbox" name="rememberPwd" value="rememberPwd">Remember me</h5>
+
+                        <div class="btn-group4">
+                            <!--    <a href="renterProfile" class="loginBtn" ></a> -->
+
+                            <button id="loginemailBtn" type="submit" class="unstyled-button2" >Login with email</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--Forgot password Popup Window when clicks button: Forgot password-->
+    <div id="forgotPasswordPopup" class="loginPopup" >
+        <!--Forogot password content-->
+        <div class="loginPopup-content">
+            <span id="closeForgetPasswordButton" class="close2">&times;</span>
+            <section class="loginPopup_container">
+                <div class="loginPopup-right_half">
+                    <form method="post" action="ForgotPassword" onsubmit="" >
+                        <div class="formRow">
+                            <h4 align="left">Enter the email address associated with your account</h4>
+                            <!-- Modified by Christopher Labelle -->
+                            <input type="email" name="forgotPasswordEmail" id="forgotPasswordEmail" size="30" placeholder="Email Address" maxlength="42" required />
+                        </div>
+                        <br>
+                        <div class="loginError">
+                            <!--<% // added by Christopher Labelle-->
+                            <!--if(request.getAttribute("forgotPasswordFeedback") != null) {-->
+                            <!--out.print(request.getAttribute("forgotPasswordFeedback"));-->
+                            <!--}-->
+                            <!--%>-->
+                        </div>
+                        <div class="btn-group4">
+                            <button id="loginbut" type="submit" class="unstyled-button2" >Send new password to this email address</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+
+</header>
+
+
+<!-- Banner: the text shows within the main image -->
+<section id="banner">
+    <h1>Welcome to A Home To Share</h1>
+    <p>Benefit from the extra space in your home</p>
+</section>
+
+<!-- Block 1: Core benefits info -->
+<section id="one" class="wrapper">
+    <div class="inner">
+        <div class="flex flex-3">
+            <header>
+                <h2>A Home to Share is a trusted service for integenerational home sharing</h2>
+                <p>Placeholder: detailed description</p>
+            </header>
+            <footer>
+                <div class="flex flex-3">
+                    <article>
+                        <div>
+                            <img src="image/home_block1_01.png" alt="block1_01 image"/>
+                        </div>
+                        <h3 class="make_money">Make Money</h3>
+                    </article>
+
+                    <article>
+                        <div>
+                            <img src="image/home_block1_02.png" alt="block1_02 image"/>
+                        </div>
+                        <h3 class="get_help">Get help around the home</h3>
+                    </article>
+
+                    <article>
+                        <div>
+                            <img class="build_img" src="image/home_block1_03.png" alt="block1_03 image"/>
+                        </div>
+                        <h3 class="build_friendship">Build new friendships</h3>
+                    </article>
+                </div>
+            </footer>
+        </div>
+    </div>
+</section>
+
+<!-- Block 2: User Comments -->
+<section id="two" class="wrapper style1 special">
+    <div class="inner">
+        <header>
+            <h2>We don't want to brag, but...</h2>
+        </header>
+        <div class="flex">
+            <section>
+                <div class="box_person">
+                    <div class="comment_img1">
+                        <img src="image/home_block2_01.png" alt="User 1">
+                    </div>
+                    <h3>A great service</h3>
+                    <p>I have really appreciated support's help...</p>
+                </div>
+                <div class="box_person">
+                    <div class="comment_img2">
+                        <img src="image/home_block2_02.png" alt="User 2">
+                    </div>
+                    <h3>Save my money</h3>
+                    <p>Comments........</p>
+                </div>
+            </section>
+            <section>
+                <div class="box_person">
+                    <div class="comment_img3">
+                        <img src="image/home_block2_03.png" alt="User 3">
+                    </div>
+                    <h3>It's easy to use</h3>
+                    <p>Comments........</p>
+                </div>
+                <div class="box_person">
+                    <div class="comment_img4">
+                        <img src="image/home_block2_04.png" alt="User 4">
+                    </div>
+                    <h3>We built a good friendship</h3>
+                    <p>Comments........</p>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
+
+<!-- Block 3: How A Home To Share works -->
+<section id="three" class="wrapper special">
+    <div class="inner">
+        <header class="align-center">
+            <h2>How A Home To Share works</h2>
+        </header>
+        <div class="flex">
+            <article>
+                <div class="image_fit">
+                    <img src="image/home_block3_01.jpg" alt="Pic 01" />
+                </div>
+                <header>
+                    <h3>1. Create your free profile</h3>
+                </header>
+                <h4>We verify ID and check references</h4>
+            </article>
+            <article>
+                <div class="image_fit">
+                    <img src="image/home_block3_02.jpg" alt="Pic 02" />
+                </div>
+                <header>
+                    <h3>2. Connect to housemates</h3>
+                </header>
+                <h4>Connect and chat through out platform, then meet in person</h4>
+            </article>
+            <article>
+                <div class="image_fit">
+                    <img src="image/home_block3_03.jpg" alt="Pic 03" />
+                </div>
+                <header>
+                    <h3>3. We support your through our</h3>
+                </header>
+                <h4>- Customizable homeshare agreement</h4>
+                <h4>- Automated payment system</h4>
+                <h4>- Ongoing service</h4>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+    <div class="row">
+        <div class="footer_column inner1">
+            <!--a placeholder-->
+        </div>
+
+        <div class="footer_column inner2">
+            <h6>Get in Touch</h6>
+            <div class="footer_nav">
+                <img alt="logo" class="" src="image/team_logo.png" />
+                <ul class="">
+                    <li><a href="mailto:info@ahometoshare.ca">info@ahometoshare.ca</a></li>
+                    <li><a class="remove-cursor" href="#">(123) 456-7890</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer_column inner3">
+            <h6>Join Our Community</h6>
+            <ul class="footer_nav">
+                <li><a href="howWeWork">How We Work</a></li>
+                <li><a href="faq">Frequently Asked Questions</a></li>
+                <li><a href="aboutUs">About Us</a></li>
+                <li><a href="homepage">Placeholder</a></li>
+            </ul>
+        </div>
+
+        <div class="footer_column inner4">
+            <h6>Get Engaged</h6>
+            <ul class="footer_nav">
+                <li>Live in Toronto and want to help us tackle the affordable housing crisis.
+                    <a href="homepage" target="_blank"><u>Apply</u></a> to be an Ambassador today.
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer_column inner5">
+            <h6>Follow us on Social</h6>
+            <a href="https://www.facebook.com/ahometoshare" class="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <img alt="facebook" class="" src="image/facebook36.png" width=28.5 height=36 />
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://twitter.com/ahometoshare" class="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <img alt="twitter" class="" src="image/twitter36.png" width=28.5 height=36 />
+            </a>
+        </div>
+
+        <div class="footer_column inner6">
+            <!--a placeholder-->
+        </div>
+
+        <p>© 2018 A Home To Share | All right reserved
+            <a href="homepage">&nbsp;&nbsp;&nbsp;Privacy Policy</a>
+            <a href="homepage">&nbsp;&nbsp;&nbsp;Terms of Use</a>
+        </p>
+    </div>
+</footer>
 </body>
 </html>
