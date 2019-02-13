@@ -2,6 +2,7 @@ package app.withyou.ahometoshare.controller;
 
 
 import app.withyou.ahometoshare.model.Host;
+import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.service.HostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,10 +37,16 @@ public class HomeController {
     }
 
 
-    @PostMapping("hostRegister")
+    @PostMapping("/hostRegister")
     public String hostRegisterSubmit(@ModelAttribute Host host){
         hostService.saveHost(host);
         return "registerConfirm";
+    }
+    
+    @GetMapping("/renterRegister")
+    public String renterRegister(Model model) {
+        model.addAttribute("renter", new Renter());
+        return "renterRegister";
     }
 
 }
