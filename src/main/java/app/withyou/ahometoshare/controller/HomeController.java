@@ -4,6 +4,8 @@ package app.withyou.ahometoshare.controller;
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.service.HostService;
+import app.withyou.ahometoshare.service.RenterService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +19,9 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    @Autowired
-    HostService hostService;
+
+    
+
 
     @GetMapping("/")
     public String home(Model model){
@@ -30,23 +33,5 @@ public class HomeController {
         return home(model);
     }
 
-    @GetMapping("/hostRegister")
-    public String hostRegister(Model model){
-        model.addAttribute("host", new Host());
-        return "hostRegister";
-    }
-
-
-    @PostMapping("/hostRegister")
-    public String hostRegisterSubmit(@ModelAttribute Host host){
-        hostService.saveHost(host);
-        return "registerConfirm";
-    }
-    
-    @GetMapping("/renterRegister")
-    public String renterRegister(Model model) {
-        model.addAttribute("renter", new Renter());
-        return "renterRegister";
-    }
 
 }

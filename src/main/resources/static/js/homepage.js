@@ -101,12 +101,12 @@ $(function(){
     let signupEmailBtn = $("#emailBtn");
     signupEmailBtn.click(function () {
         let hostSelected = $("#userHost");
-        if (hostSelected.prop('checked', true)) {
+        if (hostSelected.prop("checked") == true) {
             window.location.href="hostRegister";
         }else {
             window.location.href="renterRegister";
         }
-    })
+    });
 
 });
 

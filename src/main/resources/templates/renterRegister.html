@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>A Home To Share</title>
         <meta charset="utf-8" />
@@ -18,7 +18,7 @@
                         <a href="howWeWork.jsp">How We Work</a>
                         <a href="faq.jsp">FAQ</a>
                         <a href="index.jsp">Log in</a>
-                        <button id="signupBtn" onclick="window.location.href='SignUpView'" class="unstyled-button">Sign Up</button>
+                        <button id="signupBtn" class="unstyled-button">Sign Up</button>
                     </nav>
                 </div>
             </header>
@@ -105,7 +105,7 @@
                 
                 <!-- Form -->
                     <div>
-                        <form method="post" action="RegisterRenterView" onsubmit="return checkForm(this)" >
+                        <form method="post" th:action="@{/renterRegister}" th:object="${renter}" onsubmit="return checkForm(this)" >
                             <!--<div class="row uniform">-->
 
                             <h2>Renter Registration</h2>
@@ -113,30 +113,30 @@
                             <!-- Break: First Name(db:first_name), Last Name(db:last_name) -->
                                 <div class="formRow">
                                     <h4>First Name<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input type="text" name="firstname" id="firstname" value="" size="30" placeholder="First Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
+                                    <input type="text" th:field="*{firstName}" name="firstname" id="firstname" value="" size="30" placeholder="First Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
                                 </div>
 
                                 <div class="formRow">
                                     <h4>Last Name<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input type="text" name="lastname" id="lastname" value="" size="30" placeholder="Last Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
+                                    <input type="text" th:field="*{lastName}" name="lastname" id="lastname" value="" size="30" placeholder="Last Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
                                 </div>
 
                             <!-- Break: Email Address(db:email), Phone Number(db:phone) -->
                                 <div class="formRow">
                                     <h4>Email Address<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input type="email" name="email" id="email" value="" size="30" placeholder="Email Address" maxlength="42" required />
+                                    <input type="email" th:field="*{email}" name="email" id="email" value="" size="30" placeholder="Email Address" maxlength="42" required />
                                 </div>
 
                                 <div class="formRow">
                                     <h4>Phone Number</h4>
-                                    <input type="tel" name="phoneNum" id="phoneNum" value="" size="30" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
+                                    <input type="tel" th:field="*{phone}" name="phone" id="phone" value="" size="30" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
                                     <!--<span class="validity"></span>-->
                                 </div>
 
                             <!-- Break: Gender(db:gender), Year Born(db:date_of_birth) -->
                                 <div class="formRow">
                                     <h4>Gender<span style="color:red; font-weight:bold">*</span></h4>
-                                    <select name="gender" id="gender" required >
+                                    <select name="gender" th:field="*{gender}" id="gender" required >
                                             <option value="">- Select your gender -</option>
                                             <option value="0">Male</option>
                                             <option value="1">Female</option>
@@ -145,7 +145,7 @@
 
                                 <div class="formRow">
                                     <h4>Birth Year<span style="color:red; font-weight:bold">*</span></h4>
-                                    <select name="yearBorn" id="yearBorn" required >
+                                    <select name="dateOfBirth" th:field="*{dateOfBirth}" id="dateOfBirth" required >
                                             <option value="">- Select the year you were born  -</option>
                                             <option value="2000">2000</option>
                                             <option value="1999">1999</option>
@@ -171,7 +171,7 @@
                             <!-- Referral Source(db:referral_source) -->                                
                                 <div class="formRow">
                                     <h4>Referral Source<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input type="text" name="referralSrc" id="referralSrc" size="30" value="" placeholder="How did you specifically learn about us?" maxlength="45" required/>
+                                    <input type="text" th:field="*{referralSource}" name="referralSource" id="referralSource" size="30" value="" placeholder="How did you specifically learn about us?" maxlength="45" required/>
                                 </div>
 
                             <!-- Password(db: password), Confirm Password -->
@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="formRow">
                                     <h4>Confirm Password<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input type="password" name="pwd2" size="30" required>
+                                    <input type="password" th:field="*{password}" name="pwd2" size="30" required>
                                 </div>
 
                             <!-- Buttons: Sign Up, Reset -->
@@ -197,33 +197,7 @@
                     </div>
             </section>
 <!-- Javascript for checking password -->
-        <script type="text/javascript">
-
-        function checkPassword(str)
-        {
-          var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-          return re.test(str);
-        }
-
-        function checkForm(form)
-        { 
-          if(form.pwd1.value !== "" && form.pwd1.value === form.pwd2.value) {
-            if(!checkPassword(form.pwd1.value)) {
-              alert("The password you have entered is not valid!\n \n\
-Pleae enter password at least one number, one lowercase and one uppercase letter\n\n\
-The password at least six characters that are letters, numbers or the underscore");
-              form.pwd1.focus();
-              return false;
-            }
-          } else {
-            alert("Error: Please make sure you enter matched password!");
-            form.pwd2.focus();
-            return false;
-          }
-          return true;
-        }
-        
-    </script>
+        <script type="text/javascript" th:src="@{js/renterRegister.js}" defer></script>
     
         <!-- Footer -->
         <footer id="footer">
