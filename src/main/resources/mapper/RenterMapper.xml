@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.withyou.ahometoshare.dao.RenterMapper">
-  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.Renter">
+  <resultMap id="ResultMap" type="app.withyou.ahometoshare.model.Renter">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -20,45 +20,26 @@
       <arg column="high_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
       <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="criminality_check" javaType="java.lang.Boolean" jdbcType="BIT" />
-    </constructor>
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="app.withyou.ahometoshare.model.Renter">
-    <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="first_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="last_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="gender" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="date_of_birth" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="student" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="employed" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="smoker" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="rent_start_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="rent_end_date" javaType="java.util.Date" jdbcType="DATE" />
-      <arg column="availability" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="low_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="high_price" javaType="java.lang.Double" jdbcType="DOUBLE" />
-      <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="criminality_check" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="password" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     id, email, first_name, last_name, phone, gender, date_of_birth, student, employed, 
     smoker, rent_start_date, rent_end_date, availability, low_price, high_price, referral_source, 
-    criminality_check
+    criminality_check, password
   </sql>
-  <sql id="Blob_Column_List">
-    password
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from renter
     where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByEmail" parameterType="java.lang.String" resultMap="ResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from renter
+    where email = #{email,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from renter
@@ -77,7 +58,7 @@
       #{dateOfBirth,jdbcType=VARCHAR}, #{student,jdbcType=BIT}, #{employed,jdbcType=BIT}, 
       #{smoker,jdbcType=BIT}, #{rentStartDate,jdbcType=DATE}, #{rentEndDate,jdbcType=DATE}, 
       #{availability,jdbcType=INTEGER}, #{lowPrice,jdbcType=DOUBLE}, #{highPrice,jdbcType=DOUBLE}, 
-      #{referralSource,jdbcType=VARCHAR}, #{criminalityCheck,jdbcType=BIT}, #{password,jdbcType=LONGVARBINARY}
+      #{referralSource,jdbcType=VARCHAR}, #{criminalityCheck,jdbcType=BIT}, #{password,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.Renter">
@@ -191,7 +172,7 @@
         #{criminalityCheck,jdbcType=BIT},
       </if>
       <if test="password != null">
-        #{password,jdbcType=LONGVARBINARY},
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -247,30 +228,9 @@
         criminality_check = #{criminalityCheck,jdbcType=BIT},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=LONGVARBINARY},
+        password = #{password,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="app.withyou.ahometoshare.model.Renter">
-    update renter
-    set email = #{email,jdbcType=VARCHAR},
-      first_name = #{firstName,jdbcType=VARCHAR},
-      last_name = #{lastName,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      date_of_birth = #{dateOfBirth,jdbcType=VARCHAR},
-      student = #{student,jdbcType=BIT},
-      employed = #{employed,jdbcType=BIT},
-      smoker = #{smoker,jdbcType=BIT},
-      rent_start_date = #{rentStartDate,jdbcType=DATE},
-      rent_end_date = #{rentEndDate,jdbcType=DATE},
-      availability = #{availability,jdbcType=INTEGER},
-      low_price = #{lowPrice,jdbcType=DOUBLE},
-      high_price = #{highPrice,jdbcType=DOUBLE},
-      referral_source = #{referralSource,jdbcType=VARCHAR},
-      criminality_check = #{criminalityCheck,jdbcType=BIT},
-      password = #{password,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.Renter">
@@ -290,7 +250,8 @@
       low_price = #{lowPrice,jdbcType=DOUBLE},
       high_price = #{highPrice,jdbcType=DOUBLE},
       referral_source = #{referralSource,jdbcType=VARCHAR},
-      criminality_check = #{criminalityCheck,jdbcType=BIT}
+      criminality_check = #{criminalityCheck,jdbcType=BIT},
+      password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

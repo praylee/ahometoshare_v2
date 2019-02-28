@@ -16,9 +16,9 @@ public interface HostMapper {
 
     Host selectByPrimaryKey(Integer hostId);
 
-    int updateByPrimaryKeySelective(Host record);
+    Host selectByEmail(String email);
 
-    int updateByPrimaryKeyWithBLOBs(Host record);
+    int updateByPrimaryKeySelective(Host record);
 
     int updateByPrimaryKey(Host record);
 }

@@ -10,4 +10,6 @@ public interface HostService {
 
     public void saveHost(Host host);
 
+    public Host selectHostByEmail(String email);
+
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="app.withyou.ahometoshare.dao.HostMapper">
-  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.Host">
+  <resultMap id="ResultMap" type="app.withyou.ahometoshare.model.Host">
     <constructor>
       <idArg column="host_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -14,47 +14,33 @@
       <arg column="pets" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="smoker" javaType="java.lang.Boolean" jdbcType="BIT" />
       <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="app.withyou.ahometoshare.model.Host">
-    <constructor>
-      <idArg column="host_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="first_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="last_name" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="gender" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="date_of_birth" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="retired" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="pets" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="smoker" javaType="java.lang.Boolean" jdbcType="BIT" />
-      <arg column="referral_source" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="password" javaType="_byte[]" jdbcType="LONGVARBINARY" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     host_id, email, first_name, last_name, phone, gender, date_of_birth, retired, pets, 
-    smoker, referral_source
+    smoker, referral_source, password
   </sql>
-  <sql id="Blob_Column_List">
-    password
-  </sql>
-  <select id="selectAll" resultMap="ResultMapWithBLOBs">
+  <select id="selectAll" resultMap="ResultMap">
     select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from host
   </select>
 
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from host
     where host_id = #{hostId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByEmail" parameterType="java.lang.String" resultMap="ResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from host
+    where email = #{email,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from host
     where host_id = #{hostId,jdbcType=INTEGER}
@@ -68,7 +54,7 @@
     values (#{hostId,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{firstName,jdbcType=VARCHAR}, 
       #{lastName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
       #{dateOfBirth,jdbcType=VARCHAR}, #{retired,jdbcType=BIT}, #{pets,jdbcType=BIT}, 
-      #{smoker,jdbcType=BIT}, #{referralSource,jdbcType=VARCHAR}, #{password,jdbcType=LONGVARBINARY}
+      #{smoker,jdbcType=BIT}, #{referralSource,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.Host">
@@ -146,7 +132,7 @@
         #{referralSource,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        #{password,jdbcType=LONGVARBINARY},
+        #{password,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -184,24 +170,9 @@
         referral_source = #{referralSource,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
-        password = #{password,jdbcType=LONGVARBINARY},
+        password = #{password,jdbcType=VARCHAR},
       </if>
     </set>
-    where host_id = #{hostId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="app.withyou.ahometoshare.model.Host">
-    update host
-    set email = #{email,jdbcType=VARCHAR},
-      first_name = #{firstName,jdbcType=VARCHAR},
-      last_name = #{lastName,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
-      date_of_birth = #{dateOfBirth,jdbcType=VARCHAR},
-      retired = #{retired,jdbcType=BIT},
-      pets = #{pets,jdbcType=BIT},
-      smoker = #{smoker,jdbcType=BIT},
-      referral_source = #{referralSource,jdbcType=VARCHAR},
-      password = #{password,jdbcType=LONGVARBINARY}
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.Host">
@@ -215,7 +186,8 @@
       retired = #{retired,jdbcType=BIT},
       pets = #{pets,jdbcType=BIT},
       smoker = #{smoker,jdbcType=BIT},
-      referral_source = #{referralSource,jdbcType=VARCHAR}
+      referral_source = #{referralSource,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR}
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
 </mapper>

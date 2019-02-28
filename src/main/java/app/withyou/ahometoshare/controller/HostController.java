@@ -1,5 +1,8 @@
 package app.withyou.ahometoshare.controller;
 
+import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.utils.Constants;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.service.HostService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HostController {
@@ -28,5 +32,12 @@ public class HostController {
         hostService.saveHost(host);
         return "registerConfirm";
     }
-    
+
+    @GetMapping("/hostProfile")
+    public ModelAndView hostProfile(ModelAndView mv){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER_INFO);
+        Host host = hostService.selectHostByEmail(user.getEmail());
+        mv.addObject("host", host);
+        return mv;
+    }
 }

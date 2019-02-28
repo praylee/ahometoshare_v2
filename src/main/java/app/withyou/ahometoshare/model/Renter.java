@@ -37,9 +37,9 @@ public class Renter {
 
     private Boolean criminalityCheck;
 
-    private byte[] password;
+    private String password;
 
-    public Renter(Integer id, String email, String firstName, String lastName, String phone, Integer gender, String dateOfBirth, Boolean student, Boolean employed, Boolean smoker, Date rentStartDate, Date rentEndDate, Integer availability, Double lowPrice, Double highPrice, String referralSource, Boolean criminalityCheck, byte[] password) {
+    public Renter(Integer id, String email, String firstName, String lastName, String phone, Integer gender, String dateOfBirth, Boolean student, Boolean employed, Boolean smoker, Date rentStartDate, Date rentEndDate, Integer availability, Double lowPrice, Double highPrice, String referralSource, Boolean criminalityCheck, String password) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
@@ -200,11 +200,11 @@ public class Renter {
         this.criminalityCheck = criminalityCheck;
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(byte[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

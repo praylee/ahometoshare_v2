@@ -3,6 +3,7 @@ package app.withyou.ahometoshare.controller;
 
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.Renter;
+import app.withyou.ahometoshare.model.User;
 import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.service.RenterService;
 
@@ -25,6 +26,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model){
+        model.addAttribute("user", new User());
+        model.addAttribute("error","");
         return "homepage";
     }
 

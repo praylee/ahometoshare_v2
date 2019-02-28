@@ -23,9 +23,9 @@ public class Host {
 
     private String referralSource;
 
-    private byte[] password;
+    private String password;
 
-    public Host(Integer hostId, String email, String firstName, String lastName, String phone, Integer gender, String dateOfBirth, Boolean retired, Boolean pets, Boolean smoker, String referralSource, byte[] password) {
+    public Host(Integer hostId, String email, String firstName, String lastName, String phone, Integer gender, String dateOfBirth, Boolean retired, Boolean pets, Boolean smoker, String referralSource, String password) {
         this.hostId = hostId;
         this.email = email;
         this.firstName = firstName;
@@ -132,11 +132,11 @@ public class Host {
         this.referralSource = referralSource == null ? null : referralSource.trim();
     }
 
-    public byte[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(byte[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }

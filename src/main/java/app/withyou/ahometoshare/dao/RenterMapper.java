@@ -11,9 +11,9 @@ public interface RenterMapper {
 
     Renter selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(Renter record);
+    Renter selectByEmail(String email);
 
-    int updateByPrimaryKeyWithBLOBs(Renter record);
+    int updateByPrimaryKeySelective(Renter record);
 
     int updateByPrimaryKey(Renter record);
 }
