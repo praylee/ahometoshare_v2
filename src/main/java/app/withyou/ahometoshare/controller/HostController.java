@@ -35,7 +35,7 @@ public class HostController {
 
     @GetMapping("/hostProfile")
     public ModelAndView hostProfile(ModelAndView mv){
-        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER_INFO);
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
         Host host = hostService.selectHostByEmail(user.getEmail());
         mv.addObject("host", host);
         return mv;

@@ -53,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
                 ByteSource.Util.bytes(user.getEmail()), // email as salt
                 getName()
         );
-        SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER_INFO, user);
+        SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER, user);
         return authenticationInfo;
     }
 

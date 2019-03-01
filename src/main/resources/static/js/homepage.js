@@ -4,6 +4,13 @@
  */
 
 $(function(){
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+
     /*
     for sign in and forget password button
      */
@@ -56,6 +63,43 @@ $(function(){
     if(true){
         loginPopup.show()
     }
+
+    //login ajax
+    $("#loginemailBtn").click(function () {
+        let email = $('#loginEmail').val();
+        let password = $('#loginPassword').val();
+        let rememberMe = $('#rememberMe').prop("checked");
+        let errorMsg = $("#errorMsg");
+        let json = {
+            "email" : email,
+            "password" : password,
+            "rememberMe" : rememberMe
+        };
+        let loginUrl = "login";
+        $.ajax({
+            url : loginUrl,
+            type : "POST",
+            async : true,
+            data : JSON.stringify(json),
+            dataType : 'json',
+            contentType: "application/json",
+            success : function(data) {
+                if (data.status === 1 ) {
+                    errorMsg.hide();
+                    if(data.data.userType == 1){
+                        window.location.href="hostProfile";
+                    }
+                    if(data.data.userType == 2){
+                        window.location.href="renterProfile";
+                    }
+                } else {
+                    errorMsg.text(data.desc);
+                    errorMsg.show();
+                }
+            }
+        });
+
+    });
 
 // added by Christopher Labelle
 // if(<%=request.getAttribute("isForgotPasswordEmailValid")%> === false) {

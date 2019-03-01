@@ -18,6 +18,8 @@ public class User {
 
     private String dateOfBirth;
 
+    private Boolean rememberMe;
+
     public int getUserType() {
         return userType;
     }
@@ -80,5 +82,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getRememberMe() {
+        return rememberMe;
+    }
+
+    public void setRememberMe(Boolean rememberMe) {
+        this.rememberMe = rememberMe;
     }
 }
