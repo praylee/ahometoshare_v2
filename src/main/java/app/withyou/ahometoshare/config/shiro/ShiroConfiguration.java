@@ -1,5 +1,6 @@
 package app.withyou.ahometoshare.config.shiro;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -18,6 +19,10 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfiguration {
+    @Bean
+    public ShiroDialect shiroDialect() {
+        return new ShiroDialect();
+    }
 
     @Bean(name = "shiroFilter")
     public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager){
@@ -27,6 +32,7 @@ public class ShiroConfiguration {
         filterMap.put("authc", new AjaxPermissionsAuthorizationFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        //Grant public page access permission to all users;
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/css/**", "anon");
         filterChainDefinitionMap.put("/js/**", "anon");
@@ -38,23 +44,31 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");
+        //Grant access permission to host
+        filterChainDefinitionMap.put("/host/**", "roles[host]");
+        //Grant access permission to guest
+        filterChainDefinitionMap.put("/renter/**", "roles[renter]");
+        //Grant access permission to admin
+        filterChainDefinitionMap.put("/admin/**", "roles[admin]");
+        //intercept all other requests;
         filterChainDefinitionMap.put("/**", "authc");
+
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
 
     @Bean
-    public SecurityManager securityManager(){
+    @DependsOn({"userRealm"})
+    public SecurityManager securityManager(UserRealm userRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(userRealm());
+        securityManager.setRealm(userRealm);
         return securityManager;
     }
 
     @Bean
     @DependsOn({"credentialsMatcher"})
-    public UserRealm userRealm() {
+    public UserRealm userRealm(HashedCredentialsMatcher credentialsMatcher) {
         UserRealm userRealm = new UserRealm();
-        HashedCredentialsMatcher credentialsMatcher = hashedCredentialsMatcher();
         userRealm.setCredentialsMatcher(credentialsMatcher);
         return userRealm;
     }
@@ -82,9 +96,10 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+    @DependsOn({"securityManager"})
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager());
+        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
         return authorizationAttributeSourceAdvisor;
     }
 }

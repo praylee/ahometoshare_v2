@@ -33,11 +33,11 @@ public class HostController {
         return "registerConfirm";
     }
 
-    @GetMapping("/hostProfile")
-    public ModelAndView hostProfile(ModelAndView mv){
+    @GetMapping("/host/hostProfile")
+    public String hostProfile(Model model){
         User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
         Host host = hostService.selectHostByEmail(user.getEmail());
-        mv.addObject("host", host);
-        return mv;
+        model.addAttribute("host", host);
+        return "hostProfile";
     }
 }

@@ -5,11 +5,6 @@
 
 $(function(){
 
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
 
     /*
     for sign in and forget password button
@@ -26,7 +21,6 @@ $(function(){
     loginBtn.click(
         function(){
             loginPopup.show();
-            forgotPasswordBtn.hide();
         }
     );
 
@@ -58,11 +52,6 @@ $(function(){
         }
     });
 
-// added by Christopher Labelle
-// if(<%=request.getAttribute("isLoginValid")%> === false) {
-    if(true){
-        loginPopup.show()
-    }
 
     //login ajax
     $("#loginemailBtn").click(function () {
@@ -87,10 +76,10 @@ $(function(){
                 if (data.status === 1 ) {
                     errorMsg.hide();
                     if(data.data.userType == 1){
-                        window.location.href="hostProfile";
+                        window.location.href="host/hostProfile";
                     }
                     if(data.data.userType == 2){
-                        window.location.href="renterProfile";
+                        window.location.href="renter/renterProfile";
                     }
                 } else {
                     errorMsg.text(data.desc);

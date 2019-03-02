@@ -14,8 +14,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 public class UserRealm extends AuthorizingRealm {
 
@@ -27,13 +26,21 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
         String email = (String)principals.getPrimaryPrincipal();
         User user = userService.findUserByEmail(email);
-        Collection<String> permissionList = Collections.emptySet();
+        Set<String> roles = new HashSet<>();
         if (user != null){
-             permissionList = permissionService.getPermissionsByUser(user);
+            if (user.getUserType()==Constants.USER_TYPE_HOST){
+                roles.add("host");
+            }else if(user.getUserType()==Constants.USER_TYPE_RENTER){
+                roles.add("renter");
+            }else if(user.getUserType()==Constants.USER_TYPE_ADMIN){
+                roles.add("admin");
+            }
         }
-        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        authorizationInfo.setRoles(roles);
+        Collection<String> permissionList = Collections.emptySet();
         authorizationInfo.addStringPermissions(permissionList);
         return authorizationInfo;
     }
@@ -46,7 +53,7 @@ public class UserRealm extends AuthorizingRealm {
         if (user==null){
             throw new AuthenticationException("User not found");
         }
-        SecurityUtils.getSubject().getSession().setAttribute("userType", user.getUserType());
+        SecurityUtils.getSubject().getSession().setAttribute(Constants.USER_TYPE_STRING, user.getUserType());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 user.getEmail(),
                 user.getPassword(),

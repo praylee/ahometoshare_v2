@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <title>A Home To Share</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{css/mainpage_style.css}"/>
     <script type="text/javascript" th:src="@{webjars/jquery/3.3.1-2/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{js/homepage.js}" defer></script>
@@ -23,10 +22,10 @@
             <a href="howWeWork">How We Work</a>
             <a href="faq">FAQ</a>
             <!-- Buttons modified with java by Christopher Labelle-->
-            <button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button>
-            <button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button>
-            <a href="renterProfile" style="display: inline;">My Profile</a>
-            <button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='LogoutRedirect'">Log out</button>
+            <shiro:guest><button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button></shiro:guest>
+            <shiro:guest><button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button></shiro:guest>
+            <shiro:authenticated><a href="myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
+            <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='logout'">Log out</button></shiro:authenticated>
         </nav>
     </div>
 
@@ -77,6 +76,7 @@
                         <a href="#" class="loginBtn">Login with Facebook</a>
                         <a href="#" class="loginBtn">Login with Linkedin</a>
                         <a href="#" class="loginBtn">Login with Google</a>
+                        <br>
                         <button name="forgotPasswordBtn" id="forgotPasswordBtn" class="loginBtn">Forgot Password</button>
                     </div>
                 </div>

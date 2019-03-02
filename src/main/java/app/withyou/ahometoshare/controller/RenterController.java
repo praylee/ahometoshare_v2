@@ -1,5 +1,8 @@
 package app.withyou.ahometoshare.controller;
 
+import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.utils.Constants;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +25,17 @@ public class RenterController {
         return "renterRegister";
     }
     
-    @PostMapping("/renterRegister")
+    @PostMapping("/renter/renterRegister")
     public String renterRegisterSubmit(@ModelAttribute Renter renter) {
         renterService.saveRenter(renter);
         return "registerConfirm";
+    }
+
+    @GetMapping("/renter/renterProfile")
+    public String renterRegisterSubmit(Model model) {
+        User user = (User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Renter renter = renterService.selectRenterByEmail(user.getEmail());
+        model.addAttribute("renter", renter);
+        return "renterProfile";
     }
 }

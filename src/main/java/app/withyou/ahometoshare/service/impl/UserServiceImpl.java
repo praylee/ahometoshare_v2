@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try{
+            token.setRememberMe(user.getRememberMe());
             currentUser.login(token);
             return true;
         }catch (AuthenticationException e){

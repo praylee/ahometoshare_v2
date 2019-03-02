@@ -8,6 +8,7 @@ public class Constants {
     public static final String SESSION_USER_PERMISSION = "userPermission";
     public static final String SESSION_USER_NAME = "username";
     public static final String SESSION_USER_PASSWORD = "password";
+    public static final Integer USER_TYPE_ADMIN = 0;
     public static final Integer USER_TYPE_HOST = 1;
     public static final Integer USER_TYPE_RENTER = 2;
     public static final String USER_TYPE_STRING = "userType";
