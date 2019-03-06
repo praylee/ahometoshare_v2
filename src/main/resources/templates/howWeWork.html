@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
     <head>
         <title>A Home To Share</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="css/howWeWork_style.css" />
-         <script type="text/javascript" th:src="@{js/howWeWork.js}" defer></script>
+        <link rel="stylesheet" href="../css/howWeWork_style.css" />
+         <script type="text/javascript" th:src="@{../js/howWeWork.js}" defer></script>
         
     </head>
     
@@ -18,11 +18,10 @@
                         <a href="homepage">Home</a>
                         <a href="howWeWork">How We Work</a>
                         <a href="faq.html">FAQ</a>
-                        <!-- Buttons modified with java by Christopher Labelle-->
-                        <button id="loginBtn" onclick="window.location.href='LogInView'" class="unstyled-button" style="">Log in</button>
-                        <button id="signupBtn" onclick="window.location.href='SignUpView'" class="unstyled-button" style="">Sign Up</button>
-                        <a href="">My Profile</a>
-                        <button id="logoutBtn" class="unstyled-button" style="" onclick="window.location.href='LogoutRedirect'">Log out</button>
+                        <shiro:guest><button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button></shiro:guest>
+                        <shiro:guest><button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button></shiro:guest>
+                        <shiro:authenticated><a href="myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
+                        <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='logout'">Log out</button></shiro:authenticated>
                     </nav>
                 </div>
 
@@ -157,7 +156,7 @@
         <!-- Block 1 -->
         <section class="main_section">
                 <div>
-                    <img src="image/how_we_work01.jpg" alt="Renter registration image" style="width:500px;height:500px;"/>
+                    <img src="../image/how_we_work01.jpg" alt="Renter registration image" style="width:500px;height:500px;"/>
                 </div>
                 
                 <div>
@@ -183,7 +182,7 @@
     <!-- Block 3 -->
         <section class="main_section">
             <div class="col-1-row-1">
-                <img src="image/host-icon.png" alt="Host icon image" style="width:80px; height:80px; margin-left:360px;">
+                <img src="../image/host-icon.png" alt="Host icon image" style="width:80px; height:80px; margin-left:360px;">
                 <h4 class="timeline-title">Create your free profile and room listing</h4>
                 <p>
                     Create a listing for your spare room using our simple signup
@@ -195,7 +194,7 @@
             </div>
             <div class="placeholder-v"></div>
             <div class="col-1-row-1">
-                <img src="image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
+                <img src="../image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
                 <h4 class="timeline-title">Create your free profile</h4>
                 <p>
                     Help your future Hosts get to know you by telling 
@@ -209,7 +208,7 @@
         
         <section class="main_section">
             <div class="col-1-row-1">
-                <img src="image/host-icon.png" alt="Host icon image" style="width:80px;height:80px; margin-left:360px;">
+                <img src="../image/host-icon.png" alt="Host icon image" style="width:80px;height:80px; margin-left:360px;">
                 <h4 class="timeline-title">Review your booking requests</h4>
                 <p>
                     We require all Hosts and Guests to complete our 
@@ -221,7 +220,7 @@
             </div>
             <div class="placeholder-v"></div>
             <div class="col-1-row-1">
-                <img src="image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
+                <img src="../image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
                 <h4 class="timeline-title">Explore listings</h4>
                 <p>
                     Search our list of verified Hosts by location, date, 
@@ -241,7 +240,7 @@
             </div>
             <div class="placeholder-v"></div>
             <div class="col-1-row-1">
-                <img src="image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
+                <img src="../image/guest-icon.png" alt="Guest icon image" style="width:80px;height:80px; margin-left:20px;">
                 <h4 class="timeline-title">Send a booking request</h4>
                 <p>
                     Contact us to reach out to Hosts. Send them a 
@@ -255,7 +254,7 @@
         
         <section class="main_section">
             <div class="col-1-row-3">
-                <img src="image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
+                <img src="../image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
                 <h4 class="timeline-title">Message</h4>
                 <p>
                     Upfront communication is key to a successful home 
@@ -271,7 +270,7 @@
         
         <section class="main_section">
             <div class="col-1-row-3">
-                <img src="image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
+                <img src="../image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
                 <h4 class="timeline-title">Confirm the booking</h4>
                 <p>
                     When both Host and Guest are ready to move forward, 
@@ -287,7 +286,7 @@
         
         <section class="main_section">
             <div class="col-1-row-3">
-                <img src="image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
+                <img src="../image/host-guest.png" alt="Host & Guest icon image" style="width:180px;height:90px; margin-left:20px;">
                 <h4 class="timeline-title">Move in and enjoy your home share!</h4>
                 <p>
                     A Home To Share makes sending and receiving rent 
@@ -320,7 +319,7 @@
                 <div class="footer_column inner2">
                     <h6>Get in Touch</h6>
                     <div class="footer_nav">
-                        <img alt="logo" class="" src="image/team_logo.png" />
+                        <img alt="logo" class="" src="../image/team_logo.png" />
                         <ul class="">
                             <li><a href="mailto:info@ahometoshare.ca">info@ahometoshare.ca</a></li>
                             <li><a class="remove-cursor" href="#">(123) 456-7890</a></li>
@@ -351,12 +350,12 @@
                     <h6>Follow us on Social</h6>
                     <a href="https://www.facebook.com/ahometoshare" class="">
                             <i class="fa fa-facebook" aria-hidden="true"></i>
-                            <img alt="facebook" class="" src="image/facebook36.png" width=28.5 height=36 />
+                            <img alt="facebook" class="" src="../image/facebook36.png" width=28.5 height=36 />
                     </a>
                     &nbsp;&nbsp;
                     <a href="https://twitter.com/ahometoshare" class="">
                         <i class="fa fa-twitter" aria-hidden="true"></i>
-                        <img alt="twitter" class="" src="image/twitter36.png" width=28.5 height=36 />
+                        <img alt="twitter" class="" src="../image/twitter36.png" width=28.5 height=36 />
                     </a>
                 </div>
 

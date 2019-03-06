@@ -41,6 +41,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/hostRegister", "anon");
         filterChainDefinitionMap.put("/renterRegister", "anon");
         filterChainDefinitionMap.put("/homepage", "anon");
+        filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/error", "anon");
