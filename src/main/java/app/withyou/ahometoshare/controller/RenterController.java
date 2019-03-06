@@ -25,7 +25,7 @@ public class RenterController {
         return "renterRegister";
     }
     
-    @PostMapping("/renter/renterRegister")
+    @PostMapping("/renterRegister")
     public String renterRegisterSubmit(@ModelAttribute Renter renter) {
         renterService.saveRenter(renter);
         return "registerConfirm";
