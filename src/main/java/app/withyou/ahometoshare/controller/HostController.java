@@ -28,9 +28,15 @@ public class HostController {
 
 
     @PostMapping("/hostRegister")
-    public String hostRegisterSubmit(@ModelAttribute Host host){
-        hostService.saveHost(host);
-        return "registerConfirm";
+    public ModelAndView hostRegisterSubmit(@ModelAttribute Host host){
+        int i = hostService.saveHost(host);
+        if (i==0){
+            ModelAndView mv =  new ModelAndView();
+            mv.addObject("host", host);
+            mv.addObject("msg","Email has been taken");
+            return mv;
+        }
+        return new ModelAndView("registerConfirm");
     }
 
     @GetMapping("/host/hostProfile")

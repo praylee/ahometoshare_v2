@@ -24,7 +24,7 @@ public class AjaxRestController {
     @Autowired
     RenterService renterService;
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = {"/login"})
     @ResponseBody
     public String login(@RequestBody User user){
         Boolean result = userService.loginAuthentication(user);

@@ -8,7 +8,7 @@ public interface HostService {
 
     public List<Host> getAllHosts();
 
-    public void saveHost(Host host);
+    public int saveHost(Host host);
 
     public Host selectHostByEmail(String email);
 

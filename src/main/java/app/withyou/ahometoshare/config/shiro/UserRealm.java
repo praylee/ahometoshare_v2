@@ -16,10 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 
-public class UserRealm extends AuthorizingRealm {
+    public class UserRealm extends AuthorizingRealm {
 
-    @Autowired
-    UserService userService;
+        @Autowired
+        UserService userService;
 
     @Autowired
     PermissionService permissionService;
@@ -65,9 +65,9 @@ public class UserRealm extends AuthorizingRealm {
     }
 
     public static void main(String args[]){
-        String str = "ahometoshare";
+        String str = "super";
         System.out.println(str.getBytes());
-        Md5Hash md5Hash = new Md5Hash(str,"prayleee@gmail.com") ;  // 加密，加盐
+        Md5Hash md5Hash = new Md5Hash(str,"ahometoshare") ;  // 加密，加盐
         System.out.println(md5Hash.toString());
     }
 }

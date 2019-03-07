@@ -1,5 +1,7 @@
 package app.withyou.ahometoshare.service.impl;
 
+import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +16,15 @@ public class RenterServiceImpl implements RenterService{
     @Autowired
     private RenterMapper renterMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public int saveRenter(Renter renter) {
+        User user = userService.findUserByEmail(renter.getEmail());
+        if(user!=null){
+            return 0;
+        }
         Md5Hash password = new Md5Hash( renter.getPassword(), renter.getEmail());
         renter.setPassword(password.toString());
         return renterMapper.insert(renter);

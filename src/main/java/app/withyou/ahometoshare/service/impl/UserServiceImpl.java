@@ -1,8 +1,10 @@
 package app.withyou.ahometoshare.service.impl;
 
+import app.withyou.ahometoshare.model.Admin;
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.service.AdminService;
 import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.service.RenterService;
@@ -24,10 +26,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     RenterService renterService;
 
+    @Autowired
+    AdminService adminService;
+
+
     @Override
     public Boolean loginAuthentication(User user){
         String username = user.getEmail();
-        String password = new String(user.getPassword());
+        String password = user.getPassword();
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try{
@@ -61,8 +67,17 @@ public class UserServiceImpl implements UserService {
             user.setUserType(Constants.USER_TYPE_RENTER);
             return user;
         }
+        Admin admin = adminService.selectAdminByUsername(email);
+        if(admin != null){
+            user.setEmail(admin.getUsername());
+            user.setPassword(admin.getPassword());
+            user.setUserType(Constants.USER_TYPE_ADMIN);
+            return user;
+        }
+
         return null;
     }
+
 
     public JSONObject getInfo(){
         return null;

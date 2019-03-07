@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.service.RenterService;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class RenterController {
@@ -26,9 +27,15 @@ public class RenterController {
     }
     
     @PostMapping("/renterRegister")
-    public String renterRegisterSubmit(@ModelAttribute Renter renter) {
-        renterService.saveRenter(renter);
-        return "registerConfirm";
+    public ModelAndView renterRegisterSubmit(@ModelAttribute Renter renter) {
+        int i =  renterService.saveRenter(renter);
+        if(i==0){
+            ModelAndView mv =  new ModelAndView();
+            mv.addObject("renter", renter);
+            mv.addObject("msg","Email has been taken");
+            return mv;
+        }
+        return new ModelAndView("registerConfirm");
     }
 
     @GetMapping("/renter/renterProfile")

@@ -1,7 +1,7 @@
 package app.withyou.ahometoshare.config.shiro;
 
 import app.withyou.ahometoshare.utils.ErrorEnum;
-import com.alibaba.fastjson.JSONObject;
+import app.withyou.ahometoshare.utils.RestJson;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,16 +15,16 @@ public class AjaxPermissionsAuthorizationFilter extends FormAuthenticationFilter
 
     @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("code", ErrorEnum.E_20011.getErrorCode());
-        jsonObject.put("msg", ErrorEnum.E_20011.getErrorMsg());
+        RestJson restJson = new RestJson();
+        restJson.setStatus(ErrorEnum.E_20011.getErrorCode());
+        restJson.setDesc(ErrorEnum.E_20011.getErrorMsg());
         PrintWriter out = null;
         HttpServletResponse res = (HttpServletResponse) response;
         try {
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
             out = response.getWriter();
-            out.println(jsonObject);
+            out.println(restJson);
         } catch (Exception e) {
         } finally {
             if (null != out) {
