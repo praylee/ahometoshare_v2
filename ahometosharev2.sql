@@ -83,3 +83,17 @@ CONSTRAINT `property_id_t`
     ON UPDATE NO ACTION,
 `picture` LONGBLOB NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS`ahometosharev2`.`admin`(
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`username` VARCHAR(42) NOT NULL unique,
+`password` VARCHAR(64) NOT NULL,
+`valid` boolean NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `ahometosharev2`.`login_record`(
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(42),
+    `usertype` int,
+    `time` date
+);
