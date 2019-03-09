@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean loginAuthentication(User user){
-        String username = user.getEmail();
+        String username = user.getUsername();
         String password = user.getPassword();
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -55,21 +55,21 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         Host host = hostService.selectHostByEmail(email);
         if(host != null){
-            user.setEmail(host.getEmail());
+            user.setUsername(host.getEmail());
             user.setPassword(host.getPassword());
             user.setUserType(Constants.USER_TYPE_HOST);
             return user;
         }
         Renter renter = renterService.selectRenterByEmail(email);
         if(renter != null){
-            user.setEmail(renter.getEmail());
+            user.setUsername(renter.getEmail());
             user.setPassword(renter.getPassword());
             user.setUserType(Constants.USER_TYPE_RENTER);
             return user;
         }
         Admin admin = adminService.selectAdminByUsername(email);
         if(admin != null){
-            user.setEmail(admin.getUsername());
+            user.setUsername(admin.getUsername());
             user.setPassword(admin.getPassword());
             user.setUserType(Constants.USER_TYPE_ADMIN);
             return user;

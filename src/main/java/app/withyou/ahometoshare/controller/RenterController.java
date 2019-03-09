@@ -41,7 +41,7 @@ public class RenterController {
     @GetMapping("/renter/renterProfile")
     public String renterRegisterSubmit(Model model) {
         User user = (User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
-        Renter renter = renterService.selectRenterByEmail(user.getEmail());
+        Renter renter = renterService.selectRenterByEmail(user.getUsername());
         model.addAttribute("renter", renter);
         return "renterProfile";
     }

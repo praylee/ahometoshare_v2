@@ -42,7 +42,7 @@ public class HostController {
     @GetMapping("/host/hostProfile")
     public String hostProfile(Model model){
         User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
-        Host host = hostService.selectHostByEmail(user.getEmail());
+        Host host = hostService.selectHostByEmail(user.getUsername());
         model.addAttribute("host", host);
         return "hostProfile";
     }

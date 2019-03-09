@@ -7,7 +7,7 @@ public interface UserService {
 
     public Boolean loginAuthentication(User user);
 
-    public User getUser(String email, String password);
+    public User getUser(String username, String password);
 
     public User findUserByEmail(String email);
 

@@ -3,9 +3,11 @@ package app.withyou.ahometoshare.config.shiro;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +32,7 @@ public class ShiroConfiguration {
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         filterMap.put("authc", new AjaxPermissionsAuthorizationFilter());
+        filterMap.put("roles", new ShiroUserFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
         //Grant public page access permission to all users;
@@ -60,11 +63,18 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    @DependsOn({"userRealm"})
-    public SecurityManager securityManager(UserRealm userRealm){
+    @DependsOn({"userRealm","sessionManager"})
+    public SecurityManager securityManager(UserRealm userRealm, SessionManager sessionManager){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
+        securityManager.setSessionManager(sessionManager);
         return securityManager;
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+        RestSessionManager mySessionManager = new RestSessionManager();
+        return mySessionManager;
     }
 
     @Bean

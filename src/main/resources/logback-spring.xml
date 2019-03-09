@@ -1,0 +1,58 @@
+<configuration packagingData="true" scan="true" scanPeriod="30 seconds">
+    <springProfile name="dev">
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+        <property name="PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+        <property name="PROD_FILE_PATH" value="./logs"/>
+
+        <appender name="CONSOLE"  class="ch.qos.logback.core.ConsoleAppender">
+            <!-- for developer's environment -->
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <!-- for online product environment -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${PROD_FILE_PATH}/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>15</maxHistory>
+                <totalSizeCap>300MB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="app.withyou.ahometoshare.controller" level="debug" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+
+        <logger name="app.withyou.ahometoshare.config.shiro" level="debug" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
+
+        <root level="info">
+            <appender-ref ref="CONSOLE" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <appender name="file" class="ch.qos.logback.core.RollingFileAppender">
+            <!-- for online product environment -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${PROD_FILE_PATH}/ahometoshare.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>15</maxHistory>
+                <totalSizeCap>300MB</totalSizeCap>
+            </rollingPolicy>
+            <encoder>
+                <pattern>${PATTERN}</pattern>
+            </encoder>
+        </appender>
+
+        <root level="error">
+            <appender-ref ref="file" />
+        </root>
+    </springProfile>
+
+
+</configuration>

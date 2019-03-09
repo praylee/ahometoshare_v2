@@ -55,9 +55,9 @@ import java.util.*;
         }
         SecurityUtils.getSubject().getSession().setAttribute(Constants.USER_TYPE_STRING, user.getUserType());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                user.getEmail(),
+                user.getUsername(),
                 user.getPassword(),
-                ByteSource.Util.bytes(user.getEmail()), // email as salt
+                ByteSource.Util.bytes(user.getUsername()), // email as salt
                 getName()
         );
         SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER, user);
@@ -65,9 +65,9 @@ import java.util.*;
     }
 
     public static void main(String args[]){
-        String str = "super";
+        String str = "ahometoshare";
         System.out.println(str.getBytes());
-        Md5Hash md5Hash = new Md5Hash(str,"ahometoshare") ;  // 加密，加盐
+        Md5Hash md5Hash = new Md5Hash(str,"super") ;  // 加密，加盐
         System.out.println(md5Hash.toString());
     }
 }

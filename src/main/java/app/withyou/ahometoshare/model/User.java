@@ -4,7 +4,7 @@ public class User {
 
     private int userType;
 
-    private String email;
+    private String username;
 
     private String password;
 
@@ -18,14 +18,16 @@ public class User {
 
     private String dateOfBirth;
 
-    private Boolean rememberMe;
+    private String token;
+
+    private boolean rememberMe;
 
     public int getUserType() {
         return userType;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
     public String getFirstName() {
@@ -52,8 +54,8 @@ public class User {
         this.userType = userType;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setFirstName(String firstName) {
@@ -84,11 +86,20 @@ public class User {
         this.password = password;
     }
 
-    public Boolean getRememberMe() {
+    public boolean getRememberMe() {
         return rememberMe;
     }
 
-    public void setRememberMe(Boolean rememberMe) {
+    public void setRememberMe(boolean rememberMe) {
         this.rememberMe = rememberMe;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
 }

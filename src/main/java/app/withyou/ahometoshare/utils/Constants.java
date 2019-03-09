@@ -1,5 +1,9 @@
 package app.withyou.ahometoshare.utils;
 
+import org.apache.shiro.crypto.AesCipherService;
+
+import java.security.Key;
+
 public class Constants {
     public static final String SUCCESS_CODE = "100";
     public static final String SUCCESS_MSG = "SUCCESS";
@@ -12,6 +16,7 @@ public class Constants {
     public static final Integer USER_TYPE_HOST = 1;
     public static final Integer USER_TYPE_RENTER = 2;
     public static final String USER_TYPE_STRING = "userType";
+
 
 
 }

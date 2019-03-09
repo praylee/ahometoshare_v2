@@ -6,7 +6,7 @@ public enum ErrorEnum {
      * */
     E_400(400, "Fail to process your request. Please try it later"),
     E_500(500, "Unexpected Access Request"),
-    E_502(502, "Insufficient Privilege"),
+    E_401(401, "Insufficient Privilege"),
     E_10009(10009, "Account already exist"),
     E_20011(20011, "Expired Session");
 
