@@ -375,4 +375,12 @@
       availability = #{availability,jdbcType=INTEGER}
     where property_id = #{propertyId,jdbcType=INTEGER}
   </update>
+  <select id="getPropertyListByHostId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    property
+    where
+    host_id = #{hostId,jdbcType=INTEGER}
+  </select>
 </mapper>

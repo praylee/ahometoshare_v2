@@ -2,6 +2,8 @@ package app.withyou.ahometoshare.dao;
 
 import app.withyou.ahometoshare.model.Property;
 
+import java.util.List;
+
 public interface PropertyMapper {
     int deleteByPrimaryKey(Integer propertyId);
 
@@ -14,4 +16,6 @@ public interface PropertyMapper {
     int updateByPrimaryKeySelective(Property record);
 
     int updateByPrimaryKey(Property record);
+
+    List<Property> getPropertyListByHostId(Integer hostId);
 }

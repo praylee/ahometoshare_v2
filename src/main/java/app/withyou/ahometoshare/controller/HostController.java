@@ -29,7 +29,7 @@ public class HostController {
 
     @PostMapping("/hostRegister")
     public ModelAndView hostRegisterSubmit(@ModelAttribute Host host){
-        int i = hostService.saveHost(host);
+        int i = hostService.insertHost(host);
         if (i==0){
             ModelAndView mv =  new ModelAndView();
             mv.addObject("host", host);

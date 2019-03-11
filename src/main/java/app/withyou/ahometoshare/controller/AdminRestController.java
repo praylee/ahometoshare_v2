@@ -2,13 +2,16 @@ package app.withyou.ahometoshare.controller;
 
 
 import app.withyou.ahometoshare.model.Host;
+import app.withyou.ahometoshare.model.HostDetail;
 import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.service.AdminService;
 import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
 import app.withyou.ahometoshare.utils.EncryptionUtil;
 import app.withyou.ahometoshare.utils.RestJson;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.annotation.JsonAlias;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -16,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -30,6 +34,9 @@ public class AdminRestController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    AdminService adminService;
 
 
 
@@ -68,5 +75,27 @@ public class AdminRestController {
         return JSONObject.toJSONString(restJson);
     }
 
+    @GetMapping(value = "/admin/getHostDetailByEmail")
+    public String getHostDetailByEmail(@RequestParam String email){
+        logger.debug("request email: ---- "+email);
+        RestJson restJson = new RestJson();
+        HostDetail hostDetail = adminService.getHostDetailByEmail(email);
+        restJson.setData(hostDetail);
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping(value="/admin/saveHostDetail")
+    public String saveHostDetail(@RequestBody HostDetail hostDetail){
+        logger.debug("request host: ----"+ JSONObject.toJSONString(hostDetail) );
+        RestJson restJson = new RestJson();
+        if (hostService.updateHost(hostDetail.getHost())){
+            restJson.setDesc("successfully saved host");
+        }else {
+            restJson.setStatus(2);
+            restJson.setDesc("Failed to save host detail, check log for more information");
+        }
+//        hostService.updateProperties();
+        return JSONObject.toJSONString(restJson);
+    }
 
 }
