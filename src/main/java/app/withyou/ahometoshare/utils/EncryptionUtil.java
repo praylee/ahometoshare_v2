@@ -2,6 +2,7 @@ package app.withyou.ahometoshare.utils;
 
 import org.apache.shiro.codec.Hex;
 import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.CryptoException;
 
 import java.security.Key;
 
@@ -19,7 +20,7 @@ public class EncryptionUtil {
         return aesCipherService.encrypt(text.getBytes(), key.getEncoded()).toHex();
     }
 
-    public static String DecryptAES(String encrptText){
+    public static String DecryptAES(String encrptText) throws CryptoException {
         return  new String(aesCipherService.decrypt(Hex.decode(encrptText), key.getEncoded()).getBytes());
     }
 

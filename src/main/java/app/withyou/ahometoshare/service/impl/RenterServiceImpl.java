@@ -1,6 +1,8 @@
 package app.withyou.ahometoshare.service.impl;
 
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Service
 public class RenterServiceImpl implements RenterService{
+
+    Logger logger = LoggerFactory.getLogger(RenterService.class);
 
     @Autowired
     private RenterMapper renterMapper;
@@ -38,6 +42,17 @@ public class RenterServiceImpl implements RenterService{
     @Override
     public Renter selectRenterById(Integer id) {
         return renterMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public boolean updateRenter(Renter renter) {
+        try {
+            renterMapper.updateByPrimaryKeySelective(renter);
+        }catch (Exception e){
+            logger.error("Fail to update Renter ",e);
+            return false;
+        }
+        return true;
     }
 
 

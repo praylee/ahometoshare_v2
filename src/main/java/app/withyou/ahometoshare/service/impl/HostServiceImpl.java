@@ -3,9 +3,9 @@ package app.withyou.ahometoshare.service.impl;
 import app.withyou.ahometoshare.dao.HostMapper;
 import app.withyou.ahometoshare.dao.PropertyMapper;
 import app.withyou.ahometoshare.model.Host;
+import app.withyou.ahometoshare.model.HostDetail;
 import app.withyou.ahometoshare.model.Property;
 import app.withyou.ahometoshare.service.HostService;
-import app.withyou.ahometoshare.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,6 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private HostMapper hostMapper;
 
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private PropertyMapper propertyMapper;
@@ -67,5 +65,16 @@ public class HostServiceImpl implements HostService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public HostDetail getHostDetailById(Integer id) {
+        HostDetail hostDetail = new HostDetail();
+        Host host = hostMapper.selectByPrimaryKey(id);
+        host.setPassword("");
+        List<Property> propertyList = propertyMapper.getPropertyListByHostId(host.getHostId());
+        hostDetail.setHost(host);
+        hostDetail.setPropertyList(propertyList);
+        return hostDetail;
     }
 }

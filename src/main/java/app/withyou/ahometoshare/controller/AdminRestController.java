@@ -81,11 +81,11 @@ public class AdminRestController {
     }
 
 
-    @GetMapping(value = "/admin/getHostDetailByEmail")
-    public String getHostDetailByEmail(@RequestParam String email){
-        logger.debug("request email: ---- "+email);
+    @GetMapping(value = "/admin/getHostDetailById")
+    public String getHostDetailByEmail(@RequestParam Integer hostId){
+        logger.debug("request host id: ---- "+hostId);
         RestJson restJson = new RestJson();
-        HostDetail hostDetail = adminService.getHostDetailByEmail(email);
+        HostDetail hostDetail = hostService.getHostDetailById(hostId);
         restJson.setData(hostDetail);
         return JSONObject.toJSONString(restJson);
     }
@@ -99,17 +99,30 @@ public class AdminRestController {
         return JSONObject.toJSONString(restJson);
     }
 
-    @PostMapping(value="/admin/saveHostDetail")
-    public String saveHostDetail(@RequestBody HostDetail hostDetail){
+    @PostMapping(value="/admin/updateHostDetail")
+    public String updateHostDetail(@RequestBody HostDetail hostDetail){
         logger.debug("request host: ----"+ JSONObject.toJSONString(hostDetail) );
         RestJson restJson = new RestJson();
         if (hostService.updateHost(hostDetail.getHost())){
-            restJson.setDesc("successfully saved host");
+            restJson.setDesc("successfully updated host");
         }else {
             restJson.setStatus(2);
             restJson.setDesc("Failed to save host detail, check log for more information");
         }
 //        hostService.updateProperties();
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping(value="/admin/updateRenter")
+    public String updateRenter(@RequestBody Renter renter){
+        logger.debug("request renter: ----"+ JSONObject.toJSONString(renter) );
+        RestJson restJson = new RestJson();
+        if (renterService.updateRenter(renter)){
+            restJson.setDesc("successfully updated renter");
+        }else {
+            restJson.setStatus(2);
+            restJson.setDesc("Failed to save host detail, check log for more information");
+        }
         return JSONObject.toJSONString(restJson);
     }
 

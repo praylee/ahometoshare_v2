@@ -14,4 +14,6 @@ public interface RenterService {
 
     public Renter selectRenterById(Integer id);
 
+    public boolean updateRenter(Renter renter);
+
 }

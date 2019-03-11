@@ -19,26 +19,10 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
-    @Autowired
-    private HostMapper hostMapper;
-
-    @Autowired
-    private PropertyMapper propertyMapper;
-
     @Override
     public Admin selectAdminByUsername(String username) {
         return adminMapper.selectByUsername(username);
     }
 
-    @Override
-    public HostDetail getHostDetailByEmail(String email) {
-        HostDetail hostDetail = new HostDetail();
-        Host host = hostMapper.selectByEmail(email);
-        host.setPassword("");
-        List<Property> propertyList = propertyMapper.getPropertyListByHostId(host.getHostId());
-        hostDetail.setHost(host);
-        hostDetail.setPropertyList(propertyList);
-        return hostDetail;
-    }
 
 }
