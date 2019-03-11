@@ -17,5 +17,10 @@ public class StaticPageController {
         return "aboutUs";
     }
     
+    @GetMapping("/static/faq")
+    public String faq(Model model) {
+       return "FAQ"; 
+    }
+    
     
 }
