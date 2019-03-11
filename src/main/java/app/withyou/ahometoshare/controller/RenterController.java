@@ -1,6 +1,7 @@
 package app.withyou.ahometoshare.controller;
 
 import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class RenterController {
 
     @Autowired
     RenterService renterService;
+
+    @Autowired
+    UserService userService;
     
     @GetMapping("/renterRegister")
     public String renterRegister(Model model) {
@@ -28,11 +32,16 @@ public class RenterController {
     
     @PostMapping("/renterRegister")
     public ModelAndView renterRegisterSubmit(@ModelAttribute Renter renter) {
-        int i =  renterService.saveRenter(renter);
-        if(i==0){
-            ModelAndView mv =  new ModelAndView();
-            mv.addObject("renter", renter);
+        User user = userService.findUserByEmail(renter.getEmail());
+        ModelAndView mv =  new ModelAndView("renterRegister");
+        mv.addObject("renter", renter);
+        if(user!=null){
             mv.addObject("msg","Email has been taken");
+            return mv;
+        }
+        int i =  renterService.insertRenter(renter);
+        if(i==0){
+            mv.addObject("msg","Something wrong with Renter registration, please try later");
             return mv;
         }
         return new ModelAndView("registerConfirm");

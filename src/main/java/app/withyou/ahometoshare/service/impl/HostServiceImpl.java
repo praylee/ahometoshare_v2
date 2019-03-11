@@ -4,7 +4,6 @@ import app.withyou.ahometoshare.dao.HostMapper;
 import app.withyou.ahometoshare.dao.PropertyMapper;
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.Property;
-import app.withyou.ahometoshare.model.User;
 import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.service.UserService;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -38,10 +37,6 @@ public class HostServiceImpl implements HostService {
 
     @Override
     public int insertHost(Host host) {
-        User user = userService.findUserByEmail(host.getEmail());
-        if(user!=null){
-            return 0;
-        }
         Md5Hash password = new Md5Hash( host.getPassword(), host.getEmail());
         host.setPassword(password.toString());
         return hostMapper.insert(host);

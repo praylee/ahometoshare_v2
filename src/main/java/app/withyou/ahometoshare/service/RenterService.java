@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RenterService {
 
-    public int saveRenter(Renter renter);
+    public int insertRenter(Renter renter);
 
     public Renter selectRenterByEmail(String email);
 
