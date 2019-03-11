@@ -260,7 +260,7 @@ Copyright @ 2018
                         color: #fff;
                     }
 	
-	
+
 /* --Footer------------------------------------------------------------------ */
 
 .flex {
@@ -281,7 +281,7 @@ Copyright @ 2018
     justify-content: space-between;*/
 }
 
-#footer {
+    #footer {
         background-color: #efeded;
         font-size: small;
         position: relative;
@@ -289,63 +289,67 @@ Copyright @ 2018
         width:100%;
     }
 
-        #footer p{
-            text-align: center;
-            margin-bottom: 45px;
-        }
+    #footer p{
+        text-align: center;
+        margin-bottom: 45px;
+    }
 
-        .footer_column {
-            float: left;
-            height: 130px;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
-        
-        #footer h6 {
-            font-size: 1em;
-            color: #555;
-            font-weight: bold;
-        }
+    .footer_column {
+        float: left;
+        height: 130px;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
 
-        #footer ul {
-            margin-top: 10px;
-        }
+    #footer h6 {
+        font-size: 1em;
+        color: #555;
+        font-weight: bold;
+    }
 
-        #footer li {
-            line-height: 1.7;
-            word-wrap: break-word;
-            color: #555;
-        }
-        #footer img {
-            padding-top: 8px;
-        }
+    #footer ul {
+        margin-top: 10px;
+    }
 
-        #footer a {
-            text-decoration: none;
-            margin-top: 15px;
-            color: #555;
-        }
+    #footer li {
+        line-height: 1.7;
+        word-wrap: break-word;
+        color: #555;
+    }
+    #footer img {
+        padding-top: 8px;
+    }
 
-        #footer u {
-            color: #5385c1;
-        }
+    #footer a {
+        text-decoration: none;
+        margin-top: 15px;
+        color: #555;
+    }
 
-        #footer p {
-            color: #555;
-        }    
+    #footer u {
+        color: #5385c1;
+    }
+
+    #footer p {
+        color: #555;
+    }
+
 
     .inner1 {
         /*background: gold;*/
         width: 15%;
+        text-align: center;
     }
 
     .inner2 {
         /*background: green;*/
         width: 14%;
+        text-align: center;
     }
 
     .inner3 {
         width: 16%;
+        text-align: center;
         /*background: green;*/
     }
 
@@ -353,31 +357,52 @@ Copyright @ 2018
         width: 31%;
         padding-right: 30px;
         max-width: 470px;
+        text-align: center;
         /*background: #b6701e;*/
     }
 
     .inner5 {
         width: 15%;
+        text-align: center;
         /*background: green;*/
     }
 
     .inner6 {
         width: 9%;
+        text-align: center;
         /*background: green;*/
-    }  
+    }
+
+    .row {
+        margin-left: 10%;
+        margin-right: 10%;
+        width: auto;
+    }
 
     .row:after {
-    content: "";
-    display: table;
-    clear: both;
+        content: "";
+        display: table;
+        clear: both;
     }
-    
+
+
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
     #footer * {
         box-sizing: border-box;
-    } 
+    }
 
-    
-    
+    #rights_info{
+        margin-left:auto;
+        margin-right:auto;
+        width:fit-content;
+    }
+
+
 /* --Popup window: Sign Up--------------------------------------------------- */	
     body {font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 
@@ -683,57 +708,57 @@ Copyright @ 2018
             margin-right: 20px;
         }
 
-            .btn-group4 a {
-                -moz-appearance: none;
-                -webkit-appearance: none;
-                -ms-appearance: none;
-                appearance: none;
-                -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                background-color: #5385c1;
-                border-radius: 0;
-                border: 0;
-                color: #ffffff !important;
-                cursor: pointer;
-                display: inline-block;
-                font-weight: 600;
-                height: 3em;
-                line-height: 3em;
-                padding: 0 1.5em;
-                text-align: center;
-                text-decoration: none;
-                white-space: nowrap;
-                width: 90%;
-            }
-            
-            .btn-group4 button {
-                /*cursor: pointer;*/
-                -moz-appearance: none;
-                -webkit-appearance: none;
-                -ms-appearance: none;
-                appearance: none;
-                -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-                background-color: #5385c1;
-                border-radius: 0;
-                border: 0;
-                color: #ffffff !important;
-                cursor: pointer;
-                display: inline-block;
-                font-weight: 600;
-                height: 3em;
-                line-height: 3em;
-                padding: 0 1.5em;
-                text-align: center;
-                text-decoration: none;
-                white-space: nowrap;
-                width: 91%;
-                margin-right: 15px;
-            }
+        .btn-group4 a {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background-color: #5385c1;
+            border-radius: 0;
+            border: 0;
+            color: #ffffff !important;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            height: 3em;
+            line-height: 3em;
+            padding: 0 1.5em;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            width: 90%;
+        }
+
+        .btn-group4 button {
+            /*cursor: pointer;*/
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            -ms-appearance: none;
+            appearance: none;
+            -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            background-color: #5385c1;
+            border-radius: 0;
+            border: 0;
+            color: #ffffff !important;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 600;
+            height: 3em;
+            line-height: 3em;
+            padding: 0 1.5em;
+            text-align: center;
+            text-decoration: none;
+            white-space: nowrap;
+            width: 91%;
+            margin-right: 15px;
+        }
             
             
     

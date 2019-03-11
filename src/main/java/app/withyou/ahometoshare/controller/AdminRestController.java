@@ -3,9 +3,11 @@ package app.withyou.ahometoshare.controller;
 
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.HostDetail;
+import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.model.User;
 import app.withyou.ahometoshare.service.AdminService;
 import app.withyou.ahometoshare.service.HostService;
+import app.withyou.ahometoshare.service.RenterService;
 import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
 import app.withyou.ahometoshare.utils.EncryptionUtil;
@@ -38,6 +40,8 @@ public class AdminRestController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    RenterService renterService;
 
 
     @RequestMapping(value = "/admin/getAllHosts" ,method = RequestMethod.GET)
@@ -48,6 +52,14 @@ public class AdminRestController {
         return JSONObject.toJSONString(restJson);
     }
 
+
+    @GetMapping(value = {"/admin/getAllRenters"})
+    public String getAllRenters(){
+        RestJson restJson = new RestJson();
+        List<Renter> renters = renterService.getAllRenters();
+        restJson.setData(renters);
+        return JSONObject.toJSONString(restJson);
+    }
 
     @PostMapping(value = {"/adminLogin"})
     public String adminLogin(@RequestBody User user){
@@ -68,12 +80,6 @@ public class AdminRestController {
         return  JSONObject.toJSONString(restJson);
     }
 
-    @PostMapping(value = {"/admin/getAdminInfo"})
-    public String getAdminInfo(@RequestBody User user){
-        RestJson restJson = new RestJson();
-        restJson.setDesc("get admin info success");
-        return JSONObject.toJSONString(restJson);
-    }
 
     @GetMapping(value = "/admin/getHostDetailByEmail")
     public String getHostDetailByEmail(@RequestParam String email){
@@ -81,6 +87,15 @@ public class AdminRestController {
         RestJson restJson = new RestJson();
         HostDetail hostDetail = adminService.getHostDetailByEmail(email);
         restJson.setData(hostDetail);
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @GetMapping(value = "/admin/getRenterDetailById")
+    public String getRenterDetailById(@RequestParam Integer id){
+        logger.debug("request id: ---- "+id);
+        RestJson restJson = new RestJson();
+        Renter renter = renterService.selectRenterById(id);
+        restJson.setData(renter);
         return JSONObject.toJSONString(restJson);
     }
 

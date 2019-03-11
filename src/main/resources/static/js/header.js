@@ -1,5 +1,5 @@
 /**
- * for sign in button
+ * for popup logic control
  * @type {HTMLElement}
  */
 
@@ -26,10 +26,10 @@ $(function(){
 
 // WHen the user clicks the 'forgot password' button
     forgotPasswordBtn.click(
-      function () {
-          loginPopup.hide();
-          forgotPasswordPopup.show();
-      }
+        function () {
+            loginPopup.hide();
+            forgotPasswordPopup.show();
+        }
     );
 
 // When the user clicks on <span2> (x), close the popup
@@ -60,11 +60,11 @@ $(function(){
         let rememberMe = $('#rememberMe').prop("checked");
         let errorMsg = $("#errorMsg");
         let json = {
-            "email" : email,
+            "username" : email,
             "password" : password,
             "rememberMe" : rememberMe
         };
-        let loginUrl = "../login";
+        let loginUrl = "/login";
         $.ajax({
             url : loginUrl,
             type : "POST",
@@ -76,10 +76,10 @@ $(function(){
                 if (data.status === 1 ) {
                     errorMsg.hide();
                     if(data.data.userType == 1){
-                        window.location.href="../host/hostProfile";
+                        window.location.href="/host/hostProfile";
                     }
                     if(data.data.userType == 2){
-                        window.location.href="../renter/renterProfile";
+                        window.location.href="/renter/renterProfile";
                     }
                 } else {
                     errorMsg.text(data.desc);
@@ -135,9 +135,9 @@ $(function(){
     signupEmailBtn.click(function () {
         let hostSelected = $("#userHost");
         if (hostSelected.prop("checked") == true) {
-            window.location.href="hostRegister";
+            window.location.href="/hostRegister";
         }else {
-            window.location.href="renterRegister";
+            window.location.href="/renterRegister";
         }
     });
 

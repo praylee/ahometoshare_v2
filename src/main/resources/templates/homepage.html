@@ -5,143 +5,16 @@
 <head>
     <title>A Home To Share</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{css/mainpage_style.css}"/>
-    <script type="text/javascript" th:src="@{webjars/jquery/3.3.1-2/jquery.min.js}"></script>
-    <script type="text/javascript" th:src="@{js/homepage.js}" defer></script>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/mainpage_style.css}"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/header.js}" defer></script>
 
 </head>
 
 <body>
 
 <!-- Header -->
-<header id="header">
-    <div class="inner">
-        <a href="homepage" class="logo">A Home To Share</a>
-        <nav id="nav">
-            <a href="homepage">Home</a>
-            <a href="static/howWeWork">How We Work</a>
-            <a href="faq">FAQ</a>
-            <!-- Buttons modified with java by Christopher Labelle-->
-            <shiro:guest><button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button></shiro:guest>
-            <shiro:guest><button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button></shiro:guest>
-            <shiro:authenticated><a href="myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
-            <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='logout'">Log out</button></shiro:authenticated>
-        </nav>
-    </div>
-
-
-    <!--Signup Popup Window when clicks button: Sign Up-->
-    <div id="signupPopup" class="signupPopup">
-
-        <!--Signup Popup content-->
-        <div class="signupPopup-content">
-            <span id="closeSignUpButton" class="close1">&times;</span>
-
-            <section class="signupPopup_container">
-                <div class="signupPopup-left_half">
-                    <h4>I want to sign up as a<span style="color:red; font-weight:bold">*</span></h4>
-                    <div class="switch">
-                        <input type="radio" class="switch-input" name="view" value="userHost" id="userHost" checked>
-                        <label for="userHost" class="switch-label switch-label-off">Host</label>
-                        <input type="radio" class="switch-input" name="view" value="userRenter" id="userRenter">
-                        <label for="userRenter" class="switch-label switch-label-on">Renter</label>
-                        <span class="switch-selection"></span>
-                    </div>
-                </div>
-                <hr>
-                <div class="signupPopup-right_half">
-                    <div class="btn-group2">
-                        <a id="emailBtn" class="signupBtn" >Sign up with email</a>
-                        <a href="" class="signupBtn">Sign up with Facebook</a>
-                        <a href="" class="signupBtn">Sign up with Linkedin</a>
-                        <a href="" class="signupBtn">Sign up with Google</a>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-
-
-    <!--Login Popup Window when clicks button: Log in-->
-    <div id="loginPopup" class="loginPopup" >
-
-        <!--Login Popup content-->
-        <div class="loginPopup-content">
-            <span id="closeLoginButton" class="close2">&times;</span>
-
-            <section class="loginPopup_container">
-                <div class="loginPopup-left_half">
-                    <div class="btn-group3">
-                        <a href="#" class="loginBtn">Login with Facebook</a>
-                        <a href="#" class="loginBtn">Login with Linkedin</a>
-                        <a href="#" class="loginBtn">Login with Google</a>
-                        <br>
-                        <button name="forgotPasswordBtn" id="forgotPasswordBtn" class="loginBtn">Forgot Password</button>
-                    </div>
-                </div>
-                <hr>
-                <div class="loginPopup-right_half">
-                    <form>
-                        <div class="formRow">
-                            <h4 align="left">Login with email</h4>
-                            <!-- Modified by Chris -->
-                            <input type="email" name="loginEmail" id="loginEmail" value="" size="30" placeholder="Email Address" maxlength="42" required />
-                        </div>
-                        <br>
-                        <div class="formRow">
-                            <h4 align="left">Password</h4>
-                            <input type="password" name="loginPassword" id="loginPassword" size="30" required>
-                        </div>
-                        <br>
-                        <div class="loginError">
-                            <div id="errorMsg"></div>
-                        </div>
-
-                        <h5 align="left"><input type="checkbox" id="rememberMe" name="rememberMe" value="rememberMe">Remember me</h5>
-
-                    </form>
-                    <div class="btn-group4">
-                        <button id="loginemailBtn" class="unstyled-button2" >Login with email</button>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
-
-    <!--Forgot password Popup Window when clicks button: Forgot password-->
-    <div id="forgotPasswordPopup" class="loginPopup" >
-        <!--Forogot password content-->
-        <div class="loginPopup-content">
-            <span id="closeForgetPasswordButton" class="close2">&times;</span>
-            <section class="loginPopup_container">
-                <div class="loginPopup-right_half">
-                    <form method="post" action="ForgotPassword" onsubmit="" >
-                        <div class="formRow">
-                            <h4 align="left">Enter the email address associated with your account</h4>
-                            <!-- Modified by Christopher Labelle -->
-                            <input type="email" name="forgotPasswordEmail" id="forgotPasswordEmail" size="30" placeholder="Email Address" maxlength="42" required />
-                        </div>
-                        <br>
-                        <div class="loginError">
-                            <!--<% // added by Christopher Labelle-->
-                            <!--if(request.getAttribute("forgotPasswordFeedback") != null) {-->
-                            <!--out.print(request.getAttribute("forgotPasswordFeedback"));-->
-                            <!--}-->
-                            <!--%>-->
-                        </div>
-                        <div class="btn-group4">
-                            <button id="loginbut" type="submit" class="unstyled-button2" >Send new password to this email address</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-        </div>
-    </div>
-
-
-
-</header>
+<header th:replace=" header :: header"></header>
 
 
 <!-- Banner: the text shows within the main image -->
@@ -270,64 +143,7 @@
 </section>
 
 <!-- Footer -->
-<footer id="footer">
-    <div class="row">
-        <div class="footer_column inner1">
-            <!--a placeholder-->
-        </div>
+<footer th:replace=" footer :: footer"></footer>
 
-        <div class="footer_column inner2">
-            <h6>Get in Touch</h6>
-            <div class="footer_nav">
-                <img alt="logo" class="" src="image/team_logo.png" />
-                <ul class="">
-                    <li><a href="mailto:info@ahometoshare.ca">info@ahometoshare.ca</a></li>
-                    <li><a class="remove-cursor" href="#">(123) 456-7890</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer_column inner3">
-            <h6>Join Our Community</h6>
-            <ul class="footer_nav">
-                <li><a href="static/howWeWork">How We Work</a></li>
-                <li><a href="faq">Frequently Asked Questions</a></li>
-                <li><a href="static/aboutUs">About Us</a></li>
-                <li><a href="homepage">Placeholder</a></li>
-            </ul>
-        </div>
-
-        <div class="footer_column inner4">
-            <h6>Get Engaged</h6>
-            <ul class="footer_nav">
-                <li>Live in Toronto and want to help us tackle the affordable housing crisis.
-                    <a href="homepage" target="_blank"><u>Apply</u></a> to be an Ambassador today.
-                </li>
-            </ul>
-        </div>
-
-        <div class="footer_column inner5">
-            <h6>Follow us on Social</h6>
-            <a href="https://www.facebook.com/ahometoshare" class="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
-                <img alt="facebook" class="" src="image/facebook36.png" width=28.5 height=36 />
-            </a>
-            &nbsp;&nbsp;
-            <a href="https://twitter.com/ahometoshare" class="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-                <img alt="twitter" class="" src="image/twitter36.png" width=28.5 height=36 />
-            </a>
-        </div>
-
-        <div class="footer_column inner6">
-            <!--a placeholder-->
-        </div>
-
-        <p>© 2018 A Home To Share | All right reserved
-            <a href="homepage">&nbsp;&nbsp;&nbsp;Privacy Policy</a>
-            <a href="homepage">&nbsp;&nbsp;&nbsp;Terms of Use</a>
-        </p>
-    </div>
-</footer>
 </body>
 </html>

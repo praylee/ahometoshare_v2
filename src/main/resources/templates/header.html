@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+    <!-- Header -->
+    <header th:fragment="header" id="header">
+        <div class="inner">
+            <a href="/homepage" class="logo">A Home To Share</a>
+            <nav class="nav">
+                <a href="/homepage">Home</a>
+                <a href="/static/howWeWork">How We Work</a>
+                <a href="/static/faq">FAQ</a>
+                <!-- Buttons modified with java by Christopher Labelle-->
+                <shiro:guest><button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button></shiro:guest>
+                <shiro:guest><button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button></shiro:guest>
+                <shiro:authenticated><a href="myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
+                <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='logout'">Log out</button></shiro:authenticated>
+            </nav>
+        </div>
+
+
+        <!--Signup Popup Window when clicks button: Sign Up-->
+        <div id="signupPopup" class="signupPopup">
+
+            <!--Signup Popup content-->
+            <div class="signupPopup-content">
+                <span id="closeSignUpButton" class="close1">&times;</span>
+
+                <section class="signupPopup_container">
+                    <div class="signupPopup-left_half">
+                        <h4>I want to sign up as a<span style="color:red; font-weight:bold">*</span></h4>
+                        <div class="switch">
+                            <input type="radio" class="switch-input" name="view" value="userHost" id="userHost" checked>
+                            <label for="userHost" class="switch-label switch-label-off">Host</label>
+                            <input type="radio" class="switch-input" name="view" value="userRenter" id="userRenter">
+                            <label for="userRenter" class="switch-label switch-label-on">Renter</label>
+                            <span class="switch-selection"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="signupPopup-right_half">
+                        <div class="btn-group2">
+                            <a id="emailBtn" class="signupBtn" >Sign up with email</a>
+                            <a href="" class="signupBtn">Sign up with Facebook</a>
+                            <a href="" class="signupBtn">Sign up with Linkedin</a>
+                            <a href="" class="signupBtn">Sign up with Google</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+
+        <!--Login Popup Window when clicks button: Log in-->
+        <div id="loginPopup" class="loginPopup" >
+
+            <!--Login Popup content-->
+            <div class="loginPopup-content">
+                <span id="closeLoginButton" class="close2">&times;</span>
+
+                <section class="loginPopup_container">
+                    <div class="loginPopup-left_half">
+                        <div class="btn-group3">
+                            <a href="#" class="loginBtn">Login with Facebook</a>
+                            <a href="#" class="loginBtn">Login with Linkedin</a>
+                            <a href="#" class="loginBtn">Login with Google</a>
+                            <br>
+                            <button name="forgotPasswordBtn" id="forgotPasswordBtn" class="loginBtn">Forgot Password</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="loginPopup-right_half">
+                        <form>
+                            <div class="formRow">
+                                <h4 align="left">Login with email</h4>
+                                <!-- Modified by Chris -->
+                                <input type="email" name="loginEmail" id="loginEmail" value="" size="30" placeholder="Email Address" maxlength="42" required />
+                            </div>
+                            <br>
+                            <div class="formRow">
+                                <h4 align="left">Password</h4>
+                                <input type="password" name="loginPassword" id="loginPassword" size="30" required>
+                            </div>
+                            <br>
+                            <div class="loginError">
+                                <div id="errorMsg"></div>
+                            </div>
+
+                            <h5 align="left"><input type="checkbox" id="rememberMe" name="rememberMe" value="rememberMe">Remember me</h5>
+
+                        </form>
+                        <div class="btn-group4">
+                            <button id="loginemailBtn" class="unstyled-button2" >Login with email</button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!--Forgot password Popup Window when clicks button: Forgot password-->
+        <div id="forgotPasswordPopup" class="loginPopup" >
+            <!--Forogot password content-->
+            <div class="loginPopup-content">
+                <span id="closeForgetPasswordButton" class="close2">&times;</span>
+                <section class="loginPopup_container">
+                    <div class="loginPopup-right_half">
+                        <form method="post" action="ForgotPassword" onsubmit="" >
+                            <div class="formRow">
+                                <h4 align="left">Enter the email address associated with your account</h4>
+                                <!-- Modified by Christopher Labelle -->
+                                <input type="email" name="forgotPasswordEmail" id="forgotPasswordEmail" size="30" placeholder="Email Address" maxlength="42" required />
+                            </div>
+                            <br>
+                            <div class="loginError">
+                                <!--<% // added by Christopher Labelle-->
+                                <!--if(request.getAttribute("forgotPasswordFeedback") != null) {-->
+                                <!--out.print(request.getAttribute("forgotPasswordFeedback"));-->
+                                <!--}-->
+                                <!--%>-->
+                            </div>
+                            <div class="btn-group4">
+                                <button id="loginbut" type="submit" class="unstyled-button2" >Send new password to this email address</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </header>
+</html>

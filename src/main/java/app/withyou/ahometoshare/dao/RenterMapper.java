@@ -2,6 +2,8 @@ package app.withyou.ahometoshare.dao;
 
 import app.withyou.ahometoshare.model.Renter;
 
+import java.util.List;
+
 public interface RenterMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -16,4 +18,6 @@ public interface RenterMapper {
     int updateByPrimaryKeySelective(Renter record);
 
     int updateByPrimaryKey(Renter record);
+
+    List<Renter> selectAll();
 }

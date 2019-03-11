@@ -10,6 +10,8 @@ import app.withyou.ahometoshare.dao.RenterMapper;
 import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.service.RenterService;
 
+import java.util.List;
+
 @Service
 public class RenterServiceImpl implements RenterService{
 
@@ -33,6 +35,18 @@ public class RenterServiceImpl implements RenterService{
     @Override
     public Renter selectRenterByEmail(String email) {
         return renterMapper.selectByEmail(email);
+    }
+
+    @Override
+    public List<Renter> getAllRenters() {
+        List<Renter> renters =  renterMapper.selectAll();
+        renters.stream().forEach(renter -> renter.setPassword(""));
+        return renters;
+    }
+
+    @Override
+    public Renter selectRenterById(Integer id) {
+        return renterMapper.selectByPrimaryKey(id);
     }
 
 
