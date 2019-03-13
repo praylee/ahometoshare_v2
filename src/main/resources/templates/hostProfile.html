@@ -1,13 +1,129 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Host Profile</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hostProfile_style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
 </head>
-<body>
-<div th:object="${host}">
-    <span th:text="${host.toString()}"></span>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/host/hostProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/host/hostAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Manage Properties" class="" onclick="window.location.href='/host/PropertyProfile'" /></li>
+            </ul>
+        </div>
+    </li>
+
+    <!--Pane 3: "My Account" content container-->
+    <li class="aside aside-3">
+        <div class="my_profile_content">
+            <form method="post" th:action="@{/host/updateHost}" th:object="${host}" onsubmit="" >
+
+                <!--<section id="one" class="wrapper">-->
+
+                <h2>Personal details</h2>
+
+                <hr width=600px;>
+
+                <!-- Break: First/Last Name, Gender, Birth Year, Phone number, Retired, Pet, Smoker -->
+                <div class="profile_sections">
+                    <li><h4>First name<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li><input type="text" th:field="*{host.firstName}" name="firstname" id="firstname" value="" size="45" maxlength="45" pattern="[A-Za-z]{1,45}" required /></li>
+                </div>
+                <div class="profile_sections">
+                    <li><h4>Last name<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li><input type="text" th:field="*{host.lastName}" name="lastname" id="lastname" value="" size="30" maxlength="45" pattern="[A-Za-z]{1,45}" required /></li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Gender<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li>
+                        <select th:field="*{host.gender}" name="gender" id="gender" required >
+                            <option value="">- Select your gender -</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Birth year<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li>
+                        <select name="dateBirth" th:field="*{host.dateOfBirth}" id="dateBirth" required >
+                            <option value="">- Select the year you were born  -</option>
+                            <th:block th:each="num: ${#numbers.sequence(1920, 1970)}">
+                                <option th:value="${num}" th:text="${num}"></option>
+                            </th:block>
+                        </select>
+                    </li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Phone number</h4></li>
+                    <li><input type="tel" th:field="*{host.phone}" name="phone" id="phone" value="" size="30" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" /></li>
+                </div>
+
+                <div id="checkbox_items">
+                    <li id="checkbox1">
+                        <input type="checkbox" th:field="*{host.retired}" name="isRetired" id="isRetired">Retired?</input>
+                    </li>
+
+                    <li id="checkbox2">
+                        <input type="checkbox" th:field="*{host.pets}" name="isPets" id="isPets">Pet?</input>
+                    </li>
+
+                    <li id="checkbox3">
+                        <input type="checkbox" th:field="*{host.smoker}" name="isSmoker" id="isSmoker">Smoker?</input>
+                    </li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Referral Source<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li><input type="text" th:field="*{host.referralSource}" name="referralSource" id="referralSource" size="30" maxlength="45" required /></li>
+                </div>
+
+                <!-- Break: Save button, Cancel button -->
+                <div id="save_cancel_btn">
+                    <button id="save_btn" type="submit">Save changes</button>
+                    <button id="cancel_btn" type="reset" onclick="window.location.href='/host/hostProfile'" >Cancel</button>
+                </div>
+                <div class="update_result" th:if="${msg}">
+                    <h5>
+                        <span th:text="${msg}"></span>
+                    </h5>
+                </div>
+            </form>
+        </div>
+    </li>
+
+    <!--Pane 4: a placeholder-->
+    <li class="aside aside-4"></li>
 </div>
-host user
+
+
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
 </body>
 </html>

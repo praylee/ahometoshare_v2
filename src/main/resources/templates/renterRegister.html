@@ -5,23 +5,16 @@
         <title>A Home To Share</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="css/subpage_style.css" />
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/signUpPage_style.css}" th:defer="true"/>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+        <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+        <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+        <script type="text/javascript" th:src="@{js/header.js}" defer></script>
     </head>
     
     <body class="subpage">
         <!-- Header -->
-            <header id="header">
-                <div class="inner">
-                    <a href="index.jsp" class="logo">A Home To Share</a>
-                    <nav id="nav">
-                        <a href="index.jsp">Home</a>
-                        <a href="howWeWork.jsp">How We Work</a>
-                        <a href="faq.jsp">FAQ</a>
-                        <a href="index.jsp">Log in</a>
-                        <button id="signupBtn" class="unstyled-button">Sign Up</button>
-                    </nav>
-                </div>
-            </header>
+        <header th:replace=" header :: header"></header>
        
         <!--Signup Popup Window when clicks button: Sign Up-->
             <div id="signupPopup" class="signupPopup">
@@ -111,30 +104,30 @@
                             <h2>Renter Registration</h2>
                                     
                             <!-- Break: First Name(db:first_name), Last Name(db:last_name) -->
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>First Name<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="text" th:field="*{firstName}" name="firstname" id="firstname" value="" size="30" placeholder="First Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
                                 </div>
 
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Last Name<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="text" th:field="*{lastName}" name="lastname" id="lastname" value="" size="30" placeholder="Last Name" maxlength="45" pattern="[A-Za-z]{1,45}" required />
                                 </div>
 
                             <!-- Break: Email Address(db:email), Phone Number(db:phone) -->
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Email Address<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="email" th:field="*{email}" name="email" id="email" value="" size="30" placeholder="Email Address" maxlength="42" required />
                                 </div>
 
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Phone Number</h4>
                                     <input type="tel" th:field="*{phone}" name="phone" id="phone" value="" size="30" placeholder="123-456-7890" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" />
                                     <!--<span class="validity"></span>-->
                                 </div>
 
                             <!-- Break: Gender(db:gender), Year Born(db:date_of_birth) -->
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Gender<span style="color:red; font-weight:bold">*</span></h4>
                                     <select name="gender" th:field="*{gender}" id="gender" required >
                                             <option value="">- Select your gender -</option>
@@ -143,7 +136,7 @@
                                     </select>
                                 </div>
 
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Birth Year<span style="color:red; font-weight:bold">*</span></h4>
                                     <select name="dateOfBirth" th:field="*{dateOfBirth}" id="dateOfBirth" required >
                                             <option value="">- Select the year you were born  -</option>
@@ -169,17 +162,17 @@
                                 </div>
 
                             <!-- Referral Source(db:referral_source) -->                                
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Referral Source<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="text" th:field="*{referralSource}" name="referralSource" id="referralSource" size="30" value="" placeholder="How did you specifically learn about us?" maxlength="45" required/>
                                 </div>
 
                             <!-- Password(db: password), Confirm Password -->
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Password<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="password" name="pwd1" size="30" required>
                                 </div>
-                                <div class="formRow">
+                                <div class="registerFormRow">
                                     <h4>Confirm Password<span style="color:red; font-weight:bold">*</span></h4>
                                     <input type="password" th:field="*{password}" name="pwd2" size="30" required>
                                 </div>
@@ -198,69 +191,10 @@
                         </form>
                     </div>
             </section>
-<!-- Javascript for checking password -->
-        <script type="text/javascript" th:src="@{js/renterRegister.js}" defer></script>
-    
+        <!-- Javascript for checking password -->
+
         <!-- Footer -->
-        <footer id="footer">
-            <div class="row">
-                <div class="footer_column inner1">
-                    <!--a placeholder-->
-                </div>
-
-                <div class="footer_column inner2">
-                    <h6>Get in Touch</h6>
-                    <div class="footer_nav">
-                        <img alt="logo" class="" src="image/team_logo.png" />
-                        <ul class="">
-                            <li><a href="mailto:info@ahometoshare.ca">info@ahometoshare.ca</a></li>
-                            <li><a class="remove-cursor" href="#">(123) 456-7890</a></li>
-                        </ul>
-                    </div>
-                </div> 
-
-                <div class="footer_column inner3">
-                    <h6>Join Our Community</h6>
-                    <ul class="footer_nav">
-                        <li><a href="howWeWork.jsp">How We Work</a></li>
-                        <li><a href="faq.jsp">Frequently Asked Questions</a></li>
-                        <li><a href="aboutUs.jsp">About Us</a></li>
-                        <li><a href="index.jsp">Placeholder</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer_column inner4">
-                    <h6>Get Engaged</h6>
-                    <ul class="footer_nav">
-                        <li>Live in Toronto and want to help us tackle the affordable housing crisis. 
-                            <a href="index.jsp" target="_blank"><u>Apply</u></a> to be an Ambassador today.
-                        </li>
-                    </ul>       
-                </div>
-
-                <div class="footer_column inner5">
-                    <h6>Follow us on Social</h6>
-                    <a href="https://www.facebook.com/ahometoshare" class="">
-                            <i class="fa fa-facebook" aria-hidden="true"></i>
-                            <img alt="facebook" class="" src="image/facebook36.png" width=28 height=36 />
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="https://twitter.com/ahometoshare" class="">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                        <img alt="twitter" class="" src="image/twitter36.png" width=28 height=36 />
-                    </a>
-                </div>
-
-                <div class="footer_column inner6"> 
-                    <!--a placeholder-->
-                </div>
-
-                <p>© 2018 A Home To Share | All right reserved
-                    <a href="index.jsp">&nbsp;&nbsp;&nbsp;Privacy Policy</a>
-                    <a href="index.jsp">&nbsp;&nbsp;&nbsp;Terms of Use</a>
-                </p>
-            </div>            
-        </footer> 
+        <footer th:replace=" footer :: footer"></footer>
 
     </body>
 </html>

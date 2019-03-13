@@ -17,6 +17,7 @@ public class Constants {
     public static final Integer USER_TYPE_RENTER = 2;
     public static final String USER_TYPE_STRING = "userType";
 
+    public static final int MD5_ITERATION_TIMES = 1;
 
 
 }

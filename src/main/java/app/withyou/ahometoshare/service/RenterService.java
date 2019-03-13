@@ -1,6 +1,7 @@
 package app.withyou.ahometoshare.service;
 
 import app.withyou.ahometoshare.model.Renter;
+import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 
 import java.util.List;
 
@@ -16,4 +17,9 @@ public interface RenterService {
 
     public boolean updateRenter(Renter renter);
 
+    public boolean validatePassword(String password);
+
+    public boolean updateRenterAccountSettings(UpdateAccountSettingForm form);
+
+    public boolean deleteAccount(String password);
 }

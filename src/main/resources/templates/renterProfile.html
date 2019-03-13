@@ -1,10 +1,118 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>A Home To Share</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/renterProfile_style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
 </head>
-<body>
-renter user
+
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/renter/renterProfile'"/></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/renter/renterAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Search Host Listings" onclick="window.location.href='/renter/RenterProfileSearch'" /></li>
+            </ul>
+        </div>
+    </li>
+
+    <!--Pane 3: "My Account" - My Profile contents-->
+    <li class="aside aside-3">
+        <div class="my_profile_content">
+            <form method="post" th:action="@{/renter/renterProfile}" th:object="${renter}" onsubmit="" >
+
+                <h2>Personal details</h2>
+
+                <hr width=600px;>
+
+                <div class="profile_sections">
+                    <li class=""><h4>First name<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li><input type="text" th:field="*{renter.firstName}" name="firstname" id="firstname" value="" size="45" maxlength="45" pattern="[A-Za-z]{1,45}" required /></li>
+                </div>
+
+                <div class="profile_sections">
+                    <li class=""><h4>Last name<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li><input type="text" th:field="*{renter.lastName}" name="lastname" id="lastname" value="" size="30" maxlength="45" pattern="[A-Za-z]{1,45}" required /></li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Gender<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li>
+                        <select th:field="*{renter.gender}" name="gender" id="gender" required >
+                            <option value="">- Select your gender -</option>
+                            <option value="0">Male</option>
+                            <option value="1">Female</option>
+                        </select>
+                    </li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Birth year<span style="color:red; font-weight:bold">*</span></h4></li>
+                    <li>
+                        <select th:field="*{renter.dateOfBirth}" name="yearBorn" id="yearBorn" required >
+                            <th:block th:each="num: ${#numbers.sequence(2000, 1980)}">
+                                <option th:value="${num}" th:text="${num}"></option>
+                            </th:block>
+                        </select>
+                    </li>
+                </div>
+
+                <div class="profile_sections">
+                    <li><h4>Phone number</h4></li>
+                    <li><input type="tel" th:field="*{renter.phone}" name="phoneNum" id="phoneNum" value="" size="45" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" /></li>
+                </div>
+
+                <div id="checkbox_items">
+                    <li id="checkbox1"><input type="checkbox" th:field="*{renter.student}" name="isStudent" id="isStudent">Student?</input>
+                    </li>
+
+                    <li id="checkbox2"><input type="checkbox" th:field="*{renter.employed}" name="isEmployed" id="isEmployed">Employed?</input>
+                    </li>
+
+                    <li id="checkbox3"><input type="checkbox" th:field="*{renter.smoker}" name="isSmoker" id="isSmoker">Smoker?</input>
+                    </li>
+                </div>
+
+                <div id="save_cancel_btn">
+                    <button id="save_btn" type="submit">Save changes</button>
+                    <button id="cancel_btn" type="reset" onclick="window.location.href='/host/renterProfile'">Cancel</button>
+                </div>
+                <br>
+                <div class="update_result" th:if="${msg}">
+                    <h5>
+                        <span th:text="${msg}"></span>
+                    </h5>
+                </div>
+            </form>
+        </div>
+    </li>
+
+<!--Pane 4: a placeholder-->
+<li class="aside aside-4"></li>
+</div>
+
+
+<!-- Footer -->
+<header th:replace=" footer :: footer"></header>
+
 </body>
 </html>

@@ -205,123 +205,6 @@ body {font-family: Arial, Helvetica, sans-serif;}
                 input[type="reset"].alt:active {
                     background-color: rgba(144, 144, 144, 0.2);
                 }
-	
-/* --Footer------------------------------------------------------------------ */
-
-.flex {
-    display: -ms-flexbox;
-    -ms-flex-wrap: wrap;
-    -ms-flex-pack: justify;
-    display: -moz-flex;
-    display: -webkit-flex;
-    display: -ms-flex;
-    display: flex;
-    -moz-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -moz-justify-content: space-between;
-    -webkit-justify-content: space-between;
-    -ms-justify-content: space-between;
-    justify-content: space-between;
-}
-
-#footer {
-        background-color: #efeded;
-        font-size: small;
-        position: relative;
-        bottom: 0;
-        width:100%;
-    }
-
-        #footer p{
-            text-align: center;
-            margin-bottom: 45px;
-        }
-
-        .footer_column {
-            float: left;
-            height: 130px;
-            margin-top: 50px;
-            margin-bottom: 20px;
-        }
-        
-        #footer h6 {
-            font-size: 1em;
-            color: #555;
-            font-weight: bold;
-        }
-
-        #footer ul {
-            margin-top: 10px;
-        }
-
-        #footer li {
-            line-height: 1.7;
-            word-wrap: break-word;
-            color: #555;
-        }
-        #footer img {
-            padding-top: 8px;
-        }
-
-        #footer a {
-            text-decoration: none;
-            margin-top: 15px;
-            color: #555;
-        }
-
-        #footer u {
-            color: #5385c1;
-        }
-
-        #footer p {
-            color: #555;
-        }    
-
-    .inner1 {
-        /*background: gold;*/
-        width: 15%;
-    }
-
-    .inner2 {
-        /*background: green;*/
-        width: 14%;
-    }
-
-    .inner3 {
-        width: 16%;
-        /*background: green;*/
-    }
-
-    .inner4 {
-        width: 31%;
-        padding-right: 30px;
-        max-width: 470px;
-        /*background: #b6701e;*/
-    }
-
-    .inner5 {
-        width: 15%;
-        /*background: green;*/
-    }
-
-    .inner6 {
-        width: 9%;
-        /*background: green;*/
-    }  
-
-    .row:after {
-    content: "";
-    display: table;
-    clear: both;
-    }
-    
-    #footer * {
-        box-sizing: border-box;
-    }
-
-	   
     
 
     
@@ -551,11 +434,21 @@ body {font-family: Arial, Helvetica, sans-serif;}
         #cancel_btn:hover {
             color: #5385c1 !important;
         }
-        
-    
-        
-       
 
+        .update_result{
+            color: #FE2020;
+            margin-top: 8px;
+            font-style: italic;
+            width: 320px;
+        }
+
+
+
+/*-------set footer position to  bottom-------*/
+#footer{
+    position: absolute;
+    bottom: 0;
+}
             
         
         

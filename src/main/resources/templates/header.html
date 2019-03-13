@@ -9,11 +9,11 @@
                 <a href="/homepage">Home</a>
                 <a href="/static/howWeWork">How We Work</a>
                 <a href="/static/faq">FAQ</a>
-                <!-- Buttons modified with java by Christopher Labelle-->
+                <!--Shiro permission control area-->
                 <shiro:guest><button id="loginBtn" class="unstyled-button" style="display: inline;">Log in</button></shiro:guest>
                 <shiro:guest><button id="signupBtn" class="unstyled-button" style="display: inline;">Sign Up</button></shiro:guest>
-                <shiro:authenticated><a href="myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
-                <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='logout'">Log out</button></shiro:authenticated>
+                <shiro:authenticated><a href="/myProfile" style="display: inline;">My Profile</a></shiro:authenticated>
+                <shiro:authenticated><button id="logoutBtn" class="unstyled-button" style="display: inline;" onclick="window.location.href='/logout'">Log out</button></shiro:authenticated>
             </nav>
         </div>
 
@@ -48,7 +48,6 @@
                 </section>
             </div>
         </div>
-
 
 
         <!--Login Popup Window when clicks button: Log in-->

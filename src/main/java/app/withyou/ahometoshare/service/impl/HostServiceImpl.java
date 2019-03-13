@@ -5,8 +5,12 @@ import app.withyou.ahometoshare.dao.PropertyMapper;
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.model.HostDetail;
 import app.withyou.ahometoshare.model.Property;
+import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 import app.withyou.ahometoshare.service.HostService;
-import org.apache.shiro.crypto.hash.Md5Hash;
+import app.withyou.ahometoshare.utils.Constants;
+import app.withyou.ahometoshare.utils.MD5Util;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +39,8 @@ public class HostServiceImpl implements HostService {
 
     @Override
     public int insertHost(Host host) {
-        Md5Hash password = new Md5Hash( host.getPassword(), host.getEmail());
-        host.setPassword(password.toString());
+        String password = MD5Util.encryptWithMD5(host.getPassword(), host.getEmail());
+        host.setPassword(password);
         return hostMapper.insert(host);
     }
 
@@ -48,8 +52,8 @@ public class HostServiceImpl implements HostService {
     @Override
     public boolean updateHost(Host host) {
         try{
-            hostMapper.updateByPrimaryKeySelective(host);
-            return true;
+            if(hostMapper.updateByPrimaryKeySelective(host)==0) return false;
+            else return true;
         }catch (RuntimeException e){
             logger.error("Fail to update host",e);
             return false;
@@ -77,4 +81,55 @@ public class HostServiceImpl implements HostService {
         hostDetail.setPropertyList(propertyList);
         return hostDetail;
     }
+
+    @Override
+    public Host selectHostByHostId(Integer hostId) {
+        Host host = hostMapper.selectByPrimaryKey(hostId);
+        return host;
+    }
+
+    @Override
+    public boolean validatePassword(String password) {
+        User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        String encryptedPassword = selectHostByHostId(user.getUserPrimaryKey()).getPassword();
+        String hashedPwd = MD5Util.encryptWithMD5(password,user.getUsername());
+        return encryptedPassword.equals(hashedPwd);
+    }
+
+    @Override
+    public boolean updateHostAccountSettings(UpdateAccountSettingForm form) {
+        try{
+            User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+            Host host = selectHostByHostId(user.getUserPrimaryKey());
+            host.setEmail(form.getEmail());
+            host.setPassword( MD5Util.encryptWithMD5(form.getConfirmPassword(),form.getEmail()));
+            updateHost(host);
+            user.setUsername(host.getEmail());
+            SecurityUtils.getSubject().getSession().removeAttribute(Constants.SESSION_USER);
+            SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER, user);
+            return true;
+        }catch (Exception e){
+            logger.error("Failed to update host account settings", e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteAccount(String password) {
+        if (validatePassword(password)){
+            User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+            Host host = selectHostByHostId(user.getUserPrimaryKey());
+            if (host ==null){
+                return false;
+            }
+            int result = hostMapper.deleteByPrimaryKey(host.getHostId());
+            if(result==1){
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+
 }

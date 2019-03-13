@@ -1,6 +1,10 @@
 package app.withyou.ahometoshare.service.impl;
 
-import org.apache.shiro.crypto.hash.Md5Hash;
+import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
+import app.withyou.ahometoshare.utils.Constants;
+import app.withyou.ahometoshare.utils.MD5Util;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +26,8 @@ public class RenterServiceImpl implements RenterService{
 
     @Override
     public int insertRenter(Renter renter) {
-        Md5Hash password = new Md5Hash( renter.getPassword(), renter.getEmail());
-        renter.setPassword(password.toString());
+        String password = MD5Util.encryptWithMD5(renter.getPassword(), renter.getEmail());
+        renter.setPassword(password);
         return renterMapper.insert(renter);
     }
 
@@ -53,6 +57,49 @@ public class RenterServiceImpl implements RenterService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean validatePassword(String password) {
+        User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        String encryptedPassword = selectRenterById(user.getUserPrimaryKey()).getPassword();
+        String hashedPwd = MD5Util.encryptWithMD5(password,user.getUsername());
+        return encryptedPassword.equals(hashedPwd);
+    }
+
+    @Override
+    public boolean updateRenterAccountSettings(UpdateAccountSettingForm form) {
+        try{
+            User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+            Renter renter = selectRenterById(user.getUserPrimaryKey());
+            renter.setEmail(form.getEmail());
+            renter.setPassword( MD5Util.encryptWithMD5(form.getConfirmPassword(),form.getEmail()));
+            updateRenter(renter);
+            user.setUsername(renter.getEmail());
+            SecurityUtils.getSubject().getSession().removeAttribute(Constants.SESSION_USER);
+            SecurityUtils.getSubject().getSession().setAttribute(Constants.SESSION_USER, user);
+            return true;
+        }catch (Exception e){
+            logger.error("Failed to update host account settings", e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean deleteAccount(String password) {
+        if (validatePassword(password)){
+            User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+            Renter renter = selectRenterById(user.getUserPrimaryKey());
+            if (renter ==null){
+                return false;
+            }
+            int result = renterMapper.deleteByPrimaryKey(renter.getId());
+            if(result==1){
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 

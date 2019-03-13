@@ -1,5 +1,6 @@
 package app.withyou.ahometoshare.config.shiro;
 
+import app.withyou.ahometoshare.utils.Constants;
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -89,7 +90,7 @@ public class ShiroConfiguration {
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
         HashedCredentialsMatcher hashedCredentialsMatcher= new HashedCredentialsMatcher();
         hashedCredentialsMatcher.setHashAlgorithmName("md5");
-        hashedCredentialsMatcher.setHashIterations(1);
+        hashedCredentialsMatcher.setHashIterations(Constants.MD5_ITERATION_TIMES);
         return hashedCredentialsMatcher;
 
     }

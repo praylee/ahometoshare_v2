@@ -103,7 +103,9 @@ public class AdminRestController {
     public String updateHostDetail(@RequestBody HostDetail hostDetail){
         logger.debug("request host: ----"+ JSONObject.toJSONString(hostDetail) );
         RestJson restJson = new RestJson();
-        if (hostService.updateHost(hostDetail.getHost())){
+        Host host = hostDetail.getHost();
+        host.setEmail(null);//no one can update user's email except user himself
+        if (hostService.updateHost(host)){
             restJson.setDesc("successfully updated host");
         }else {
             restJson.setStatus(2);
@@ -117,6 +119,7 @@ public class AdminRestController {
     public String updateRenter(@RequestBody Renter renter){
         logger.debug("request renter: ----"+ JSONObject.toJSONString(renter) );
         RestJson restJson = new RestJson();
+        renter.setEmail(null);//no one can update user's email except user himself
         if (renterService.updateRenter(renter)){
             restJson.setDesc("successfully updated renter");
         }else {

@@ -2,7 +2,9 @@ package app.withyou.ahometoshare.model;
 
 public class User {
 
-    private int userType;
+    private Integer userPrimaryKey;
+
+    private Integer userType;
 
     private String username;
 
@@ -22,7 +24,15 @@ public class User {
 
     private boolean rememberMe;
 
-    public int getUserType() {
+    public Integer getUserPrimaryKey() {
+        return userPrimaryKey;
+    }
+
+    public void setUserPrimaryKey(Integer userPrimaryKey) {
+        this.userPrimaryKey = userPrimaryKey;
+    }
+
+    public Integer getUserType() {
         return userType;
     }
 
@@ -50,7 +60,7 @@ public class User {
         return dateOfBirth;
     }
 
-    public void setUserType(int userType) {
+    public void setUserType(Integer userType) {
         this.userType = userType;
     }
 
