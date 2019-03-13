@@ -67,7 +67,7 @@ import java.util.*;
     public static void main(String args[]){
         String str = "ahometoshare";
         System.out.println(str.getBytes());
-        Md5Hash md5Hash = new Md5Hash(str,"prayleee@gmail.com") ;  // 加密，加盐
+        Md5Hash md5Hash = new Md5Hash(str,"prayleee@gmail.com") ;  // 加密，加盐 prayle@gmail.com
         System.out.println(md5Hash.toString());
     }
 }
