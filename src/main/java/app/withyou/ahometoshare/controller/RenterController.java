@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import app.withyou.ahometoshare.utils.*;
 
 @Controller
 public class RenterController {
@@ -50,6 +51,7 @@ public class RenterController {
             mv.addObject("msg","Something wrong with Renter registration, please try later");
             return mv;
         }
+        EmailUtil.sendEmail(renter.getEmail());
         return new ModelAndView("registerConfirm");
     }
 

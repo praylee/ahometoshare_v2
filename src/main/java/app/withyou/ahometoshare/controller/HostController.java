@@ -21,6 +21,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import app.withyou.ahometoshare.utils.*;
 
 @Controller
 public class HostController implements WebMvcConfigurer {
@@ -52,6 +53,7 @@ public class HostController implements WebMvcConfigurer {
             mv.addObject("msg","Something wrong with Host registration, please try later");
             return mv;
         }
+        EmailUtil.sendEmail(host.getEmail());
         return new ModelAndView("registerConfirm");
     }
 
