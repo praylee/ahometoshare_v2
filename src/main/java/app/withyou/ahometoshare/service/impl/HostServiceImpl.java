@@ -2,20 +2,25 @@ package app.withyou.ahometoshare.service.impl;
 
 import app.withyou.ahometoshare.dao.HostMapper;
 import app.withyou.ahometoshare.dao.PropertyMapper;
-import app.withyou.ahometoshare.model.Host;
-import app.withyou.ahometoshare.model.HostDetail;
-import app.withyou.ahometoshare.model.Property;
-import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.dao.PropertyPictureMapper;
+import app.withyou.ahometoshare.model.*;
 import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.utils.Constants;
+import app.withyou.ahometoshare.utils.EmailUtil;
 import app.withyou.ahometoshare.utils.MD5Util;
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @Service
@@ -30,6 +35,9 @@ public class HostServiceImpl implements HostService {
     @Autowired
     private PropertyMapper propertyMapper;
 
+    @Autowired
+    private PropertyPictureMapper propertyPictureMapper;
+
     @Override
     public List<Host> getAllHosts() {
         List<Host> hosts = hostMapper.selectAll();
@@ -38,10 +46,18 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public int insertHost(Host host) {
-        String password = MD5Util.encryptWithMD5(host.getPassword(), host.getEmail());
-        host.setPassword(password);
-        return hostMapper.insert(host);
+    public boolean registerHost(Host host) {
+        try{
+            String password = MD5Util.encryptWithMD5(host.getPassword(), host.getEmail());
+            host.setPassword(password);
+            int result = hostMapper.insert(host);
+            if(result == 0) return false;
+            EmailUtil.getInstance().sendRegistrationEmail(host.getEmail(), host.getFirstName()+ " "+ host.getLastName());
+            return true;
+        }catch (Exception e){
+            logger.error("Fail to register user", e);
+            return false;
+        }
     }
 
     @Override
@@ -131,5 +147,63 @@ public class HostServiceImpl implements HostService {
         return false;
     }
 
+    @Override
+    public List<Property> getPropertyListByHostId(Integer hostId) {
+        List<Property> propertyList = propertyMapper.getPropertyListByHostId(hostId);
+        return propertyList;
+    }
+
+
+    @Override
+    public boolean deletePropertyByPropertyId(Integer propertyId){
+        try{
+            propertyMapper.deleteByPrimaryKey(propertyId);
+            return true;
+        }catch (Exception e){
+            logger.error("Failed to delete property with id: " + propertyId);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertProperty(Property property) {
+        try{
+            propertyMapper.insert(property);
+            return true;
+        }catch (Exception e){
+            logger.error("Failed to property property");
+            return false;
+        }
+    }
+
+    @Override
+    public boolean insertPropertyPicture(HttpServletRequest request, int propertyId) {
+        String files[] = {"inputfile","inputfile2","inputfile3","inputfile4","inputfile5","inputfile6"};
+        for(int f=0;f<files.length;f++){
+            try {
+                Part part = request.getPart(files[f]);
+                if(part != null && part.getSize()> 0){
+                    PropertyPicture propertypicture = new PropertyPicture();
+                    propertypicture.setPropertyId(propertyId);
+                    InputStream is = part.getInputStream();
+                    propertypicture.setPicture(IOUtils.toByteArray(is));
+                    propertyPictureMapper.insert(propertypicture);
+                }
+            } catch (IOException e) {
+                logger.error("IOException",e);
+                return false;
+            } catch (ServletException e) {
+                logger.error("ServletException",e);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public List<PropertyPicture> getPropertyImageByPropertyId(Integer propertyId) {
+        List<PropertyPicture> list = propertyPictureMapper.selectByPropertyId(propertyId);
+        return list;
+    }
 
 }

@@ -18,8 +18,8 @@ import java.util.*;
 
     public class UserRealm extends AuthorizingRealm {
 
-        @Autowired
-        UserService userService;
+    @Autowired
+    UserService userService;
 
     @Autowired
     PermissionService permissionService;

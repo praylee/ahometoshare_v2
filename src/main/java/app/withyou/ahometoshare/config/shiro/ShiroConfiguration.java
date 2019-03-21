@@ -49,6 +49,7 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/adminLogin", "anon");
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/logout", "anon");
+        filterChainDefinitionMap.put("/forgotPassword", "anon");
         filterChainDefinitionMap.put("/error", "anon");
         //Grant access permission to host
         filterChainDefinitionMap.put("/host/**", "roles[host]");

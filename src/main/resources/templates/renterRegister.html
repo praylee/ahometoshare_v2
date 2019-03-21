@@ -10,80 +10,13 @@
         <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
         <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
         <script type="text/javascript" th:src="@{js/header.js}" defer></script>
+        <script type="text/javascript" th:src="@{js/renterRegister.js}"></script>
+
     </head>
     
     <body class="subpage">
         <!-- Header -->
         <header th:replace=" header :: header"></header>
-       
-        <!--Signup Popup Window when clicks button: Sign Up-->
-            <div id="signupPopup" class="signupPopup">
-
-             <!--Signup Popup content--> 
-                <div class="signupPopup-content">
-                    <span class="close1">&times;</span>
-
-                    <section class="signupPopup_container">
-                        <div class="signupPopup-left_half">
-                            <h4>I want to sign up as a<span style="color:red; font-weight:bold">*</span></h4>
-                            <div class="switch">
-                                <input type="radio" class="switch-input" name="view" value="userHost" id="userHost" checked>
-                                <label for="userHost" class="switch-label switch-label-off">Host</label>
-                                <input type="radio" class="switch-input" name="view" value="userRenter" id="userRenter" >
-                                <label for="userRenter" class="switch-label switch-label-on">Renter</label>
-                                <span class="switch-selection"></span>
-                            </div>
-                        </div>
-                    <hr>
-                        <div class="signupPopup-right_half">
-                            <div class="btn-group2">
-                                <a id="emailBtn" class="signupBtn" >Sign up with email</a>
-                                <a href="" class="signupBtn">Sign up with Facebook</a>
-                                <a href="" class="signupBtn">Sign up with Linkedin</a>
-                                <a href="" class="signupBtn">Sign up with Google</a>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-            
-             <!--Javascript functions for popup windows: Sign Up--> 
-                <script>
-                    // Get the popup
-                    var signupPopup = document.getElementById("signupPopup");
-                    // Get the button that opens the popup
-                    var signupBtn = document.getElementById("signupBtn");
-                    // Get the <span1> element that closes the popup
-                    var span1 = document.getElementsByClassName("close1")[0];
-                    // When the user clicks the button, open the popup 
-                    signupBtn.onclick = function() {
-                        signupPopup.style.display = "block";
-                    };
-                    // When the user clicks on <span1> (x), close the popup
-                    span1.onclick = function() {
-                        signupPopup.style.display = "none";
-                    };
-                    // When the user clicks anywhere outside of the popup, close it
-                    window.onclick = function(event) {
-                        if (event.target === signupPopup) {
-                            signupPopup.style.display = "none";
-                        }
-                    };
-                    
-                    // Host & Renter toggle switch 
-                    var signupEmailBtn = document.getElementById("emailBtn");
-                    signupEmailBtn.onclick = function(){
-                        var hostSelected = document.getElementById("userHost");
-                        //When Host is selected, the page goes to Host Registratoin form                
-                        if (hostSelected.checked) { 
-                            window.location.href="hostRegister.html";                
-                        }
-                        //When Rrenter is selected, the page goes to Renter Registration form
-                        else 
-                            window.location.href="renterRegister.html";  
-                    };
-                    
-                </script>
 
         <!-- Main -->
             <section id="main_section" class="wrapper">
@@ -185,7 +118,7 @@
                                         
                                     </ul>
                                 </div>
-                                <div th:if="${msg}">
+                                <div class="registerError" th:if="${msg}">
                                     <span th:text="${msg}"></span>
                                 </div>
                         </form>
@@ -194,7 +127,7 @@
         <!-- Javascript for checking password -->
 
         <!-- Footer -->
-<!--         <footer th:replace=" footer :: footer"></footer>   -->  
+        <footer th:replace=" footer :: footer"></footer>
 
     </body>
 </html>

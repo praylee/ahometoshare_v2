@@ -69,7 +69,7 @@
                     </div>
                     <hr>
                     <div class="loginPopup-right_half">
-                        <form>
+                        <form id="loginEmailForm">
                             <div class="formRow">
                                 <h4 align="left">Login with email</h4>
                                 <!-- Modified by Chris -->
@@ -87,10 +87,10 @@
 
                             <h5 align="left"><input type="checkbox" id="rememberMe" name="rememberMe" value="rememberMe">Remember me</h5>
 
+                            <div class="btn-group4">
+                                <button id="loginemailBtn" type="submit" class="unstyled-button2" >Login with email</button>
+                            </div>
                         </form>
-                        <div class="btn-group4">
-                            <button id="loginemailBtn" class="unstyled-button2" >Login with email</button>
-                        </div>
                     </div>
                 </section>
             </div>
@@ -103,22 +103,24 @@
                 <span id="closeForgetPasswordButton" class="close2">&times;</span>
                 <section class="loginPopup_container">
                     <div class="loginPopup-right_half">
-                        <form method="post" action="ForgotPassword" onsubmit="" >
-                            <div class="formRow">
-                                <h4 align="left">Enter the email address associated with your account</h4>
+                        <form id="resetPwdForm">
+                            <div align="middle">
+                                <h4>Enter the email address associated with your account, and fill in your registered name</h4>
                                 <!-- Modified by Christopher Labelle -->
-                                <input type="email" name="forgotPasswordEmail" id="forgotPasswordEmail" size="30" placeholder="Email Address" maxlength="42" required />
+                                <span>Your Email: </span><input type="email" name="forgotPasswordEmail" id="forgotPasswordEmail" size="30" placeholder="Email Address" maxlength="35" style="width: 5cm; height: 28px;" required  />
+                                <br>
+                                <span>First Name: </span><input name="forgotPasswordFirstName" id="forgotPasswordFirstName" size="30" placeholder="Your First Name" maxlength="35" style="width: 5cm; height: 28px;" required />
+                                <br>
+                                <span>Last Name: </span><input name="forgotPasswordLastName" id="forgotPasswordLastName" size="30" placeholder="Your Last Name" maxlength="35" style="width: 5cm; height: 28px;" required />
                             </div>
-                            <br>
                             <div class="loginError">
-                                <!--<% // added by Christopher Labelle-->
-                                <!--if(request.getAttribute("forgotPasswordFeedback") != null) {-->
-                                <!--out.print(request.getAttribute("forgotPasswordFeedback"));-->
-                                <!--}-->
-                                <!--%>-->
+                                <div id="resetPwdError"></div>
                             </div>
-                            <div class="btn-group4">
-                                <button id="loginbut" type="submit" class="unstyled-button2" >Send new password to this email address</button>
+                            <div class="update_success">
+                                <div id="resetPwdSuccess"></div>
+                            </div>
+                            <div class="btn-group4" align="middle">
+                                <button id="resetPwdButton" type="submit" class="unstyled-button2" >Send new password to this email address</button>
                             </div>
                         </form>
                     </div>

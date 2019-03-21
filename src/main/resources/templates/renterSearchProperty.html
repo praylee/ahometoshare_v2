@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Renter Host Property Search</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/renterProfileSearch_style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+</head>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+<script>
+</script>
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/renter/renterProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/renter/renterAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Search Host Listings" onclick="window.location.href='/renter/renterSearchProperty'" /></li>
+            </ul>
+        </div>
+    </li>
+
+
+    <!--Pane 3: "Search Host Listings" content container-->
+    <li class="aside aside-3">
+        <div class="property-search-content">
+
+            <h2>Search host properties</h2>
+
+            <hr width=600px;>
+
+            <div class="flex flex-3">
+                <form method="post" th:object="${filterForm}" th:action="@{/renter/renterSearchProperty}" >
+                    <table class="filtertable">
+                        <tr>
+                            <th><em style='font-weight:bold'>Filter by location</em></th>
+                            <th><em style='font-weight:bold'>Sort by price</em></th>
+                            <th><em style='font-weight:bold'>Others</em></th>
+                            <!--th>Filter by requirements</th-->
+                        </tr>
+                        <tr>
+                            <td>
+                                <select th:field="*{city}" id="cityFilter">
+                                    <option value="none">-- Select City --</option>
+                                    <th:block th:each="ct : ${cityList}">
+                                        <option th:value="${ct}" th:text="${ct}"></option>
+                                    </th:block>
+                                </select>
+                            </td>
+                            <td>
+                                <h5><input type="radio" th:field="*{price}" name="price" value="1">Less than $500</h5><br>
+                                <h5><input type="radio" th:field="*{price}" name="price" value="2"> $500 - $800</h5><br>
+                                <h5><input type="radio" th:field="*{price}" name="price" value="3"> Above $800</h5>
+                            </td>
+                            <td>
+                                <input type="checkbox" th:field="*{privateBedroom}"> Private Bathroom <br>
+                                <input type="checkbox" th:field="*{parking}"> Parking <br>
+                                <input type="checkbox" th:field="*{smoker}"> Smoker <br>
+                                <input type="checkbox" th:field="*{laundry}"> Laundry <br>
+                                <input type="checkbox" th:field="*{hydro}"> Hydro <br>
+                                <input type="checkbox" th:field="*{internet}"> Internet Included <br>
+                                <input type="checkbox" th:field="*{pets}"> Pets Allowed
+                            </td>
+                        </tr>
+                    </table>
+                    <div>
+                        <input id="filter" type="submit" value="Filter"/>
+                    </div>
+                </form>
+            </div>
+
+            <div class="flex flex-3">
+                <table class="hosttable" id="property" width=600px>
+                    <th:block th:if="${properties}">
+                        <tr th:each="property : ${properties}">
+                            <form method="post" th:action="@{/renter/renterSearchPropertyDetail}">
+                                <td>
+                                <input type="hidden" id="hostID" name="hostId" th:value="${property.hostId}">
+                                <input type="hidden" id="propID" name="propertyId" th:value="${property.propertyId}">
+                                <h4><em style='font-weight:bold'>Address:</em> <span id="address" name="address" th:value="${property.address}" /></h4> <br>
+                                <h4><em style='font-weight:bold'>City:</em> <span name="city" th:value="${property.city}" /></h4> <br>
+                                <h4><em style='font-weight:bold'>Start Date:</em> <span name="start" th:value="${property.hostStartDate}" /></h4> <br>
+                                <h4><em style='font-weight:bold'>End Date:</em> <span name="end" th:value="${property.hostEndDate}" /></h4> <br>
+                                <h4><em style='font-weight:bold'>Price:</em> $<span name="price" th:value="${property.price}" /></h4> <br>
+                                <!--input type="button" value="View Details" onclick="window.location.href='RenterProfileSearchDetails'" /-->
+                                <input id="submit" name="submit" type="submit" value="View Details">
+                                </td>
+                                <td>
+                                    <h4><em style='font-weight:bold'>Picture:</em></h4>  <br>
+                                    <img th:src="@{/renter/getPropertyImage(propertyId=${property.propertyId})}" alt='Propery Image' height=180px width=180px/>
+                                </td>
+                            </form>
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+    </li>
+
+    <!--Pane 4: a placeholder-->
+    <li class="aside aside-4"></li>
+</div>
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
+</body>
+</html>

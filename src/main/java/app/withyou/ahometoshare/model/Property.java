@@ -1,5 +1,7 @@
 package app.withyou.ahometoshare.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class Property {
@@ -53,8 +55,10 @@ public class Property {
 
     private Double price;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hostStartDate;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date hostEndDate;
 
     private String sharedChore;

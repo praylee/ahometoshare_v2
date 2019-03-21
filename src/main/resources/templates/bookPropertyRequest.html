@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Property Booking Request</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/renterProfileSearchDetailsRequest_style.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+</head>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/renter/renterProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/renter/renterAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Search Host Listings" onclick="window.location.href='/renter/renterSearchProperty'" /></li>
+            </ul>
+        </div>
+    </li>
+
+    <!--Pane 3: Renter request confirmation contents-->
+    <li class="aside aside-3">
+        <div class="property-search-details-content">
+
+            <h2>Booking request message</h2>
+
+            <hr width=600px;>
+
+            <h5><span th:text="${renter.firstName+' '+renter.lastName}"/>,</h5>
+            <th:block th:if="${result}">
+
+                <h5>An e-mail has been sent to A Home To Share indicating your request to book from <span th:text="${host.firstName+', '+host.lastName}"></span>.</h5>
+                <br>
+                <h5>We will be in touch shortly!</h5>
+            </th:block>
+            <th:block th:unless="${result}">
+                <h5>Oops! Sorry! An Error occurred when processing your request.</h5>
+                <br>
+                <h5>Please try later or contact with us!</h5>
+            </th:block>
+
+        </div>
+        <br><br>
+        <div id="submit_reset_btn">
+            <button id="reset_btn" type="button" onclick="window.location.href='RenterProfileSearch'">Back to search</button>
+        </div>
+    </li>
+    <!--Pane 4: a placeholder-->
+    <li class="aside aside-4"></li>
+</div>
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
+</body>
+</html>

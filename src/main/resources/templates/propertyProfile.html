@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>A Home To Share</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/manageProperty_style.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+</head>
+</head>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/host/hostProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/host/hostAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Manage Properties" class="" onclick="window.location.href='/host/propertyProfile'" /></li>
+            </ul>
+        </div>
+    </li>
+
+
+
+    <!--Pane 3: "My Account" content container-->
+    <!--Pane 3: "My Account" - Renter host property search contents-->
+    <li class="aside aside-3">
+        <div class="property-search-content">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick" />
+                <input type="hidden" name="hosted_button_id" value="KY4JUNELADXW8" />
+                <input type="image" src="https://www.pediatricsofflorence.com/wp-content/uploads/2018/06/Make-a-Payment-button.png" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                <img alt="" border="0" src="https://www.paypal.com/en_CA/i/scr/pixel.gif" width="1" height="1" />
+            </form>
+            <h2>My properties</h2>
+
+            <hr width=600px;>
+
+            <div class="flex flex-3">
+                <table class="hosttable" id="property" width=600px>
+                    <th:block th:each="property, iter: ${properties}">
+                        <form method="post" th:action="@{/host/deleteHostProperty}">
+                            <tr>
+                                <td>
+                                    <input type="hidden" id="valOfI" th:value="*{host.getFirstName()+ ' '+host.getLastName() }" name="valOfI" value="">
+                                    <input type="hidden" id="propID" th:value="*{property.propertyId}" name="propertyId" value="">
+                                    <input type="hidden" id="hostID" th:value="*{property.hostId}" name="hostId" value="">
+                                    <h4><em style='font-weight:bold'>Host Name:</em> <input type="hidden" th:text="*{fullName}" id="hostName" name="hostName" ></h4>
+                                    <h4><em style='font-weight:bold'>Host Email:</em> <input type="hidden" th:text="*{host.email}" id="hostEmail" name="hostEmail"></h4>
+                                    <h4><em style='font-weight:bold'>Address:</em> <input type="hidden" th:text="*{property.address}" id="address" name="address" ></h4>
+                                    <h4><em style='font-weight:bold'>City:</em> <input type="hidden" th:text="*{property.city}" name="city" ></h4>
+                                    <h4><em style='font-weight:bold'>Start Date:</em> <input type="hidden" th:text="*{property.hostStartDate}" id="start" name="start" ></h4>
+                                    <h4><em style='font-weight:bold'>End Date:</em> <input type="hidden" th:text="*{property.hostStartDate}" id="end" name="end" ></h4>
+                                    <h4><em style='font-weight:bold'>Price:</em> <input type="hidden" th:text="*{property.price}" name="price"></h4>
+                                    <input id="delete" name="delete" type="submit" value="Delete" onclick="if (confirm('Are you sure you want to delete this property?')) form.action ='/host/deleteHostProperty'; else return false;">
+                                </td>
+                                <td>
+                                    <h4><em style='font-weight:bold'>Picture:</em> <br>
+                                        <img src="" alt='Propery image' th:src="@{/host/getPropertyImage(propertyId=${property.propertyId})}" height=180px width=180px/></h4>
+                                </td>
+
+                            </tr>
+
+                        </form>
+                    </th:block>
+
+                </table>
+
+
+                <div class="addPropertyBtn">
+                    <input id="addProperty" type="button" value="Post a Property" onclick="window.location.href='/host/roomPosting'" />
+                </div>
+
+            </div>
+        </div>
+    </li>
+    <!--Pane 4: a placeholder-->
+    <li class="aside aside-4"></li>
+</div>
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
+</body>
+</html>
+

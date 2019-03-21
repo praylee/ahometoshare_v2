@@ -7,6 +7,7 @@ import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
 import app.withyou.ahometoshare.utils.RestJson;
 import com.alibaba.fastjson.JSONObject;
+import javafx.util.Pair;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,21 @@ public class AjaxRestController {
         restJson.setStatus(2);
         restJson.setDesc("Authentication error, password may not match");
         return  JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping("/forgotPassword")
+    @ResponseBody
+    public String resetPassword(@RequestBody JSONObject requestJson){
+        String email = requestJson.getString("email");
+        String firstName = requestJson.getString("firstName");
+        String lastName = requestJson.getString("lastName");
+        Pair<Boolean,String> result = userService.resetPasswordForUser(email, firstName, lastName);
+        RestJson restJson = new RestJson();
+        if(!result.getKey()){
+            restJson.setStatus(2);
+        }
+        restJson.setDesc(result.getValue());
+        return JSONObject.toJSONString(restJson);
     }
 
 

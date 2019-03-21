@@ -38,6 +38,14 @@
     values (#{pictureId,jdbcType=INTEGER}, #{propertyId,jdbcType=INTEGER}, #{picture,jdbcType=LONGVARBINARY}
       )
   </insert>
+  <select id="selectByPropertyId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from property_picture
+    where property_id = #{propertyId,jdbcType=INTEGER}
+  </select>
   <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
     insert into property_picture
     <trim prefix="(" suffix=")" suffixOverrides=",">

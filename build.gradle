@@ -29,7 +29,7 @@ dependencies {
 	compile 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf:2.1.2.RELEASE'
-	implementation 'org.springframework.boot:spring-boot-configuration-processor:2.1.2.RELEASE'
+	compileOnly 'org.springframework.boot:spring-boot-configuration-processor:2.1.2.RELEASE'
 	implementation 'org.apache.shiro:shiro-spring:1.4.0'
 	implementation 'mysql:mysql-connector-java:8.0.14'
 	implementation 'org.slf4j:slf4j-api:1.7.5'
@@ -45,6 +45,8 @@ dependencies {
 	compile 'com.alibaba:fastjson:1.2.55'
 	compile 'commons-beanutils:commons-beanutils:1.9.3'
 	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.6.2'
+	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
 
 }
 

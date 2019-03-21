@@ -1,5 +1,7 @@
 package app.withyou.ahometoshare.controller;
 
+import app.withyou.ahometoshare.model.Property;
+import app.withyou.ahometoshare.model.PropertyPicture;
 import app.withyou.ahometoshare.model.User;
 import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 import app.withyou.ahometoshare.service.UserService;
@@ -9,19 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import app.withyou.ahometoshare.model.Host;
 import app.withyou.ahometoshare.service.HostService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import app.withyou.ahometoshare.utils.*;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
 
 @Controller
 public class HostController implements WebMvcConfigurer {
@@ -45,15 +49,14 @@ public class HostController implements WebMvcConfigurer {
         ModelAndView mv =  new ModelAndView("hostRegister");
         mv.addObject("host", host);
         if(user!=null){
-            mv.addObject("msg","Email has been taken");
+            mv.addObject("msg","Email already registered");
             return mv;
         }
-        int i = hostService.insertHost(host);
-        if (i==0){
+        boolean result = hostService.registerHost(host);
+        if (!result){
             mv.addObject("msg","Something wrong with Host registration, please try later");
             return mv;
         }
-        EmailUtil.sendEmail(host.getEmail());
         return new ModelAndView("registerConfirm");
     }
 
@@ -128,4 +131,63 @@ public class HostController implements WebMvcConfigurer {
         redirectAttributes.addFlashAttribute("deletionError","Fail to delete account, password may not match");
         return "redirect:/host/hostAccountSettings";
     }
+
+    @GetMapping("/host/propertyProfile")
+    public String propertyProfile(Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Host host = hostService.selectHostByHostId(user.getUserPrimaryKey());
+        List<Property> properties = hostService.getPropertyListByHostId(host.getHostId());
+        model.addAttribute("properties", properties);
+        model.addAttribute("host", host);
+        model.addAttribute("fullName",host.getFirstName()+" "+host.getLastName());
+        return "propertyProfile";
+    }
+
+    @PostMapping("/host/deleteHostProperty")
+    public String deleteHostProperty(@RequestParam("propertyId")Integer propertyId){
+        hostService.deletePropertyByPropertyId(propertyId);
+        return "redirect:/host/hostProfile";
+    }
+
+    @GetMapping("/host/roomPosting")
+    public String roomPosting(Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Host host = hostService.selectHostByHostId(user.getUserPrimaryKey());
+        model.addAttribute("fullName",host.getFirstName()+" "+host.getLastName());
+        model.addAttribute("property",new Property());
+        model.addAttribute("cityList", Constants.CITY_lIST);
+        return "roomPosting";
+
+    }
+
+
+    @PostMapping("/host/roomPosting")
+    public String roomPosting(@ModelAttribute Property property, HttpServletRequest request){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Host host = hostService.selectHostByHostId(user.getUserPrimaryKey());
+        property.setHostId(host.getHostId());
+        hostService.insertProperty(property);
+        hostService.insertPropertyPicture(request, property.getPropertyId());
+        return "redirect:/host/propertyProfile";
+    }
+
+    @RequestMapping("/host/getPropertyImage")
+    @ResponseBody
+    public String getPropertyImage(@RequestParam Integer propertyId, HttpServletRequest request, HttpServletResponse response){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Host host = hostService.selectHostByHostId(user.getUserPrimaryKey());
+        List<PropertyPicture> list = hostService.getPropertyImageByPropertyId(propertyId);
+        OutputStream os = null;
+        if(!list.isEmpty()){
+            try{
+                os = response.getOutputStream();
+                os.write(list.get(0).getPicture());
+                os.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "ok";
+    }
+
 }

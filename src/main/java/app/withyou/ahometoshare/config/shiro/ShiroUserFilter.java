@@ -1,8 +1,6 @@
 package app.withyou.ahometoshare.config.shiro;
 
-import app.withyou.ahometoshare.utils.ErrorEnum;
-import app.withyou.ahometoshare.utils.RestJson;
-import com.alibaba.fastjson.JSONObject;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.http.HttpStatus;
@@ -35,7 +33,17 @@ public class ShiroUserFilter extends UserFilter {
                 return true;
             }
         }
-        return super.isAccessAllowed(request, response, mappedValue);
+        Subject subject = getSubject(request, response);
+        String[] rolesArray = (String[])mappedValue;
+        if (rolesArray == null || rolesArray.length == 0) {
+            return true;
+        }
+        for (int i = 0; i < rolesArray.length; i++) {
+            if (subject.hasRole(rolesArray[i])) { //若当前用户是rolesArray中的任何一个，则有权限访问
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

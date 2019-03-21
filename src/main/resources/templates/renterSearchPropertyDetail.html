@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Property Details</title>
+
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/renterProfileSearchDetails_style.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+
+</head>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+
+<!--Main Frame-->
+<div class="wrapper">
+
+    <!--Pane 1: a placeholder-->
+    <li class="aside aside-1"></li>
+
+    <!--Pane 2: "My Account" - menu buttons-->
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/renter/renterProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/renter/renterAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Search Host Listings" onclick="window.location.href='/renter/renterSearchProperty'" /></li>
+            </ul>
+        </div>
+    </li>
+
+
+    <!--Pane 3: Selected Host Property Details contents-->
+    <li class="aside aside-3">
+        <div class="property-search-details-content">
+
+            <form th:action="@{/renter/bookPropertyRequest}" method="post">
+
+                <h2>Property details</h2>
+
+                <hr width=600px;>
+
+                <input type="hidden" id="propertyId" name="propertyId" th:value="${property.propertyId}">
+
+                <h5>Host name: <span th:text="${host.firstName +' '+ host.lastName}"></span></h5>
+
+                <h5>Start date: <span th:text="${property.hostStartDate}"></span></h5>
+
+                <h5>End date: <span th:text="${property.hostEndDate}"></span></h5>
+
+                <h5>Price: <span th:text="${property.price}"></span></h5>
+
+                <h4>About the property</h4>
+
+                <h5>Address: <span th:text="${property.address + ', '+property.city + ', '+property.province+ ', '+ property.country}"/></h5>
+
+                <h5>Postal code: <span th:text="${property.postalCode}"></span></h5>
+
+                <h4>Property details</h4>
+
+                <table border="1" class="detailsTable">
+                    <tr>
+                        <td><em style='font-weight:bold'>Family Members:</em><span th:text="${property.familyMembers}"></span></td>
+                        <td><em style='font-weight:bold'>Chores:</em><span th:text="${property.sharedChore}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Smoker friendly:</em><span th:text="${property.smoker?'Yes' : 'No'}"></span></td>
+                        <td><em style='font-weight:bold'>Pet friendly:</em><span th:text="${property.pets?'Yes' : 'No'}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Hydro included:</em><span th:text="${property.hydro?'Yes' : 'No'}"></span></td>
+                        <td><em style='font-weight:bold'>Water included:</em><span th:text="${property.water?'Yes' : 'No'}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Gas included:</em> <span th:text="${property.gas?'Yes' : 'No'}"> </span></td>
+                        <td><em style='font-weight:bold'>Cable included:</em> <span th:text="${property.cable?'Yes' : 'No'}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Internet included:</em> <span th:text="${property.internet?'Yes' : 'No'}"></span></td>
+                        <td><em style='font-weight:bold'>Parking available:</em> <span th:text="${property.parking?'Yes' : 'No'}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Laundry on-Site:</em><span th:text="${property.laundry?'Yes' : 'No'}"></span></td>
+                        <td><em style='font-weight:bold'>Private bedroom:</em> <span th:text="${property.privateBedroom?'Yes' : 'No'}"></span></td>
+                    </tr>
+                    <tr>
+                        <td><em style='font-weight:bold'>Private kitchen:</em><span th:text="${property.privateKitchen?'Yes' : 'No'}"></span></td>
+                        <td><em style='font-weight:bold'>Private washroom:</em> <span th:text="${property.privateWashroom?'Yes' : 'No'}"></span></td>
+                    </tr>
+                </table>
+
+                <h4>Property images</h4><br>
+
+                <th:block th:each="picture : ${pictures}">
+                    <div class="img_container">
+                        <img th:src="@{/renter/getPropertyImageById(pictureId=${picture.pictureId})}" alt='Propery Image' height=180px width=180px/>
+                    </div>
+                </th:block>
+
+                <br><br>
+                <div id="submit_reset_btn">
+                    <button id="submit_btn" type="submit">Request to book this property</button>
+                    <button id="reset_btn" type="button" onclick="window.location.href='/renter/renterSearchProperty'">Back to search</button>
+                </div>
+            </form>
+
+        </div>
+    </li>
+    <!--Pane 4: a placeholder-->
+    <li class="aside aside-4"></li>
+</div>
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
+</body>
+</html>

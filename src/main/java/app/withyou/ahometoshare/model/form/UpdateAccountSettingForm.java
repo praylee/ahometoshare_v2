@@ -12,10 +12,10 @@ public class UpdateAccountSettingForm {
 //    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$", message = "Must not be less than 6 characters and have at least 1 upper case, 1 lowercase letter")
     private String oldPassword;
     @NotNull
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$", message = "Must not be less than 6 characters and have at least 1 upper case, 1 lowercase letter")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$", message = "Must not be less than 6 characters and have at least 1 number, 1 upper case letter and 1 lowercase letter")
     private String newPassword;
     @NotNull
-    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$", message = "Must not be less than 6 characters and have at least 1 upper case, 1 lowercase letter")
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$", message = "Must not be less than 6 characters and have at least 1 number, 1 upper case letter and 1 lowercase letter")
     private String confirmPassword;
 
     public String getEmail() {

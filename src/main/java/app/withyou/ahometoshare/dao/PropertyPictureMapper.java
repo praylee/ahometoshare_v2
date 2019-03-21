@@ -2,6 +2,8 @@ package app.withyou.ahometoshare.dao;
 
 import app.withyou.ahometoshare.model.PropertyPicture;
 
+import java.util.List;
+
 public interface PropertyPictureMapper {
     int deleteByPrimaryKey(Integer pictureId);
 
@@ -16,4 +18,6 @@ public interface PropertyPictureMapper {
     int updateByPrimaryKeyWithBLOBs(PropertyPicture record);
 
     int updateByPrimaryKey(PropertyPicture record);
+
+    List<PropertyPicture> selectByPropertyId(Integer propertyId);
 }

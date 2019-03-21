@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Room Posting</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/roomPostings_style.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/roomPosting.js}" defer></script>
+</head>
+
+<body class="subpage">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+<!-- Main Frame-->
+<!--<div class="wrapper">-->
+<div class="wrapper">
+    <!--<section id="main_section" class="wrapper">-->
+    <li class="aside aside-1"></li>
+    <li class="aside aside-2">
+        <div class="btn-group-vertical">
+            <ul id="horizontal-list">
+                <li><hr class="welcome_block" align="left"></li>
+                <li><h3>Hello <span th:text="${fullName}"></span></h3><li>
+            </ul >
+            <ul style="list-style:none;">
+                <li id="menu1"><input type="button" value="My Profile" class="" onclick="window.location.href='/renter/renterProfile'" /></li>
+                <li id="menu2"><input type="button" value="Account Settings" class="" onclick="window.location.href='/renter/renterAccountSettings'" /></li>
+                <li id="menu3"><input type="button" value="Search Host Listings" onclick="window.location.href='/renter/renterSearchProperty'" /></li>
+            </ul>
+        </div>
+    </li>
+    <li class="aside aside-3">
+        <form id="roomForm" method="post" th:action='@{/host/roomPosting}' th:object="${property}" onsubmit="return checkDate();" enctype="multipart/form-data">
+            <!--<div class="row uniform">-->
+            <h2>Property information</h2>
+            <hr width=600px;>
+            <table>
+                <tr>
+                    <td><h4>Address<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="text" name="address" id="address" th:field="*{address}" value="" size="30" placeholder="Address" maxlength="100" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>City<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td>
+                        <select th:field="*{city}" id="cityFilter">
+                            <option value="none">-- Select City --</option>
+                            <th:block th:each="ct : ${cityList}">
+                                <option th:value="${ct}" th:text="${ct}"></option>
+                            </th:block>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h4>Province<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="text" name="province" id="province" th:field="*{province}" value="" size="30" placeholder="Province" maxlength="30" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>Country<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="text" name="country" id="country" th:field="*{country}" value="Canada" size="30" placeholder="Canada" maxlength="30" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>Postal Code<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="text" name="postalcode" id="postalcode" th:field="*{postalCode}" value="" size="30" placeholder="PostalCode" maxlength="30" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>Start Sharing<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="date" name="startdate" id="startdate" th:field="*{hostStartDate}" value="" size="30" placeholder="yyyy-mm-dd" maxlength="15" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>End Sharing<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="date" name="enddate" id="enddate" th:field="*{hostEndDate}" value="" size="30" placeholder="yyyy-mm-dd" maxlength="15" /></td>
+                </tr>
+            </table>
+
+
+            <div class="formRow2">
+                <h4>How many people are living in the house?<span style="color:red; font-weight:bold">*</span></h4>
+                <select name="fammembers" th:field="*{familyMembers}"  id="fammembers" required >
+                    <option value="">- Select a number -</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+
+            <div class="formRow2">
+                <h4 >How long this room will be available?<span style="color:red; font-weight:bold">*</span></h4>
+                <select name="availability" th:field="*{availability}"  id="availability" required >
+                    <option value="">- Select the term -</option>
+                    <option value="5">Long Term</option>
+                    <option value="6">Short Term</option>
+                    <option value="7">Temporary</option>
+                </select>
+            </div>
+
+            <div >
+                <h4>Upload Picture:</h4>
+                <table>
+                    <tr>
+                        <td>
+                            <input id="inputfile" type='file' name="inputfile" hidden="hidden" />
+                            <button type="button" id="custom-button"><img id="img"  src="http://placehold.it/180" alt="your image" height=180px width=180px/> </button>
+                        </td>
+                        <td>
+                            <input id="inputfile2" type='file' name="inputfile2" hidden="hidden" />
+                            <button type="button" id="custom-button2"><img id="img2"  src="http://placehold.it/180" alt="your image" height=180px width=180px/> </button>
+                        </td>
+                        <td>
+                            <input id="inputfile3" type='file' name="inputfile3" hidden="hidden" />
+                            <button type="button" id="custom-button3"><img id="img3"  src="http://placehold.it/180" alt="your image" height=180px width=180px/> </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="inputfile4" type='file' name="inputfile4" hidden="hidden" />
+                            <button type="button" id="custom-button4"><img id="img4"  src="http://placehold.it/180" alt="your image" height=180px width=180px /> </button>
+                        </td>
+                        <td>
+                            <input id="inputfile5" type='file' name="inputfile5" hidden="hidden" />
+                            <button type="button" id="custom-button5"><img id="img5"  src="http://placehold.it/180" alt="your image" height=180px width=180px/> </button>
+                        </td>
+                        <td>
+                            <input id="inputfile6" type='file' name="inputfile6" hidden="hidden"  />
+                            <button type="button" id="custom-button6"><img id="img6"  src="http://placehold.it/180" alt="your image" height=180px width=180px/> </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!--end of uploading pictures-->
+
+            <div>
+                <h4>Please check the following items which are applicable<span style="color:red; font-weight:bold">*</span></h4>
+                <table>
+                    <tr>
+                        <td width="200">
+                            <input type="checkbox" th:field="*{smoker}"  name="isSmokerFriendly" value="true"> Smoke allowed
+                        </td>
+                        <td><input type="checkbox" th:field="*{pets}"  name="isPetFriendly" value="true"> Pet allowed</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{hydro}"  name="hydro" value="true"> Hydro included</td>
+                        <td><input type="checkbox" th:field="*{water}" name="water" value="true"> Water included</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{gas}" name="gas" value="true"> Gas included</td>
+                        <td><input type="checkbox" th:field="*{cable}" name="cable" value="true"> Cable included</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{internet}" name="internet" value="true"> Internet included</td>
+                        <td><input type="checkbox" th:field="*{parking}" name="parking" value="true"> Parking available</td>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{laundry}" name="laundry" value="true"> OnSite laundry</td>
+                        <td><input type="checkbox" th:field="*{familyRoom}" name="familyroom" value="true"> Family room accessible</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{privateBedroom}" name="privatebedroom" value="true"> Private bedroom</td>
+                        <td><input type="checkbox" th:field="*{sharedBedroom}" name="sharedbedroom" value="true"> Shared bedroom</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{privateKitchen}" name="privatekitchen" value="true"> Private kitchen</td>
+                        <td><input type="checkbox" th:field="*{sharedKitchen}" name="sharedkitchen" value="true"> Shared kitchen</td>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox" th:field="*{privateWashroom}" name="privatewashroom" value="true"> Private washroom</td>
+                        <td><input type="checkbox" th:field="*{sharedWashroom}" name="sharedwashroom" value="true"> Shared washroom</td>
+                    </tr>
+                </table><br>
+            </div>
+
+            <table>
+                <tr>
+                    <td><h4>Shared Chores<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="text" th:field="*{sharedChore}"  name="chores" id="chores" value="" size="30" placeholder="chores" maxlength="30" required /></td>
+                </tr>
+                <tr>
+                    <td><h4>Asking Price<span style="color:red; font-weight:bold">*</span></h4></td>
+                    <td><input type="number" th:field="*{price}"  name="price" id="price" size="30" value="" placeholder="$(per month)" maxlength="45" required/></td>
+                </tr>
+            </table>
+
+            <!-- Host email address to verify the information -->
+            <h4>A confirmation email will be sent to your registration email address</h4>
+            <br><br>
+
+            <!-- Buttons: Submit, Reset -->
+            <div id="submit_reset_btn">
+                <button id="submit_btn" type="submit">Submit</button>
+                <button id="reset_btn" type="reset" >Reset</button>
+            </div>
+
+        </form>
+    </li>
+
+    <li class="aside aside-4"></li>
+</div>
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+</body>
+</html>
+

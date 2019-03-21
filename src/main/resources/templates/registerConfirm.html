@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Confirm Registration</title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/register_confirm.css}" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{js/header.js}" defer></script>
 </head>
 <body>
-    <h2 style="padding-left: 75px;">A confirmation email will be sent to the email address you provided.</h2>
+<!-- Header -->
+<header id="header">
+    <div class="inner">
+        <a href="/homepage" class="logo">A Home To Share</a>
+        <nav id="nav">
+            <a href="/homepage">Home</a>
+            <a href="/static/howWeWork">How We Work</a>
+            <a href="/static/faq">FAQ</a>
+        </nav>
+        <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
+    </div>
+</header>
+
+
+<!-- Banner: the text shows within the main image -->
+<section id="banner">
+    <h1>Registration Successful!</h1>
+</section>
+
+<!-- Block 1: Renter information info -->
+<section id="one" class="wrapper">
+    <h2>A confirmation email will be sent to the email address you provided.</h2>
+</section>
+
+<!-- Footer -->
+<footer th:replace=" footer :: footer"></footer>
+
 </body>
 </html>

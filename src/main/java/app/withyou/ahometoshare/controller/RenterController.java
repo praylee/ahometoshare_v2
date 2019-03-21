@@ -1,7 +1,9 @@
 package app.withyou.ahometoshare.controller;
 
-import app.withyou.ahometoshare.model.User;
+import app.withyou.ahometoshare.model.*;
+import app.withyou.ahometoshare.model.form.FilterPropertyForm;
 import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
+import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
 import org.apache.shiro.SecurityUtils;
@@ -9,18 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import app.withyou.ahometoshare.model.Renter;
 import app.withyou.ahometoshare.service.RenterService;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import app.withyou.ahometoshare.utils.*;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
 
 @Controller
 public class RenterController {
@@ -30,6 +33,9 @@ public class RenterController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    HostService hostService;
     
     @GetMapping("/renterRegister")
     public String renterRegister(Model model) {
@@ -43,15 +49,14 @@ public class RenterController {
         ModelAndView mv =  new ModelAndView("renterRegister");
         mv.addObject("renter", renter);
         if(user!=null){
-            mv.addObject("msg","Email has been taken");
+            mv.addObject("msg","Email already registered");
             return mv;
         }
-        int i =  renterService.insertRenter(renter);
-        if(i==0){
+        boolean result =  renterService.registerRenter(renter);
+        if(!result){
             mv.addObject("msg","Something wrong with Renter registration, please try later");
             return mv;
         }
-        EmailUtil.sendEmail(renter.getEmail());
         return new ModelAndView("registerConfirm");
     }
 
@@ -123,6 +128,89 @@ public class RenterController {
         }
         redirectAttributes.addFlashAttribute("deletionError","Fail to delete account, password may not match");
         return "redirect:/renter/renterAccountSettings";
+    }
+
+
+    @GetMapping("/renter/renterSearchProperty")
+    public String renterSearchProperty(Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Renter renter = renterService.selectRenterById(user.getUserPrimaryKey());
+        model.addAttribute("fullName",renter.getFirstName()+" "+renter.getLastName());
+        model.addAttribute("cityList", Constants.CITY_lIST);
+        model.addAttribute("filterForm",new FilterPropertyForm());
+        return "renterSearchProperty";
+    }
+
+    @PostMapping("/renter/renterSearchProperty")
+    public String renterSearchProperty(@ModelAttribute FilterPropertyForm filterForm, Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Renter renter = renterService.selectRenterById(user.getUserPrimaryKey());
+        List<Property> properties = renterService.searchHostPropertiesByConditions(filterForm) ;
+        model.addAttribute("fullName",renter.getFirstName()+" "+renter.getLastName());
+        model.addAttribute("cityList", Constants.CITY_lIST);
+        model.addAttribute("properties",properties);
+        model.addAttribute("filterForm",filterForm);
+        return "renterSearchProperty";
+    }
+
+    @PostMapping("/renter/renterSearchPropertyDetail")
+    public String renterSearchPropertyDetail(@Valid Property p, Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Renter renter = renterService.selectRenterById(user.getUserPrimaryKey());
+        Property property = renterService.selectPropertyByPropertyId(p.getPropertyId());
+        Host host = hostService.selectHostByHostId(property.getHostId());
+        List<PropertyPicture> list = renterService.getPropertyImageByPropertyId(property.getPropertyId());
+        model.addAttribute("property", property);
+        model.addAttribute("host", host);
+        model.addAttribute("pictures", list);
+        model.addAttribute("fullName",renter.getFirstName()+" "+renter.getLastName());
+        return "renterSearchPropertyDetail";
+    }
+
+    @RequestMapping("/renter/getPropertyImage")
+    @ResponseBody
+    public String getPropertyImagePreview(@RequestParam Integer propertyId, HttpServletRequest request, HttpServletResponse response){
+        List<PropertyPicture> list = renterService.getPropertyImageByPropertyId(propertyId);
+        OutputStream os = null;
+        if(!list.isEmpty()){
+            try{
+                os = response.getOutputStream();
+                os.write(list.get(0).getPicture());
+                os.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "ok";
+    }
+
+    @RequestMapping("/renter/getPropertyImageById")
+    @ResponseBody
+    public String getAllPropertyImage(@RequestParam Integer pictureId, HttpServletRequest request, HttpServletResponse response){
+        PropertyPicture propertyPicture = renterService.selectPropertyPictureByPictureId(pictureId);
+        OutputStream os = null;
+        try{
+            os = response.getOutputStream();
+            os.write(propertyPicture.getPicture());
+            os.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    return "ok";
+    }
+
+    @PostMapping("/renter/bookPropertyRequest")
+    public String bookPropertyRequest(@RequestParam Integer propertyId, Model model){
+        User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Renter renter = renterService.selectRenterById(user.getUserPrimaryKey());
+        Property property = renterService.selectPropertyByPropertyId(propertyId);
+        Host host = hostService.selectHostByHostId(property.getHostId());
+        Boolean result = renterService.bookPropertyRequest(renter, property);
+        model.addAttribute("renter", renter);
+        model.addAttribute("host", host);
+        model.addAttribute("fullName",renter.getFirstName()+" "+renter.getLastName());
+        model.addAttribute("result", result);
+        return "bookPropertyRequest";
     }
 
 }

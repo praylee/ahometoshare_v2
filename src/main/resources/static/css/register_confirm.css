@@ -1,0 +1,205 @@
+/*
+    File: mainpage_syle.css
+    Description: Cascading style sheet for "index" page
+                                                                      Create: Sept. 30,2018
+Author: Zhan Shen
+Clients: Michelle Bilek, Farheen Khan
+Course: Software Development Project
+Professor: Dr. Anu Thomas
+Project: A Home to Share
+Copyright @ 2018
+*/
+
+/*
+	This code will reset the default margins, padding, and border
+	settings to assist with cross browser compatibility.
+*/
+
+/* 	CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    -webkit-text-size-adjust: none;
+}
+/* END CSS Reset */
+
+
+/* --Banner------------------------------------------------------------------ */
+
+#banner {
+    padding: 20em 0 12em 0;
+    background-image: url('../image/banner3.jpg');
+    background-size: cover;
+    background-position: top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    text-align: center;
+    border-top: 0.3em solid #ffcc00;
+}
+
+#banner h1 {
+    font-size: 3em;
+    font-weight: 100;
+    color: #ffffff;
+    line-height: 1em;
+    margin: 0 0 0.5em 0;
+    padding: 0;
+}
+
+#banner p {
+    font-size: 1em;
+    color: #ffffff;
+    margin-bottom: 1.75em;
+}
+
+/* --Main-------------------------------------------------------------------- */
+#one h2 {
+    font-size: 2em;
+    color: #555;
+    text-align: center;
+}
+
+#one p {
+    margin-left: 250px;
+}
+
+#one img {
+    margin-left: 290px;
+    margin-bottom: 10px;
+}
+#one .make_money {margin-left: 280px;}
+#one .get_help {margin-left: 230px;}
+#one .build_friendship {margin-left: 180px;}
+#one .build_img {margin-left: 230px;}
+
+.box_person .comment_img1, .comment_img2 {margin-left: 300px;}
+.box_person .comment_img3, .comment_img4 {margin-left: 300px;}
+
+.box_person p {
+    margin-left: 325px;
+    margin-bottom: 40px;
+}
+
+.flex .image_fit {
+    margin-left: 150px;
+}
+.flex h3 {
+    margin-left: 150px;
+    font-size: 1.3em;
+    color: #3d6699
+}
+.flex h4 {
+    margin-left: 150px;
+    max-width: 300px;
+    font-size: 1em;
+    color: #666;
+    line-height: 1.4;
+}
+
+
+/* --Section/Article--------------------------------------------------------- */
+
+section.special, article.special {
+    text-align: center;
+}
+
+section.special article, article.special article {
+    text-align: left;
+}
+
+section.wrapper, article.wrapper {
+    padding: 3.5em 0;
+}
+
+section.wrapper header, article.wrapper header {
+    margin-bottom: 1.5em;
+}
+
+section.wrapper header h2, article.wrapper header h2 {
+    font-size: 2.75em;
+    margin: 0 0 .5em 0;
+}
+
+section.wrapper header p, article.wrapper header p {
+    font-size: 1em;
+}
+
+section.wrapper article header, article.wrapper article header {
+    margin: 0;
+}
+
+section.wrapper.style1, article.wrapper.style1 {
+    background: #5385c1;
+    color: #bacee6;
+}
+
+section.wrapper.style1 header h2, article.wrapper.style1 header h2 {
+    color: #fff;
+}
+
+section.wrapper.style1 header p, article.wrapper.style1 header p {
+    color: #bacee6;
+}
+
+section.wrapper.style1 h3, article.wrapper.style1 h3 {
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

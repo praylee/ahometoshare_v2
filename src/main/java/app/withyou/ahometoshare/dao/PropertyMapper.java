@@ -18,4 +18,6 @@ public interface PropertyMapper {
     int updateByPrimaryKey(Property record);
 
     List<Property> getPropertyListByHostId(Integer hostId);
+
+    List<Property> selectAll();
 }

@@ -3,6 +3,10 @@ package app.withyou.ahometoshare.utils;
 import org.apache.shiro.crypto.AesCipherService;
 
 import java.security.Key;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 public class Constants {
     public static final String SUCCESS_CODE = "100";
@@ -19,5 +23,14 @@ public class Constants {
 
     public static final int MD5_ITERATION_TIMES = 1;
 
+
+    public static final List<String> CITY_lIST;
+
+    static {
+        ArrayList<String> list = new ArrayList<>();
+        String[] values = {"Toronto","Hamilton","Mississauga","Peel"};
+        Collections.addAll(list, values);
+        CITY_lIST = list;
+    }
 
 }

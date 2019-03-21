@@ -15,6 +15,79 @@ $(function(){
     var forgotPasswordBtn = $("#forgotPasswordBtn");
     var closeLoginButton = $("#closeLoginButton");
     var closeForgetPasswordButton = $("#closeForgetPasswordButton");
+    var resetPwdForm = $("#resetPwdForm");
+    var loginEmailForm = $("#loginEmailForm");
+
+
+    resetPwdForm.submit(function(event){
+        event.preventDefault();
+        let email = $("#forgotPasswordEmail").val();
+        let firstName = $("#forgotPasswordFirstName").val();
+        let lastName = $("#forgotPasswordLastName").val();
+        let errorMsg = $("#resetPwdError");
+        let successMsg = $("#resetPwdSuccess");
+        let json = {
+            "email" : email,
+            "firstName" : firstName,
+            "lastName" : lastName
+        };
+        let resetUrl = "/forgotPassword";
+        $.ajax({
+            url : resetUrl,
+            type : "POST",
+            async : true,
+            data : JSON.stringify(json),
+            dataType : 'json',
+            contentType: "application/json",
+            success : function(data) {
+                if (data.status === 1 ) {
+                    successMsg.text(data.desc);
+                    successMsg.show();
+                    errorMsg.hide();
+                } else {
+                    errorMsg.text(data.desc);
+                    errorMsg.show();
+                    successMsg.hide();
+                }
+            }
+        });
+    });
+
+    loginEmailForm.submit(function (event) {
+        event.preventDefault();
+        let email = $('#loginEmail').val();
+        let password = $('#loginPassword').val();
+        let rememberMe = $('#rememberMe').prop("checked");
+        let errorMsg = $("#errorMsg");
+        let json = {
+            "username" : email,
+            "password" : password,
+            "rememberMe" : rememberMe
+        };
+        let loginUrl = "/login";
+        $.ajax({
+            url : loginUrl,
+            type : "POST",
+            async : true,
+            data : JSON.stringify(json),
+            dataType : 'json',
+            contentType: "application/json",
+            success : function(data) {
+                if (data.status === 1 ) {
+                    errorMsg.hide();
+                    if(data.data.userType == 1){
+                        window.location.href="/host/hostProfile";
+                    }
+                    if(data.data.userType == 2){
+                        window.location.href="/renter/renterProfile";
+                    }
+                } else {
+                    errorMsg.text(data.desc);
+                    errorMsg.show();
+                }
+            }
+        });
+    })
 
 
 // When the user clicks the button, open the popup
@@ -53,58 +126,6 @@ $(function(){
     });
 
 
-    //login ajax
-    $("#loginemailBtn").click(function () {
-        let email = $('#loginEmail').val();
-        let password = $('#loginPassword').val();
-        let rememberMe = $('#rememberMe').prop("checked");
-        let errorMsg = $("#errorMsg");
-        let json = {
-            "username" : email,
-            "password" : password,
-            "rememberMe" : rememberMe
-        };
-        let loginUrl = "/login";
-        $.ajax({
-            url : loginUrl,
-            type : "POST",
-            async : true,
-            data : JSON.stringify(json),
-            dataType : 'json',
-            contentType: "application/json",
-            success : function(data) {
-                if (data.status === 1 ) {
-                    errorMsg.hide();
-                    if(data.data.userType == 1){
-                        window.location.href="/host/hostProfile";
-                    }
-                    if(data.data.userType == 2){
-                        window.location.href="/renter/renterProfile";
-                    }
-                } else {
-                    errorMsg.text(data.desc);
-                    errorMsg.show();
-                }
-            }
-        });
-
-    });
-
-// added by Christopher Labelle
-// if(<%=request.getAttribute("isForgotPasswordEmailValid")%> === false) {
-    if(true){
-        forgotPasswordPopup.show();
-    }
-
-// added by Christopher Labelle
-// if(<%=request.getAttribute("isForgotPasswordEmailValid")%> !== null) {
-    if(true){
-        // if(<%=request.getAttribute("isForgotPasswordEmailValid")%> === true) {
-        if(true){
-            alert("Password has been reset and been sent to your accoutn");
-        }
-
-    }
 
     /*
     For sign up popup windows

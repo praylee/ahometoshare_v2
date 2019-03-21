@@ -46,11 +46,16 @@
     from property
     where property_id = #{propertyId,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from property
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from property
     where property_id = #{propertyId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="app.withyou.ahometoshare.model.Property">
+  <insert id="insert" keyProperty="propertyId" useGeneratedKeys="true" keyColumn="property_id" parameterType="app.withyou.ahometoshare.model.Property">
     insert into property (property_id, host_id, address, 
       city, postal_code, province, 
       country, family_members, smoker, 
@@ -72,7 +77,7 @@
       #{hostEndDate,jdbcType=DATE}, #{sharedChore,jdbcType=VARCHAR}, #{availability,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.Property">
+  <insert id="insertSelective" keyProperty="propertyId" useGeneratedKeys="true" keyColumn="property_id" parameterType="app.withyou.ahometoshare.model.Property">
     insert into property
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="propertyId != null">
