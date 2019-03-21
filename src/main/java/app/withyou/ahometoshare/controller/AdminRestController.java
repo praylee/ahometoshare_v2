@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
-@CrossOrigin(origins = "http://localhost:8081", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:8080", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class AdminRestController {
 
