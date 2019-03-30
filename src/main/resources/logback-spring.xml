@@ -25,7 +25,9 @@
         <logger name="app.withyou.ahometoshare.controller" level="debug" additivity="false">
             <appender-ref ref="CONSOLE" />
         </logger>
-
+        <logger name="app.withyou.ahometoshare.service.impl" level="debug" additivity="false">
+            <appender-ref ref="CONSOLE" />
+        </logger>
         <logger name="app.withyou.ahometoshare.config.shiro" level="debug" additivity="false">
             <appender-ref ref="CONSOLE" />
         </logger>

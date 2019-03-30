@@ -9,6 +9,8 @@ import app.withyou.ahometoshare.service.HostService;
 import app.withyou.ahometoshare.utils.Constants;
 import app.withyou.ahometoshare.utils.EmailUtil;
 import app.withyou.ahometoshare.utils.MD5Util;
+import javafx.util.Pair;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -21,7 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class HostServiceImpl implements HostService {
@@ -138,7 +144,13 @@ public class HostServiceImpl implements HostService {
             if (host ==null){
                 return false;
             }
-            int result = hostMapper.deleteByPrimaryKey(host.getHostId());
+            for (Property property : propertyMapper.getPropertyListByHostId(host.getHostId())){
+                for(PropertyPicture pp : propertyPictureMapper.selectByPropertyId(property.getPropertyId())){
+                    propertyPictureMapper.deleteByPrimaryKey(pp.getPictureId());//delete all images first
+                }
+                propertyMapper.deleteByPrimaryKey(property.getPropertyId());//delete properties
+            }
+            int result = hostMapper.deleteByPrimaryKey(host.getHostId());//delete host
             if(result==1){
                 return true;
             }
@@ -166,44 +178,57 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public boolean insertProperty(Property property) {
-        try{
-            propertyMapper.insert(property);
-            return true;
-        }catch (Exception e){
-            logger.error("Failed to property property");
-            return false;
-        }
-    }
-
-    @Override
-    public boolean insertPropertyPicture(HttpServletRequest request, int propertyId) {
+    public Pair<Boolean, String> insertProperty(Property property, HttpServletRequest request) {
         String files[] = {"inputfile","inputfile2","inputfile3","inputfile4","inputfile5","inputfile6"};
-        for(int f=0;f<files.length;f++){
+        for(int f=0;f<files.length;f++){  // check file size first;
             try {
                 Part part = request.getPart(files[f]);
                 if(part != null && part.getSize()> 0){
+                    if(part.getSize()/1024>1024){
+                        return new Pair<>(Boolean.FALSE, "File "+f+" size can not be greater than 1M");
+                    }
+                }
+            } catch (Exception e) {
+                logger.error("Failed to read property image",e);
+                return new Pair<>(Boolean.FALSE, "Failed to post property, Please try later");
+            }
+        }
+        try{
+            propertyMapper.insert(property);
+            for(String inputfile: files){
+                Part part = request.getPart(inputfile);
+                if(part != null && part.getSize()> 0){
                     PropertyPicture propertypicture = new PropertyPicture();
-                    propertypicture.setPropertyId(propertyId);
+                    propertypicture.setPropertyId(property.getPropertyId());
                     InputStream is = part.getInputStream();
                     propertypicture.setPicture(IOUtils.toByteArray(is));
                     propertyPictureMapper.insert(propertypicture);
                 }
-            } catch (IOException e) {
-                logger.error("IOException",e);
-                return false;
-            } catch (ServletException e) {
-                logger.error("ServletException",e);
-                return false;
             }
+            return new Pair<>(Boolean.TRUE, "Insert Property success");
+        }catch (Exception e){
+            logger.error("Failed to insert property", e);
+            if(property.getPropertyId()!=null){ //roll back if insert not successfully.
+                propertyMapper.deleteByPrimaryKey(property.getPropertyId());
+                propertyPictureMapper.deleteByPropertyId(property.getPropertyId());
+            }
+            return new Pair<>(Boolean.FALSE, "Failed to post property, Please try later");
         }
-        return true;
+
     }
+
 
     @Override
     public List<PropertyPicture> getPropertyImageByPropertyId(Integer propertyId) {
         List<PropertyPicture> list = propertyPictureMapper.selectByPropertyId(propertyId);
         return list;
+    }
+
+    @Override
+    public List<PropertyPictureBase64> selectBase64PictureListByPropertyId(Integer propertyId) {
+        List<PropertyPicture> pictureList = propertyPictureMapper.selectByPropertyId(propertyId);
+        List<PropertyPictureBase64> base64PictureList = pictureList.stream().map(p-> new PropertyPictureBase64(p.getPictureId(),p.getPropertyId(),Base64.encodeBase64String(p.getPicture()))).collect(Collectors.toList());
+        return base64PictureList;
     }
 
 }

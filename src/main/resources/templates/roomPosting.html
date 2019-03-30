@@ -195,7 +195,9 @@
                 <button id="submit_btn" type="submit">Submit</button>
                 <button id="reset_btn" type="reset" >Reset</button>
             </div>
-
+            <div class="posting_error" th:if="${errorMsg}">
+                <span th:text="${errorMsg}"></span>
+            </div>
         </form>
     </li>
 

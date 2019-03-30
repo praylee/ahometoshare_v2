@@ -32,6 +32,10 @@
     delete from property_picture
     where picture_id = #{pictureId,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByPropertyId" parameterType="java.lang.Integer">
+    delete from property_picture
+    where property_id = #{propertyId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="app.withyou.ahometoshare.model.PropertyPicture">
     insert into property_picture (picture_id, property_id, picture
       )

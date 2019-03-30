@@ -1,6 +1,7 @@
 package app.withyou.ahometoshare.model;
 
 import java.util.List;
+import java.util.Map;
 
 public class HostDetail {
 
@@ -23,4 +24,5 @@ public class HostDetail {
     public void setPropertyList(List<Property> propertyList) {
         this.propertyList = propertyList;
     }
+
 }

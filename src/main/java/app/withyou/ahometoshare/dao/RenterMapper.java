@@ -1,8 +1,10 @@
 package app.withyou.ahometoshare.dao;
 
 import app.withyou.ahometoshare.model.Renter;
+import org.apache.ibatis.annotations.MapKey;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RenterMapper {
     int deleteByPrimaryKey(Integer id);
@@ -20,4 +22,8 @@ public interface RenterMapper {
     int updateByPrimaryKey(Renter record);
 
     List<Renter> selectAll();
+
+    List countRenterGroupByReferralSource();
+
+    Long countRenters();
 }

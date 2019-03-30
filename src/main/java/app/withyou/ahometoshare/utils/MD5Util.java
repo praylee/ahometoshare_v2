@@ -7,4 +7,9 @@ public class MD5Util {
         Md5Hash md5Hash = new Md5Hash(target,salt, Constants.MD5_ITERATION_TIMES) ;  // 加密，加盐
         return md5Hash.toString();
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(encryptWithMD5("ahometoshare", "prayleee@gmail.com"));
+    }
 }

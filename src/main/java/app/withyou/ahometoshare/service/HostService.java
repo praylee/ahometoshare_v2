@@ -1,16 +1,11 @@
 package app.withyou.ahometoshare.service;
 
-import app.withyou.ahometoshare.model.Host;
-import app.withyou.ahometoshare.model.HostDetail;
-import app.withyou.ahometoshare.model.Property;
-import app.withyou.ahometoshare.model.PropertyPicture;
+import app.withyou.ahometoshare.model.*;
 import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 import javafx.util.Pair;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 public interface HostService {
 
@@ -38,10 +33,10 @@ public interface HostService {
 
     public boolean deletePropertyByPropertyId(Integer propertyId);
 
-    public boolean insertProperty(Property property);
-
-    public boolean insertPropertyPicture(HttpServletRequest request, int propertyId);
+    public Pair<Boolean, String> insertProperty(Property property, HttpServletRequest request);
 
     public List<PropertyPicture> getPropertyImageByPropertyId(Integer propertyId);
+
+    public List<PropertyPictureBase64> selectBase64PictureListByPropertyId(Integer propertyId);
 
 }

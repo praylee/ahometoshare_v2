@@ -190,4 +190,18 @@
       password = #{password,jdbcType=VARCHAR}
     where host_id = #{hostId,jdbcType=INTEGER}
   </update>
+  <select id="countHostGroupByReferralSource" resultType="java.util.HashMap">
+    select
+     referral_source source, count(1) num
+    from host
+    group by referral_source
+  </select>
+
+  <select id="countHosts" resultType="java.lang.Long">
+    select
+     count(1) num
+    from
+     host
+  </select>
+
 </mapper>

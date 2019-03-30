@@ -7,6 +7,8 @@ import java.util.List;
 public interface PropertyPictureMapper {
     int deleteByPrimaryKey(Integer pictureId);
 
+    int deleteByPropertyId(Integer propertyId);
+
     int insert(PropertyPicture record);
 
     int insertSelective(PropertyPicture record);

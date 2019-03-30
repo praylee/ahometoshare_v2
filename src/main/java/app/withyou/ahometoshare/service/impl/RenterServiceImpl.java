@@ -127,7 +127,8 @@ public class RenterServiceImpl implements RenterService{
 
     @Override
     public List<Property> searchHostPropertiesByConditions(FilterPropertyForm form) {
-       return propertyMapper.selectAll().stream().filter(
+       return propertyMapper.selectAll().stream()
+       .filter(
            p -> {
                if("none".equalsIgnoreCase(form.getCity())){
                    return true;

@@ -81,4 +81,49 @@
       time = #{time,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectHostLoginRecordGroupByMonth" resultType="java.util.HashMap">
+    SELECT
+        COUNT(1) num, time
+    FROM
+        (SELECT DISTINCT
+            username, DATE_FORMAT(time, '%Y-%m') time
+        FROM
+            login_record
+        WHERE
+            usertype = 1
+                AND DATE_FORMAT(time, '%Y-%m') > DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m')) AS individual_host_activeness
+    GROUP BY DATE_FORMAT(time, '%Y-%m')
+    ORDER BY DATE_FORMAT(time, '%Y-%m');
+  </select>
+  <select id="selectRenterLoginRecordGroupByMonth" resultType="java.util.HashMap">
+    SELECT
+        COUNT(1) num, time
+    FROM
+        (SELECT DISTINCT
+            username, DATE_FORMAT(time, '%Y-%m') time
+        FROM
+            login_record
+        WHERE
+            usertype = 2
+                AND DATE_FORMAT(time, '%Y-%m') > DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 12 MONTH), '%Y-%m')) AS individual_renter_activeness
+    GROUP BY DATE_FORMAT(time, '%Y-%m')
+    ORDER BY DATE_FORMAT(time, '%Y-%m');
+  </select>
+
+  <select id="countActiveHosts" parameterType="java.lang.Integer" resultType="java.lang.Long">
+    SELECT  count(1) num
+    FROM
+    ( SELECT DISTINCT username
+        from  login_record
+            WHERE usertype = 1 and time BETWEEN CURDATE() - INTERVAL #{period, jdbcType=INTEGER} DAY AND CURDATE() ) as t;
+  </select>
+
+  <select id="countActiveRenters" parameterType="java.lang.Integer" resultType="java.lang.Long">
+    SELECT  count(1) num
+    FROM
+    ( SELECT DISTINCT username
+        from  login_record
+            WHERE usertype = 2 and time BETWEEN CURDATE() - INTERVAL #{period, jdbcType=INTEGER} DAY AND CURDATE() ) as t;
+  </select>
+
 </mapper>

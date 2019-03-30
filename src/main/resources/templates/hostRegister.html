@@ -128,7 +128,17 @@
                             <!-- Referral Source(db:referral_source) -->								
                                 <div class="registerFormRow">
                                     <h4>Referral Source<span style="color:red; font-weight:bold">*</span></h4>
-                                    <input th:field="*{referralSource}" type="text" name="referralSrc" id="referralSrc" size="30" value="" placeholder="How did you specifically learn about us?" maxlength="45" required/>
+                                    <select th:field="*{referralSource}" name="referralSrc" id="referralSrc" required >
+                                        <option value="">- How did you specifically learn about us -</option>
+                                        <option value="newspaper">Newspaper</option>
+                                        <option value="tv">TV</option>
+                                        <option value="searchEngine">Search engine</option>
+                                        <option value="directlyVisit">Directly visit</option>
+                                        <option value="videoAds">Video ads</option>
+                                        <option value="emailAds">Email ads</option>
+                                        <option value="friends">Friend's suggestion</option>
+                                        <option value="others">Others</option>
+                                    </select>
                                 </div>
 
                             <!-- Password(db: password), Confirm Password -->

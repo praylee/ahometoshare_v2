@@ -261,4 +261,17 @@
       password = #{password,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="countRenterGroupByReferralSource" resultType="java.util.HashMap">
+    select
+     referral_source source, count(1) num
+    from renter
+    group by referral_source
+  </select>
+
+  <select id="countRenters" resultType="java.lang.Long">
+    select
+     count(1) num
+    from
+     renter
+  </select>
 </mapper>

@@ -451,10 +451,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .registerError {
-    font-size: 25px;
-    color: #FE2020;
-    text-align: left;
-}
+     font-size: 25px;
+     color: #FE2020;
+     text-align: left;
+ }
 
 h4 {
     font-weight: 600;

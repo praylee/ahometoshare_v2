@@ -502,6 +502,11 @@ div.formRow {
     color: #5385c1 !important;
 }
 
+.posting_error {
+    font-size: 25px;
+    color: #FE2020;
+    text-align: left;
+}
 
 /*-------set footer position to  bottom-------*/
 #footer{

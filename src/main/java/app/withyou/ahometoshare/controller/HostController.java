@@ -6,6 +6,7 @@ import app.withyou.ahometoshare.model.User;
 import app.withyou.ahometoshare.model.form.UpdateAccountSettingForm;
 import app.withyou.ahometoshare.service.UserService;
 import app.withyou.ahometoshare.utils.Constants;
+import javafx.util.Pair;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -162,13 +163,20 @@ public class HostController implements WebMvcConfigurer {
 
 
     @PostMapping("/host/roomPosting")
-    public String roomPosting(@ModelAttribute Property property, HttpServletRequest request){
+    public String roomPosting(@ModelAttribute Property property, HttpServletRequest request, Model model){
         User user = (User)SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
         Host host = hostService.selectHostByHostId(user.getUserPrimaryKey());
         property.setHostId(host.getHostId());
-        hostService.insertProperty(property);
-        hostService.insertPropertyPicture(request, property.getPropertyId());
-        return "redirect:/host/propertyProfile";
+        Pair<Boolean,String> result =  hostService.insertProperty(property, request);
+        if(result.getKey()){
+            return "redirect:/host/propertyProfile";
+        }else{
+            model.addAttribute("fullName",host.getFirstName()+" "+host.getLastName());
+            model.addAttribute("property",property);
+            model.addAttribute("cityList", Constants.CITY_lIST);
+            model.addAttribute("errorMsg",result.getValue());
+            return "roomPosting";
+        }
     }
 
     @RequestMapping("/host/getPropertyImage")

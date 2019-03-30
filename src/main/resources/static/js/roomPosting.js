@@ -50,6 +50,11 @@ function readURL(fileId,img,file) {
                 $(file).val('');
                 return false;
             }
+            var fileSize = file.size;
+            if(fileSize/1024>1024){
+                return false;
+
+            }
         }
     });
 }
