@@ -2,14 +2,12 @@ package app.withyou.ahometoshare.controller;
 
 
 import app.withyou.ahometoshare.model.*;
-import app.withyou.ahometoshare.service.AdminService;
-import app.withyou.ahometoshare.service.HostService;
-import app.withyou.ahometoshare.service.RenterService;
-import app.withyou.ahometoshare.service.UserService;
+import app.withyou.ahometoshare.service.*;
 import app.withyou.ahometoshare.utils.Constants;
 import app.withyou.ahometoshare.utils.EncryptionUtil;
 import app.withyou.ahometoshare.utils.RestJson;
 import com.alibaba.fastjson.JSONObject;
+import javafx.util.Pair;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -38,6 +36,9 @@ public class AdminRestController {
 
     @Autowired
     RenterService renterService;
+
+    @Autowired
+    ArticleService articleService;
 
 
     @RequestMapping(value = "/admin/getAllHosts" ,method = RequestMethod.GET)
@@ -220,6 +221,34 @@ public class AdminRestController {
             restJson.setDesc("Failed to query renter aggregated data");
         }
         restJson.setData(result);
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping(value = "/admin/updateArticle")
+    public String updateArticle(@RequestBody Article article){
+        RestJson restJson = new RestJson();
+        Pair<Boolean,String> result = adminService.updateArticle(article);
+        if(!result.getKey()){
+            restJson.setStatus(2);
+            restJson.setDesc("Failed to update article");
+        }
+        restJson.setData(result.getValue());
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @GetMapping(value = "/admin/getAllArticles")
+    public String getAllArticles(){
+        RestJson restJson = new RestJson();
+        List<Article> articles = adminService.getAllArticleBrief();
+        restJson.setData(articles);
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @GetMapping(value ="/admin/getArticleDetail")
+    public String getArticleDetail(@RequestParam Integer articleId){
+        RestJson restJson = new RestJson();
+        Article article = articleService.getArticleById(articleId);
+        restJson.setData(article);
         return JSONObject.toJSONString(restJson);
     }
 }

@@ -1,8 +1,11 @@
 package app.withyou.ahometoshare.service;
 
 import app.withyou.ahometoshare.model.Admin;
+import app.withyou.ahometoshare.model.Article;
 import app.withyou.ahometoshare.model.HostDetail;
+import javafx.util.Pair;
 
+import java.util.List;
 import java.util.Map;
 
 public interface AdminService {
@@ -22,5 +25,9 @@ public interface AdminService {
     public Map<String, Long> selectHostAggregatedData();
 
     public Map<String, Long> selectRenterAggregatedData();
+
+    public List<Article> getAllArticleBrief();
+
+    public Pair<Boolean, String > updateArticle(Article article);
 
 }

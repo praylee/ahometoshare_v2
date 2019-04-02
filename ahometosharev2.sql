@@ -97,3 +97,13 @@ CREATE TABLE IF NOT EXISTS `ahometosharev2`.`login_record`(
     `usertype` int,
     `time` date
 );
+
+CREATE TABLE IF NOT EXISTS `ahometosharev2`.`article`(
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `title` VARCHAR(42) NOT NULL,
+    `content` MEDIUMTEXT,
+    `update_date` DATE
+    );
+
+INSERT INTO `ahometosharev2`.`article` (`title`,`update_date`) values ('Terms of Use',CURDATE());
+INSERT INTO `ahometosharev2`.`article` (`title`,`update_date`) values ('Privacy Policy',CURDATE());

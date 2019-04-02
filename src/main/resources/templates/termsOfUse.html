@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <title>A Home To Share</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/article_style.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/header.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/footer.css}" th:defer="true"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/header.js}" th:defer="true"></script>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/quill/quill.bubble.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/quill/quill.core.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/quill/quill.snow.css}" th:defer="true"/>
+
+</head>
+
+<body class="main_section">
+<!-- Header -->
+<header th:replace=" header :: header"></header>
+
+<!-- Main -->
+<!-- Block 1 -->
+<div class="ql-editor" th:utext="${termsOfUseContent}">
+</div>
+
+
+<footer th:replace=" footer :: footer"></footer>
+<!-- Block 4 -->
+</body>
+</html>

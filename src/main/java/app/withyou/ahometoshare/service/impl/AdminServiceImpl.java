@@ -3,14 +3,17 @@ package app.withyou.ahometoshare.service.impl;
 import app.withyou.ahometoshare.dao.*;
 import app.withyou.ahometoshare.model.*;
 import app.withyou.ahometoshare.service.AdminService;
+import javafx.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -34,6 +37,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private LoginRecordMapper loginRecordMapper;
+
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Override
     public Admin selectAdminByUsername(String username) {
@@ -154,6 +160,30 @@ public class AdminServiceImpl implements AdminService {
         renterAggregatedData.put("quarterlyActiveRenter", quarterlyActiveRenter);
         renterAggregatedData.put("totalRegisteredRenter", totalRegisteredRenter);
         return renterAggregatedData;
+    }
+
+    @Override
+    public List<Article> getAllArticleBrief() {
+        List<Article> articles = articleMapper.selectAll();
+        articles.forEach(a -> a.setContent(""));
+        return articles;
+    }
+
+    @Override
+    public Pair<Boolean, String> updateArticle(Article article) {
+        try{
+            article.setUpdateDate(new Date());
+            int result = articleMapper.updateByPrimaryKeySelective(article);
+            if (result==1){
+                return new Pair<>(Boolean.TRUE,"Updated Article successfully");
+            }else {
+                return new Pair<>(Boolean.FALSE,"Updated Article unsuccessfully");
+            }
+        }catch (Exception e){
+            logger.error("Failed to update article", e);
+            return new Pair<>(Boolean.FALSE,"Updated Article unsuccessfully");
+        }
+
     }
 
 
