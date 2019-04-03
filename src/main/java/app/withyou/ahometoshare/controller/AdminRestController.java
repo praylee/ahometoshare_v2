@@ -251,4 +251,26 @@ public class AdminRestController {
         restJson.setData(article);
         return JSONObject.toJSONString(restJson);
     }
+
+    @PostMapping(value = "/admin/logout")
+    public String adminLogout(){
+        SecurityUtils.getSubject().logout();
+        RestJson restJson = new RestJson();
+        restJson.setDesc("Logout successfully");
+        logger.debug("Admin logged out successfully");
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping(value = "admin/updatePassword")
+    public String updatePassword(@RequestBody JSONObject jsonParam){
+        String oldPassword = jsonParam.getString("oldPassword");
+        String confirmPassword = jsonParam.getString("confirmPassword");
+        RestJson restJson = new RestJson();
+        Pair<Boolean,String> result = adminService.updatePassword(oldPassword,confirmPassword);
+        if (!result.getKey()){
+            restJson.setStatus(2);
+        }
+        restJson.setData(result.getValue());
+        return JSONObject.toJSONString(restJson);
+    }
 }

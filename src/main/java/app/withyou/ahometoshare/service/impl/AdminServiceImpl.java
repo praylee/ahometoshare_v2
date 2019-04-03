@@ -3,7 +3,10 @@ package app.withyou.ahometoshare.service.impl;
 import app.withyou.ahometoshare.dao.*;
 import app.withyou.ahometoshare.model.*;
 import app.withyou.ahometoshare.service.AdminService;
+import app.withyou.ahometoshare.utils.Constants;
+import app.withyou.ahometoshare.utils.MD5Util;
 import javafx.util.Pair;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +16,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -183,6 +185,34 @@ public class AdminServiceImpl implements AdminService {
             logger.error("Failed to update article", e);
             return new Pair<>(Boolean.FALSE,"Updated Article unsuccessfully");
         }
+
+    }
+
+    @Override
+    public Pair<Boolean, String> updatePassword(String oldPassword, String confirmPassword) {
+        User user =(User) SecurityUtils.getSubject().getSession().getAttribute(Constants.SESSION_USER);
+        Admin admin = adminMapper.selectByPrimaryKey(user.getUserPrimaryKey());
+        String encryptedPassword = admin.getPassword();
+        String hashedPwd = MD5Util.encryptWithMD5(oldPassword,user.getUsername());
+        try {
+            if (encryptedPassword.equals(hashedPwd)){
+                String newPwd = MD5Util.encryptWithMD5(confirmPassword, user.getUsername());
+                admin.setPassword(newPwd);
+                int result = adminMapper.updateByPrimaryKey(admin);
+                if(result==1){
+                    return new Pair<>(Boolean.TRUE,"Update password successfully");
+                }else {
+                    return new Pair<>(Boolean.FALSE,"Something wrong when updating password, try later");
+                }
+            }else {
+                return new Pair<>(Boolean.FALSE, "Your old password does not match.");
+            }
+        }catch (Exception e){
+            String error = "Error happened during update, check log for more details";
+            logger.error(error,e);
+            return new Pair<>(Boolean.FALSE, error);
+        }
+
 
     }
 

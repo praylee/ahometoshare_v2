@@ -1,11 +1,18 @@
+<!--
+Created by bclozel
+reflink: https://github.com/bclozel/issues-dashboard
+Modified by: Peng Li
+Modified date: 2019-04-02
+-->
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Error</title>
-    <link data-th-href="@{/webjars/bulma/0.7.2/css/bulma.css}" rel="stylesheet">
-    <link rel="stylesheet" data-th-href="@{/webjars/font-awesome/4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/webjars/bulma/0.6.0/css/bulma.css}" th:defer="true"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/webjars/fontawesome/4.7.0/css/font-awesome.css}" th:defer="true"/>
+
 </head>
 <body>
 <div class="columns">
