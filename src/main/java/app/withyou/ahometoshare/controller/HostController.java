@@ -147,7 +147,7 @@ public class HostController implements WebMvcConfigurer {
     @PostMapping("/host/deleteHostProperty")
     public String deleteHostProperty(@RequestParam("propertyId")Integer propertyId){
         hostService.deletePropertyByPropertyId(propertyId);
-        return "redirect:/host/hostProfile";
+        return "redirect:/host/propertyProfile";
     }
 
     @GetMapping("/host/roomPosting")

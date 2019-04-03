@@ -46,14 +46,17 @@ function readURL(fileId,img,file) {
         if(image_name != ''){
             var extension = $(file).val().split('.').pop().toLowerCase();
             if($.inArray(extension,['gif','png','jpg','jpeg']) == -1){
-                alert('Invalid Image File');
+                alert('Invalid Image File, only accept gif, png, jpg and jpeg');
                 $(file).val('');
                 return false;
             }
-            var fileSize = file.size;
-            if(fileSize/1024>1024){
-                return false;
-
+            if (typeof FileReader !== "undefined") {
+                let size = $(file).get(0).files[0].size;
+                if (size/1024>1024){
+                    alert("File Size cannot exceed 1M");
+                    $(file).val('');
+                    return false;
+                }
             }
         }
     });
