@@ -105,5 +105,19 @@ CREATE TABLE IF NOT EXISTS `ahometosharev2`.`article`(
     `update_date` DATE
     );
 
+
+CREATE TABLE IF NOT EXISTS `ahometosharev2`.`home_request`(
+	`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `renter` VARCHAR(45) NOT NULL,
+	`renter_name` VARCHAR(45) NOT NULL,
+    `host` VARCHAR(45) NOT NULL,
+    `host_name` VARCHAR(45) NOT NULL,
+    `property_address` VARCHAR(45),
+    `request_time` timestamp NOT NULL
+);
+
+
+insert into `ahometosharev2`.`admin` (`username`,`password`,`valid`) values ('super','e95407ecadce63bf95fd6cac612ec972',true);  -- super ahometoshare
+
 INSERT INTO `ahometosharev2`.`article` (`title`,`update_date`) values ('Terms of Use',CURDATE());
 INSERT INTO `ahometosharev2`.`article` (`title`,`update_date`) values ('Privacy Policy',CURDATE());

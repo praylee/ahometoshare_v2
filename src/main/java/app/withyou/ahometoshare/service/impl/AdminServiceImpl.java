@@ -43,6 +43,9 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Autowired
+    private HomeRequestMapper homeRequestMapper;
+
     @Override
     public Admin selectAdminByUsername(String username) {
         return adminMapper.selectByUsername(username);
@@ -213,7 +216,26 @@ public class AdminServiceImpl implements AdminService {
             return new Pair<>(Boolean.FALSE, error);
         }
 
+    }
 
+    @Override
+    public List<HomeRequest> getAllHomeRequests() {
+        return homeRequestMapper.selectAll();
+    }
+
+    @Override
+    public Pair<Boolean, String> deleteHomeRequest(Integer id) {
+        try{
+            int result = homeRequestMapper.deleteByPrimaryKey(id);
+            if(result==1){
+                return new Pair<>(Boolean.TRUE, "Deleted request successfully");
+            }else {
+                return new Pair<>(Boolean.FALSE, "Delete failed");
+            }
+        }catch (Exception e){
+            logger.error("Delete home request failed");
+            return new Pair<>(Boolean.FALSE, "Delete failed, try later");
+        }
     }
 
 

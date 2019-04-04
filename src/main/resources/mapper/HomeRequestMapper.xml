@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="app.withyou.ahometoshare.dao.HomeRequestMapper">
+  <resultMap id="BaseResultMap" type="app.withyou.ahometoshare.model.HomeRequest">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="renter" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="renter_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="host" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="host_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="property_address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="request_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, renter, renter_name, host, host_name, property_address, request_time
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from home_request
+    order by id
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from home_request
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from home_request
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="app.withyou.ahometoshare.model.HomeRequest">
+    insert into home_request (id, renter, renter_name, 
+      host, host_name, property_address, 
+      request_time)
+    values (#{id,jdbcType=INTEGER}, #{renter,jdbcType=VARCHAR}, #{renterName,jdbcType=VARCHAR}, 
+      #{host,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{propertyAddress,jdbcType=VARCHAR}, 
+      #{requestTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="app.withyou.ahometoshare.model.HomeRequest">
+    insert into home_request
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="renter != null">
+        renter,
+      </if>
+      <if test="renterName != null">
+        renter_name,
+      </if>
+      <if test="host != null">
+        host,
+      </if>
+      <if test="hostName != null">
+        host_name,
+      </if>
+      <if test="propertyAddress != null">
+        property_address,
+      </if>
+      <if test="requestTime != null">
+        request_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="renter != null">
+        #{renter,jdbcType=VARCHAR},
+      </if>
+      <if test="renterName != null">
+        #{renterName,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyAddress != null">
+        #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="app.withyou.ahometoshare.model.HomeRequest">
+    update home_request
+    <set>
+      <if test="renter != null">
+        renter = #{renter,jdbcType=VARCHAR},
+      </if>
+      <if test="renterName != null">
+        renter_name = #{renterName,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null">
+        host = #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="hostName != null">
+        host_name = #{hostName,jdbcType=VARCHAR},
+      </if>
+      <if test="propertyAddress != null">
+        property_address = #{propertyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="requestTime != null">
+        request_time = #{requestTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="app.withyou.ahometoshare.model.HomeRequest">
+    update home_request
+    set renter = #{renter,jdbcType=VARCHAR},
+      renter_name = #{renterName,jdbcType=VARCHAR},
+      host = #{host,jdbcType=VARCHAR},
+      host_name = #{hostName,jdbcType=VARCHAR},
+      property_address = #{propertyAddress,jdbcType=VARCHAR},
+      request_time = #{requestTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

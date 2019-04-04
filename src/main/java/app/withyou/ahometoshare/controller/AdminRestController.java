@@ -273,4 +273,24 @@ public class AdminRestController {
         restJson.setData(result.getValue());
         return JSONObject.toJSONString(restJson);
     }
+
+    @GetMapping(value = "/admin/homeRequests")
+    public String getPropertyRequests(){
+        RestJson restJson = new RestJson();
+        List<HomeRequest> homeRequestList = adminService.getAllHomeRequests();
+        restJson.setData(homeRequestList);
+        return JSONObject.toJSONString(restJson);
+    }
+
+    @PostMapping(value = "/admin/deleteHomeRequest")
+    public String deleteHomeRequest(@RequestBody JSONObject jsonParam){
+        Integer requestId = jsonParam.getInteger("requestId");
+        RestJson restJson = new RestJson();
+        Pair<Boolean,String> result = adminService.deleteHomeRequest(requestId);
+        if (!result.getKey()){
+            restJson.setStatus(2);
+        }
+        restJson.setData(result.getValue());
+        return JSONObject.toJSONString(restJson);
+    }
 }

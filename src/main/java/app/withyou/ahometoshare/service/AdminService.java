@@ -2,6 +2,7 @@ package app.withyou.ahometoshare.service;
 
 import app.withyou.ahometoshare.model.Admin;
 import app.withyou.ahometoshare.model.Article;
+import app.withyou.ahometoshare.model.HomeRequest;
 import javafx.util.Pair;
 
 import java.util.List;
@@ -30,4 +31,8 @@ public interface AdminService {
     public Pair<Boolean, String > updateArticle(Article article);
 
     Pair<Boolean, String> updatePassword(String oldPassword, String confirmPassword);
+
+    List<HomeRequest> getAllHomeRequests();
+
+    Pair<Boolean, String> deleteHomeRequest(Integer id);
 }
