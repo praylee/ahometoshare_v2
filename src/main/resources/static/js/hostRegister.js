@@ -1,3 +1,16 @@
+/**
+ *
+ * File: header.js
+ * Create: Oct. 12, 2018
+ * Author: Zhan Shen
+ * Modified By: Milos Boskovic
+ * Clients: Michelle Bilek, Farheen Khan
+ * Course: CST8334 Software Development Project - 2018F
+ * Professor: Dr. Anu Thomas
+ * Project: A Home to Share
+ * Copyright @ 2018
+ */
+
 function checkPassword(str) {
     var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     return re.test(str);

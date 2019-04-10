@@ -1,3 +1,15 @@
+/*
+ * Create: Oct. 23,2018
+ * Author: Bin Yang, Zhan Shen
+ * Modified By: Oroi Wang - 2019W
+ * Clients: Michelle Bilek, Farheen Khan 
+ * Course: CST8334 - Software Development Project - 2018F
+ * Professor: Dr. Anu Thomas
+ * Project: A Home to Share
+ * Copyright @ 2018
+ * 
+ * */
+
 var fileIds = ["inputfile","inputfile2" ,"inputfile3","inputfile4","inputfile5","inputfile6"];
 var Imgs = ['#img','#img2','#img3','#img4','#img5','#img6'];
 var Files = ['#inputfile','#inputfile2','#inputfile3','#inputfile4','#inputfile5','#inputfile6'];

@@ -1,3 +1,17 @@
+/*
+ * File: renterRegister.html
+ * Description: Renter registration form
+ * Create: Oct,05,2018
+ * Author: Zhan Shen
+ * Modified By: Nan Jiang - 2019W
+ * Clients: Michelle Bilek,Farheen Khan
+ * Course: CST8334 - Software Development Project - 2018F
+ * Professor: Dr. Anu Thomas
+ * Project: A Home to Share
+ * Copyright @ 2018
+ * 
+ * */
+
 function checkPassword(str) {
     var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     return re.test(str);
