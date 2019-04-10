@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+File: RenterMapper.xml
+Author: Peng Li
+Modified By: Chen Huang
+Clients: Michelle Bilek - A Home To Share
+Course: CST8334 - Software Development Project - 2019W
+Professor: Reg Dyer
+Project: A Home to Share
+Copyright @ 2019
+-->
 <mapper namespace="app.withyou.ahometoshare.dao.RenterMapper">
   <resultMap id="ResultMap" type="app.withyou.ahometoshare.model.Renter">
     <constructor>
