@@ -32,6 +32,6 @@ globalsettings.admin-email-address, globalsettings.email-address and globalsetti
 # Start A HOME TO SHARE
 Go to ahometoshare_v2 home root directory and open a CMD. 
 Type Gradle bootRun
-When you see words like "Tomcat started on port(s): 8088 (http) with context path", it means your application is started
+When you see words like "Tomcat started on port(s): 8088 (http) with context path", it means your application is started.
 
 Go to http://localhost:8088/ to verify it.
