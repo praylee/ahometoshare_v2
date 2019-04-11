@@ -3,7 +3,7 @@ This installation guildline is basd on Windows platform. Operations may vary for
 
 
 # Install Java 8
-Get Java 8 from Oracle and install it
+Get Java 8 from Oracle and install it from
 https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 
 # Java 8 environment configuration
