@@ -21,6 +21,7 @@ Open environment Variable in System Properties, Add the path to your gradle/bin 
 # Install MySQL8.0
 Go to the link below to download MySQL8 and install it, be sure to remember you username and password
 https://dev.mysql.com/doc/relnotes/mysql/8.0/en/
+Login to your MySQL and execute ahometosharev2.sql located in your ahometoshare_v2 project root directory.
 
 # Configure AHomeToShare
 Go to ahometoshare_v2/src/main/resources/application.properties
